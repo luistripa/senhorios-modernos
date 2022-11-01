@@ -1,0 +1,43 @@
+
+
+.calendar-event-list-container {
+    width: 40%;
+    padding: 10px;
+
+    background-color: #455060;
+}
+
+.calendar-event-list-container .list {
+    width: 100%;
+    height: 100%;
+
+    overflow-y: scroll;
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+/* width */
+.calendar-event-list-container .list::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.calendar-event-list-container .list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+.calendar-event-list-container .list::-webkit-scrollbar-thumb {
+    background: #d7d7d7;
+}
+
+/* Handle on hover */
+.calendar-event-list-container .list::-webkit-scrollbar-thumb:hover {
+    background: #b0b0b0;
+}
+
+.calendar-event-list-container .event {
+    color: white !important;
+}
