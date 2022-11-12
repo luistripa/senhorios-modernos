@@ -6,7 +6,6 @@ import CalendarEventList from "./CalendarEventList";
 
 import "./css/Calendar.css"
 import {getDayEvents} from "./utils/date_utils";
-import {Button} from "@mui/material";
 
 
 export default class Calendar extends Component {
@@ -22,7 +21,7 @@ export default class Calendar extends Component {
     /**
      * Event handler for day select in the calendar board.
      *
-     * @param {AdvancedDate} day The selected day
+     * @param {moment.Moment} day The selected day
      */
     onDaySelect(day) {
         let dayEvents = getDayEvents(day, this.props.events);

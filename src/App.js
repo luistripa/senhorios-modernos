@@ -11,27 +11,39 @@ import Calendar from "./components/Calendar/Calendar";
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-import {AdvancedDate} from "./components/Calendar/utils/AdvancedDate";
+import moment from "moment";
 
 function App() {
 
     let events = [
         {
             id: 1,
-            name: "Teste 1",
+            type: "MAINTENANCE",
+            name: "Carpinteiro",
             description: "This is a description",
-            startDate: AdvancedDate.fromDate(new Date(2022, 10, 22, 19, 0, 0)),
-            endDate: AdvancedDate.fromDate(new Date(2022, 10, 22, 20, 0, 0)),
+            startDate: moment("2022-11-23 19:00:00"),
+            endDate: moment("2022-11-23 20:00:00"),
             repeat: "NO"
         },
         {
             id: 2,
-            name: "Teste 2",
+            type: "OCCUPATION",
+            name: "Casal de turistas",
             description: "This is a description",
-            startDate: AdvancedDate.fromDate(new Date(2022, 10, 22, 19, 0, 0)),
-            endDate: AdvancedDate.fromDate(new Date(2022, 10, 25, 20, 0, 0)),
+            startDate: moment("2022-11-22 19:00:00"),
+            endDate: moment("2022-11-25 20:00:00"),
             // TODO: what about infinite end date?
             repeat: "DAILY"
+        },
+        {
+            id: 3,
+            type: "MAINTENANCE",
+            name: "Canalisador",
+            description: "This is a description",
+            startDate: moment("2022-11-22 17:00:00"),
+            endDate: moment("2023-02-25 18:00:00"),
+            // TODO: what about infinite end date?
+            repeat: "MONTHLY"
         },
     ]
 

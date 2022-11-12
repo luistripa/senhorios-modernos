@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {getDayEvents} from "./utils/date_utils";
+import {getDayEvents, hasSameDay, hasSameMonth} from "./utils/date_utils";
 
 
 class Day extends Component {
@@ -16,9 +16,9 @@ class Day extends Component {
     render() {
         let day_class;
 
-        if (this.props.selectedDay && this.props.date.hasSameDayAs(this.props.selectedDay))
+        if (this.props.selectedDay && hasSameDay(this.props.date, this.props.selectedDay))
             day_class = "day selected";
-        else if (!this.props.date.hasSameMonthAs(this.props.currentMonth))
+        else if (!hasSameMonth(this.props.date, this.props.currentMonth))
             day_class = "day other-month";
         else
             day_class = "day";
@@ -31,7 +31,7 @@ class Day extends Component {
         return (
             <div className={day_class} onClick={() => this.selectDay()}>
                 <div className={'content'}>
-                    <p className={'day-text'}>{this.props.date.getDate()}</p>
+                    <p className={'day-text'}>{this.props.date.date()}</p>
                     <div className={events_line}></div>
                 </div>
             </div>

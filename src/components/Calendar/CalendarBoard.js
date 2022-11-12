@@ -1,9 +1,9 @@
 import {Component} from "react";
 import DayLine from "./DayLine";
-import {getFirstDayOfCalendar} from "./utils/date_utils";
+import {getFirstDayOfCalendar, hasSameMonth} from "./utils/date_utils";
 
 import "./css/CalendarBoard.css"
-import {AdvancedDate} from "./utils/AdvancedDate";
+import moment from "moment";
 
 export default class CalendarBoard extends Component {
 
@@ -11,9 +11,9 @@ export default class CalendarBoard extends Component {
         super(props);
 
         this.state = {
-            currentDate: new AdvancedDate(), // Represents the current day (a.k.a.: Today)
-            selectedDay: new AdvancedDate(),
-            currentMonth: new AdvancedDate().setDate(15), // Used just to identify the current month. No operations should be done on this state
+            currentDate: moment(), // Represents the current date (a.k.a.: Today)
+            selectedDay: moment(),
+            currentMonth: moment().date(15), // Used just to identify the current month. No operations should be done on this state
             events: this.props.events
         }
     }
@@ -21,32 +21,31 @@ export default class CalendarBoard extends Component {
     previousMonth() {
         this.setState({
             selectedDay: undefined,
-            currentMonth: this.state.currentMonth.subMonths(1)
+            currentMonth: this.state.currentMonth.clone().subtract(1, "month"),
         });
     }
 
     nextMonth() {
         this.setState({
             selectedDay: undefined,
-            currentMonth: this.state.currentMonth.addMonths(1)
+            currentMonth: this.state.currentMonth.clone().add(1, "month"),
         });
     }
 
     processEvent(event) {
         if (event.type === "SELECT") {
             let date = event.date
-            if (this.state.currentMonth.hasSameMonthAs(date)) {
-                let selectedDate = AdvancedDate.fromDate(date);
+            if (hasSameMonth(this.state.currentMonth, date)) {
                 this.setState({
-                    selectedDay: selectedDate
+                    selectedDay: date.clone()
                 })
             } else {
                 this.setState({
-                    selectedDay: AdvancedDate.fromDate(date),
-                    currentMonth: AdvancedDate.fromDate(date)
+                    selectedDay: date.clone(),
+                    currentMonth: date.clone()
                 });
             }
-            this.props.onDaySelect(date, [])
+            this.props.onDaySelect(date.clone(), [])
         }
     }
 
@@ -58,8 +57,8 @@ export default class CalendarBoard extends Component {
                 <div className={"calendar-top-controls-container"}>
                     <div className={'calendar-month-control-container'} onClick={() => this.previousMonth()}>-</div>
                     <div className={'calendar-current-month-container'}>
-                        <div className={'month-name'}>{this.state.currentMonth.getMonthName()}</div>
-                        <div className={'month-year'}>{this.state.currentMonth.getFullYear()}</div>
+                        <div className={'month-name'}>{this.state.currentMonth.startOf("month").format("MMMM")}</div>
+                        <div className={'month-year'}>{this.state.currentMonth.year()}</div>
                     </div>
                     <div className={'calendar-month-control-container'} onClick={() => this.nextMonth()}>+</div>
                 </div>
@@ -82,31 +81,31 @@ export default class CalendarBoard extends Component {
                     <DayLine
                         currentMonth={this.state.currentMonth}
                         events={this.state.events}
-                        startDay={firstDayOfCalendar.addDays(7)}
+                        startDay={firstDayOfCalendar.clone().add(7, "day")}
                         selectedDay={this.state.selectedDay}
                         processEvent={(event) => this.processEvent(event)}/>
                     <DayLine
                         currentMonth={this.state.currentMonth}
                         events={this.state.events}
-                        startDay={firstDayOfCalendar.addDays(14)}
+                        startDay={firstDayOfCalendar.clone().add(14, "day")}
                         selectedDay={this.state.selectedDay}
                         processEvent={(event) => this.processEvent(event)}/>
                     <DayLine
                         currentMonth={this.state.currentMonth}
                         events={this.state.events}
-                        startDay={firstDayOfCalendar.addDays(21)}
+                        startDay={firstDayOfCalendar.clone().add(21, "day")}
                         selectedDay={this.state.selectedDay}
                         processEvent={(event) => this.processEvent(event)}/>
                     <DayLine
                         currentMonth={this.state.currentMonth}
                         events={this.state.events}
-                        startDay={firstDayOfCalendar.addDays(28)}
+                        startDay={firstDayOfCalendar.clone().add(28, "day")}
                         selectedDay={this.state.selectedDay}
                         processEvent={(event) => this.processEvent(event)}/>
                     <DayLine
                         currentMonth={this.state.currentMonth}
                         events={this.state.events}
-                        startDay={firstDayOfCalendar.addDays(35)}
+                        startDay={firstDayOfCalendar.clone().add(35, "day")}
                         selectedDay={this.state.selectedDay}
                         processEvent={(event) => this.processEvent(event)}/>
                 </div>
