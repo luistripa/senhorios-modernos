@@ -5,18 +5,28 @@ import CalendarBoard from "./CalendarBoard";
 import CalendarEventList from "./CalendarEventList";
 
 import "./css/Calendar.css"
+import {getDayEvents} from "./utils/date_utils";
+import {Button} from "@mui/material";
 
 
 export default class Calendar extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedDayEvents: []
+        }
+    }
 
     /**
      * Event handler for day select in the calendar board.
      *
      * @param {AdvancedDate} day The selected day
-     * @param {*[]} events The events for the selected day. May be out of order.
      */
-    selectDay(day, events) {
-
+    onDaySelect(day) {
+        let dayEvents = getDayEvents(day, this.props.events);
+        this.setState({selectedDayEvents: dayEvents})
     }
 
     render() {
@@ -25,8 +35,11 @@ export default class Calendar extends Component {
                 <table className={'calendar-component-table'}>
                     <tbody>
                     <tr style={{width: "100%"}}>
-                        <CalendarBoard events={this.props.events} onDaySelect={() => this.selectDay()}/>
-                        <CalendarEventList/>
+                        <CalendarBoard
+                            events={this.props.events}
+                            onDaySelect={(date) => this.onDaySelect(date)}
+                        />
+                        <CalendarEventList events={this.state.selectedDayEvents}/>
                     </tr>
                     </tbody>
                 </table>

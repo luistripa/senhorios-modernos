@@ -1,8 +1,9 @@
 import {Component} from "react";
 import DayLine from "./DayLine";
-import {AdvancedDate, getDayEvents, getFirstDayOfCalendar} from "./utils/date_utils";
+import {getFirstDayOfCalendar} from "./utils/date_utils";
 
 import "./css/CalendarBoard.css"
+import {AdvancedDate} from "./utils/AdvancedDate";
 
 export default class CalendarBoard extends Component {
 
@@ -35,17 +36,17 @@ export default class CalendarBoard extends Component {
         if (event.type === "SELECT") {
             let date = event.date
             if (this.state.currentMonth.hasSameMonthAs(date)) {
-                let selectedDate = new AdvancedDate(date);
+                let selectedDate = AdvancedDate.fromDate(date);
                 this.setState({
                     selectedDay: selectedDate
                 })
-                console.log(getDayEvents(selectedDate, this.state.events));
             } else {
                 this.setState({
-                    selectedDay: new AdvancedDate(date),
-                    currentMonth: new AdvancedDate(date)
+                    selectedDay: AdvancedDate.fromDate(date),
+                    currentMonth: AdvancedDate.fromDate(date)
                 });
             }
+            this.props.onDaySelect(date, [])
         }
     }
 

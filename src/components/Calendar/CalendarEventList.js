@@ -11,15 +11,11 @@ export default class CalendarEventList extends Component {
                 <div className={'list'}>
                     <Table striped hover>
                         <tbody>
-                            <tr>
-                                <td className={'event'}>Evento 1</td>
-                            </tr>
-                            <tr>
-                                <td className={'event'}>Evento 2</td>
-                            </tr>
-                            <tr>
-                                <td className={'event'}>Evento 3</td>
-                            </tr>
+                            {this.props.events.map(event => (
+                                <tr key={event.id}>
+                                    <td className={'event'}>{event.name} - {event.startDate.toHoursAndMinutes()}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
                 </div>

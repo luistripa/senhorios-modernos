@@ -11,21 +11,25 @@ import Calendar from "./components/Calendar/Calendar";
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+import {AdvancedDate} from "./components/Calendar/utils/AdvancedDate";
+
 function App() {
 
     let events = [
         {
+            id: 1,
             name: "Teste 1",
             description: "This is a description",
-            startDate: new Date(2022, 9, 22, 19, 0, 0),
-            endDate: new Date(2022, 9, 22, 20, 0, 0),
+            startDate: AdvancedDate.fromDate(new Date(2022, 10, 22, 19, 0, 0)),
+            endDate: AdvancedDate.fromDate(new Date(2022, 10, 22, 20, 0, 0)),
             repeat: "NO"
         },
         {
+            id: 2,
             name: "Teste 2",
             description: "This is a description",
-            startDate: new Date(2022, 9, 22, 19, 0, 0),
-            endDate: new Date(2022, 9, 25, 20, 0, 0),
+            startDate: AdvancedDate.fromDate(new Date(2022, 10, 22, 19, 0, 0)),
+            endDate: AdvancedDate.fromDate(new Date(2022, 10, 25, 20, 0, 0)),
             // TODO: what about infinite end date?
             repeat: "DAILY"
         },
