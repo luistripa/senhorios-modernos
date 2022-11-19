@@ -1,0 +1,13 @@
+.addhouse-card{
+    width: 150px;
+    height: 200px;
+}
+.addhouse-button{
+    border-width:0;
+    background-color: white;
+}
+.iconPlus{
+    min-height: 200px;
+    width:4em;
+
+}
