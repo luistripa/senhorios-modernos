@@ -28,7 +28,7 @@ function App() {
         {
             id: 2,
             type: "OCCUPATION",
-            name: "Casal de turistas",
+            name: "Casal de turistas dasdasdasdasdasdasdasdas",
             description: "This is a description",
             startDate: moment("2022-11-22 19:00:00"),
             endDate: moment("2022-11-25 20:00:00"),

@@ -7,9 +7,22 @@
     background-color: #455060;
 }
 
+.calendar-event-list-container .event-controls-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+}
+
+.event-controls-container .event-add-button {
+    margin-left: auto;
+    color: white;
+    cursor: pointer;
+}
+
 .calendar-event-list-container .list {
     width: 100%;
-    height: 100%;
+    height: 90%;
 
     overflow-y: scroll;
 
@@ -39,5 +52,7 @@
 }
 
 .calendar-event-list-container .event {
+    padding: 0;
     color: white !important;
+    cursor: pointer;
 }

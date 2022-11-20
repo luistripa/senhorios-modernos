@@ -1,49 +1,87 @@
-import {Component} from "react";
+import {Component, useState} from "react";
 
 import "./css/CalendarBoard.css"
 import CalendarBoard from "./CalendarBoard";
 import CalendarEventList from "./CalendarEventList";
 
 import "./css/Calendar.css"
+
+import {NewEventDialog} from "./NewEventDialog";
+
 import {getDayEvents} from "./utils/date_utils";
+import EventDetailDialog from "./EventDetailDialog";
 
 
-export default class Calendar extends Component {
+export default function Calendar(props) {
 
-    constructor(props) {
-        super(props);
+    const [selectedDayEvents, setSelectedDayEvents] = useState([]);
 
-        this.state = {
-            selectedDayEvents: []
-        }
+    // For new event dialog
+    const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
+
+    // For event detail dialog
+    const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
+    const [eventDetailDialogEvent, setEventDetailDialogEvent] = useState(null);
+
+
+    const onDaySelect = (day) => {
+        let dayEvents = getDayEvents(day, props.events);
+        setSelectedDayEvents(dayEvents);
     }
 
-    /**
-     * Event handler for day select in the calendar board.
-     *
-     * @param {moment.Moment} day The selected day
-     */
-    onDaySelect(day) {
-        let dayEvents = getDayEvents(day, this.props.events);
-        this.setState({selectedDayEvents: dayEvents})
+    const handleOpenNewEventDialog = () => {
+        setNewEventDialogOpen(true);
     }
 
-    render() {
-        return (
-            <div className={'calendar-component-container'}>
-                <table className={'calendar-component-table'}>
+    const handleOpenEventDetailDialog = (event) => {
+        console.log(event)
+        setEventDetailDialogEvent(event);
+        setEventDetailDialogOpen(true);
+    }
+
+    const handleEventCreate = (eventData) => {
+        setNewEventDialogOpen(false);
+        console.log(eventData);
+    }
+
+    const handleEventEdit = (eventData) => {
+        console.log(eventData);
+        setEventDetailDialogOpen(false);
+    }
+
+    const handleEventDelete = (event) => {
+        console.log("delete", event)
+        setEventDetailDialogOpen(false);
+    }
+
+    return (
+        <>
+            <div id={"CalendarComponent-container"} className={'calendar-component-container'} style={{position: "relative"}}>
+                <table className={'calendar-component-table'} style={{tableLayout: "fixed"}}>
                     <tbody>
                     <tr style={{width: "100%"}}>
                         <CalendarBoard
-                            events={this.props.events}
-                            onDaySelect={(date) => this.onDaySelect(date)}
+                            events={props.events}
+                            onDaySelect={onDaySelect}
                         />
-                        <CalendarEventList events={this.state.selectedDayEvents}/>
+                        <CalendarEventList events={selectedDayEvents}
+                                           handleCreate={handleOpenNewEventDialog}
+                                           handleDetail={handleOpenEventDetailDialog}
+                        />
                     </tr>
                     </tbody>
                 </table>
+                <NewEventDialog open={newEventDialogOpen}
+                                handleCreate={handleEventCreate}
+                                handleCancel={() => setNewEventDialogOpen(false)}
+                />
+                <EventDetailDialog open={eventDetailDialogOpen}
+                                   event={eventDetailDialogEvent}
+                                   handleEdit={handleEventEdit}
+                                   handleDelete={handleEventDelete}
+                                   handleCancel={() => setEventDetailDialogOpen(false)}
+                />
             </div>
-
-        )
-    }
+        </>
+    )
 }

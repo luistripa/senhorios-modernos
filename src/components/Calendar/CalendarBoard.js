@@ -4,6 +4,8 @@ import {getFirstDayOfCalendar, hasSameMonth} from "./utils/date_utils";
 
 import "./css/CalendarBoard.css"
 import moment from "moment";
+import {ArrowBack, ArrowForward} from "@mui/icons-material";
+import {Chip} from "@mui/material";
 
 export default class CalendarBoard extends Component {
 
@@ -55,12 +57,13 @@ export default class CalendarBoard extends Component {
         return (
             <td className={"calendar-board-container"}>
                 <div className={"calendar-top-controls-container"}>
-                    <div className={'calendar-month-control-container'} onClick={() => this.previousMonth()}>-</div>
+                    <Chip className={'calendar-month-control-container'} label={<ArrowBack/>} onClick={() => this.previousMonth()}/>
+
                     <div className={'calendar-current-month-container'}>
                         <div className={'month-name'}>{this.state.currentMonth.startOf("month").format("MMMM")}</div>
                         <div className={'month-year'}>{this.state.currentMonth.year()}</div>
                     </div>
-                    <div className={'calendar-month-control-container'} onClick={() => this.nextMonth()}>+</div>
+                    <Chip className={'calendar-month-control-container'} label={<ArrowForward/>} onClick={() => this.nextMonth()}/>
                 </div>
                 <div className={"calendar-weekdays-container"}>
                     <div className={"weekday"}><div className={'content'}>Mon.</div></div>

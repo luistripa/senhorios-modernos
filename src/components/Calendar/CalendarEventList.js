@@ -1,9 +1,9 @@
-import {Component} from "react";
 
 import "./css/EventList.css"
-import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow} from "@mui/material";
+import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow, Button, Modal, Box} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
-export default class CalendarEventList extends Component {
+export default function CalendarEventList(props) {
 
     /**
      * Creates a chip based on event type
@@ -11,7 +11,7 @@ export default class CalendarEventList extends Component {
      * @param {string} eventType
      * @returns {JSX.Element}
      */
-    createChipByEventType(eventType) {
+    const createChipByEventType = (eventType) => {
         switch (eventType) {
             case "MAINTENANCE":
                 return (<Chip color={"success"} label={"M"} size={"small"} sx={{marginRight: "5px"}}/>);
@@ -22,7 +22,7 @@ export default class CalendarEventList extends Component {
         }
     }
 
-    buildEventItemSecondary(event) {
+    const buildEventItemSecondary = (event) => {
         return (
             <Typography component={"p"} fontSize={12} color={"white"}>
                 {event.startDate.hour().toString().padStart(2, "0")}:{event.startDate.minute().toString().padStart(2, "0")}
@@ -30,27 +30,42 @@ export default class CalendarEventList extends Component {
         );
     }
 
-    render() {
-        return (
-            <td className={'calendar-event-list-container'}>
-                <div className={'list'}>
-                    <Table>
-                        <TableBody>
-                            {this.props.events.map(event => (
-                                <TableRow key={event.id} hover={true}>
-                                    <ListItem component={"td"}>
-                                        {this.createChipByEventType(event.type)}
-                                        <ListItemText
-                                            primary={<Typography component={"p"}  color={"white"}>{event.name}</Typography>}
-                                            secondary={this.buildEventItemSecondary(event)}
-                                        />
-                                    </ListItem>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </div>
-            </td>
-        );
-    }
+    return (
+        <td className={'calendar-event-list-container'}>
+            <div className={"event-controls-container"}>
+                <div style={{color: "white", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>[day here]</div>
+                <Chip className={"event-add-button"}
+                      label={<AddIcon fontSize={"small"}/>}
+                      size={"medium"}
+                      onClick={props.handleCreate}
+                />
+            </div>
+            <div className={'list'}>
+                <Table sx={{tableLayout: "fixed"}}>
+                    <TableBody>
+                        {props.events.map(event => (
+                            <TableRow key={event.id} hover={true}>
+                                <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
+                                    {createChipByEventType(event.type)}
+                                    <ListItemText
+                                        primary={
+                                            <Typography
+                                                component={"p"}
+                                                color={"white"}
+                                                sx={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}
+                                            >
+                                                {event.name}
+                                            </Typography>
+                                        }
+                                        secondary={buildEventItemSecondary(event)}
+                                        title={event.name}
+                                    />
+                                </ListItem>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+        </td>
+    );
 }
