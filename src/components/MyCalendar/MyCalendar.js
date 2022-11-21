@@ -37,23 +37,23 @@ export function MyCalendar(props) {
     ]
 
     const handleEventCreate = (resolve, reject, eventData) => {
-        setTimeout(() => {
+        setTimeout(() => { // Simulates backend request
             console.log("create", eventData);
-            reject();
+            resolve();
         }, 1000)
     }
 
     const handleEventEdit = (resolve, reject, eventData) => {
-        setTimeout(() => {
+        setTimeout(() => { // Simulates backend request
             console.log("edit", eventData);
-            reject();
+            resolve();
         }, 1000);
     }
 
     const handleEventDelete = (resolve, reject, eventData) => {
-        setTimeout(() => {
+        setTimeout(() => { // Simulates backend request
             console.log("delete", eventData);
-            reject();
+            resolve();
         }, 1000);
     }
 
