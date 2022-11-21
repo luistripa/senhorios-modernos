@@ -2,8 +2,8 @@ import "./HouseDescription.css"
 
 import casaAmarela from "../../static/casaamarela.jpeg"
 import * as React from 'react';
-import {Box, ListItemIcon, Stack, Typography} from '@mui/material';
-import {Signpost, Home, Groups, Bed} from '@mui/icons-material';
+import {Box, Grid, Typography} from '@mui/material';
+import {Signpost, Groups, Bed} from '@mui/icons-material';
 import {useState} from "react";
 
 export function HouseDescription(props) {
@@ -18,18 +18,47 @@ export function HouseDescription(props) {
 
     return(
         <React.Fragment>
-            <Box
-                component="img"
-                src={yellowHouse.img}
-                alt="HousePhoto"
-                sx={{width: 500, height: 300}}
-                style={{float: "right"}}
-            />
-            <Stack spacing={2} style={{float: "left"}}>
-                <Typography>
-                    <Home/> Name
-                </Typography>
-            </Stack>
+            <Grid container padding={10}>
+                <Grid item xs={6} padding={10} sx={{display: "flex", alignItems: "center"}}>
+                    <Grid container>
+                        <Typography variant={"h2"}>
+                            {yellowHouse.name}
+                        </Typography>
+                        <Grid container direction="row" alignItems="stretch">
+                            <Grid item marginRight={2}>
+                                <Signpost fontSize="large"/>
+                            </Grid>
+                            <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
+                                {yellowHouse.address}
+                            </Grid>
+                        </Grid>
+                        <Grid container direction="row" alignItems="stretch">
+                            <Grid item marginRight={2}>
+                                <Groups fontSize="large"/>
+                            </Grid>
+                            <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
+                                {yellowHouse.capacity}
+                            </Grid>
+                        </Grid>
+                        <Grid container direction="row" alignItems="stretch">
+                            <Grid item marginRight={2}>
+                                <Bed fontSize="large"/>
+                            </Grid>
+                            <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
+                                {yellowHouse.typology}
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item xs={6}>
+                    <Box
+                        component="img"
+                        src={yellowHouse.img}
+                        alt="HousePhoto"
+                        sx={{width: "100%", borderRadius: "10px 10px 10px 10px"}}
+                    />
+                </Grid>
+            </Grid>
         </React.Fragment>
     );
 }
