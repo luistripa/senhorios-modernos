@@ -1,10 +1,11 @@
-import './App.css';
-import {HomeInventory} from "./components/HomeInventory/HomeInventory";
+import {TopBarAfterLogin} from "./components/TopBar/TopBarAfterLogin";
+import {TopBarBeforeLogin} from "./components/TopBar/TopBarBeforeLogin";
 
 function App() {
   return (
     <div className="App">
-        <HomeInventory/>
+        <TopBarAfterLogin/>
+        <TopBarBeforeLogin/>
     </div>
   );
 }
