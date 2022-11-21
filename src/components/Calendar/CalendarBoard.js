@@ -1,5 +1,5 @@
-import {Component} from "react";
-import DayLine from "./DayLine";
+import {useEffect, useState} from "react";
+import {DayLine} from "./DayLine";
 import {getFirstDayOfCalendar, hasSameMonth} from "./utils/date_utils";
 
 import "./css/CalendarBoard.css"
@@ -7,112 +7,98 @@ import moment from "moment";
 import {ArrowBack, ArrowForward} from "@mui/icons-material";
 import {Chip} from "@mui/material";
 
-export default class CalendarBoard extends Component {
+export default function CalendarBoard(props) {
 
-    constructor(props) {
-        super(props);
+    const [currentDate, setCurrentDate] = useState(moment()); // Holds the date for today
+    const [selectedDay, setSelectedDay] = useState(moment()); // Holds the selected day
+    const [currentMonth, setCurrentMonth] = useState(moment().date(15)); // Used to know which month we're in
+    const [events, setEvents] = useState([]);
 
-        this.state = {
-            currentDate: moment(), // Represents the current date (a.k.a.: Today)
-            selectedDay: moment(),
-            currentMonth: moment().date(15), // Used just to identify the current month. No operations should be done on this state
-            events: this.props.events
-        }
+    useEffect(() => setEvents(props.events), [props.events]);
+
+    const handlePreviousMonth = () => {
+        setSelectedDay(undefined);
+        setCurrentMonth(currentMonth.clone().subtract(1, "month"));
     }
 
-    previousMonth() {
-        this.setState({
-            selectedDay: undefined,
-            currentMonth: this.state.currentMonth.clone().subtract(1, "month"),
-        });
+    const handleNextMonth = () => {
+        setSelectedDay(undefined);
+        setCurrentMonth(currentMonth.clone().add(1, "month"));
     }
 
-    nextMonth() {
-        this.setState({
-            selectedDay: undefined,
-            currentMonth: this.state.currentMonth.clone().add(1, "month"),
-        });
-    }
-
-    processEvent(event) {
+    const handleDaySelect = (event) => {
         if (event.type === "SELECT") {
             let date = event.date
-            if (hasSameMonth(this.state.currentMonth, date)) {
-                this.setState({
-                    selectedDay: date.clone()
-                })
+            if (hasSameMonth(currentMonth, date)) {
+                setSelectedDay(date.clone())
             } else {
-                this.setState({
-                    selectedDay: date.clone(),
-                    currentMonth: date.clone()
-                });
+                setSelectedDay(date.clone());
+                setCurrentMonth(date.clone().date(15));
             }
-            this.props.onDaySelect(date.clone(), [])
+            props.onDaySelect(date.clone(), [])
         }
     }
 
-    render() {
-        let firstDayOfCalendar = getFirstDayOfCalendar(this.state.currentMonth);
+    let firstDayOfCalendar = getFirstDayOfCalendar(currentMonth);
 
-        return (
-            <td className={"calendar-board-container"}>
-                <div className={"calendar-top-controls-container"}>
-                    <Chip className={'calendar-month-control-container'} label={<ArrowBack/>} onClick={() => this.previousMonth()}/>
+    return (
+        <td className={"calendar-board-container"}>
+            <div className={"calendar-top-controls-container"}>
+                <Chip className={'calendar-month-control-container'} label={<ArrowBack/>} onClick={handlePreviousMonth}/>
 
-                    <div className={'calendar-current-month-container'}>
-                        <div className={'month-name'}>{this.state.currentMonth.startOf("month").format("MMMM")}</div>
-                        <div className={'month-year'}>{this.state.currentMonth.year()}</div>
-                    </div>
-                    <Chip className={'calendar-month-control-container'} label={<ArrowForward/>} onClick={() => this.nextMonth()}/>
+                <div className={'calendar-current-month-container'}>
+                    <div className={'month-name'}>{currentMonth.startOf("month").format("MMMM")}</div>
+                    <div className={'month-year'}>{currentMonth.year()}</div>
                 </div>
-                <div className={"calendar-weekdays-container"}>
-                    <div className={"weekday"}><div className={'content'}>Mon.</div></div>
-                    <div className={"weekday"}><div className={'content'}>Tue.</div></div>
-                    <div className={"weekday"}><div className={'content'}>Wed.</div></div>
-                    <div className={"weekday"}><div className={'content'}>Thu.</div></div>
-                    <div className={"weekday"}><div className={'content'}>Fri.</div></div>
-                    <div className={"weekday"}><div className={'content'}>Sat.</div></div>
-                    <div className={"weekday"}><div className={'content'}>Sun.</div></div>
-                </div>
-                <div className={"calendar-days-container"}>
-                    <DayLine
-                        currentMonth={this.state.currentMonth}
-                        events={this.state.events}
-                        startDay={firstDayOfCalendar}
-                        selectedDay={this.state.selectedDay}
-                        processEvent={(event) => this.processEvent(event)}/>
-                    <DayLine
-                        currentMonth={this.state.currentMonth}
-                        events={this.state.events}
-                        startDay={firstDayOfCalendar.clone().add(7, "day")}
-                        selectedDay={this.state.selectedDay}
-                        processEvent={(event) => this.processEvent(event)}/>
-                    <DayLine
-                        currentMonth={this.state.currentMonth}
-                        events={this.state.events}
-                        startDay={firstDayOfCalendar.clone().add(14, "day")}
-                        selectedDay={this.state.selectedDay}
-                        processEvent={(event) => this.processEvent(event)}/>
-                    <DayLine
-                        currentMonth={this.state.currentMonth}
-                        events={this.state.events}
-                        startDay={firstDayOfCalendar.clone().add(21, "day")}
-                        selectedDay={this.state.selectedDay}
-                        processEvent={(event) => this.processEvent(event)}/>
-                    <DayLine
-                        currentMonth={this.state.currentMonth}
-                        events={this.state.events}
-                        startDay={firstDayOfCalendar.clone().add(28, "day")}
-                        selectedDay={this.state.selectedDay}
-                        processEvent={(event) => this.processEvent(event)}/>
-                    <DayLine
-                        currentMonth={this.state.currentMonth}
-                        events={this.state.events}
-                        startDay={firstDayOfCalendar.clone().add(35, "day")}
-                        selectedDay={this.state.selectedDay}
-                        processEvent={(event) => this.processEvent(event)}/>
-                </div>
-            </td>
-        )
-    }
+                <Chip className={'calendar-month-control-container'} label={<ArrowForward/>} onClick={handleNextMonth}/>
+            </div>
+            <div className={"calendar-weekdays-container"}>
+                <div className={"weekday"}><div className={'content'}>Mon.</div></div>
+                <div className={"weekday"}><div className={'content'}>Tue.</div></div>
+                <div className={"weekday"}><div className={'content'}>Wed.</div></div>
+                <div className={"weekday"}><div className={'content'}>Thu.</div></div>
+                <div className={"weekday"}><div className={'content'}>Fri.</div></div>
+                <div className={"weekday"}><div className={'content'}>Sat.</div></div>
+                <div className={"weekday"}><div className={'content'}>Sun.</div></div>
+            </div>
+            <div className={"calendar-days-container"}>
+                <DayLine
+                    currentMonth={currentMonth}
+                    events={events}
+                    startDay={firstDayOfCalendar}
+                    selectedDay={selectedDay}
+                    onDaySelect={handleDaySelect}/>
+                <DayLine
+                    currentMonth={currentMonth}
+                    events={events}
+                    startDay={firstDayOfCalendar.clone().add(7, "day")}
+                    selectedDay={selectedDay}
+                    onDaySelect={handleDaySelect}/>
+                <DayLine
+                    currentMonth={currentMonth}
+                    events={events}
+                    startDay={firstDayOfCalendar.clone().add(14, "day")}
+                    selectedDay={selectedDay}
+                    onDaySelect={handleDaySelect}/>
+                <DayLine
+                    currentMonth={currentMonth}
+                    events={events}
+                    startDay={firstDayOfCalendar.clone().add(21, "day")}
+                    selectedDay={selectedDay}
+                    onDaySelect={handleDaySelect}/>
+                <DayLine
+                    currentMonth={currentMonth}
+                    events={events}
+                    startDay={firstDayOfCalendar.clone().add(28, "day")}
+                    selectedDay={selectedDay}
+                    onDaySelect={handleDaySelect}/>
+                <DayLine
+                    currentMonth={currentMonth}
+                    events={events}
+                    startDay={firstDayOfCalendar.clone().add(35, "day")}
+                    selectedDay={selectedDay}
+                    onDaySelect={handleDaySelect}/>
+            </div>
+        </td>
+    )
 }
