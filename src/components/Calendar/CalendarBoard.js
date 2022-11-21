@@ -9,7 +9,6 @@ import {Chip} from "@mui/material";
 
 export default function CalendarBoard(props) {
 
-    const [currentDate, setCurrentDate] = useState(moment()); // Holds the date for today
     const [selectedDay, setSelectedDay] = useState(moment()); // Holds the selected day
     const [currentMonth, setCurrentMonth] = useState(moment().date(15)); // Used to know which month we're in
     const [events, setEvents] = useState([]);
