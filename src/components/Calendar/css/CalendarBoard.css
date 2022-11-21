@@ -32,9 +32,12 @@
 
 .calendar-top-controls-container .calendar-current-month-container {
     width: 60%;
+    font-size: large;
+    font-weight: bold;
     float: left;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .calendar-current-month-container .month-name {

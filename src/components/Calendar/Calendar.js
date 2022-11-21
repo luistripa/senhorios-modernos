@@ -10,10 +10,12 @@ import {NewEventDialog} from "./NewEventDialog";
 
 import {getDayEvents} from "./utils/date_utils";
 import EventDetailDialog from "./EventDetailDialog";
+import moment from "moment";
 
 
 export default function Calendar(props) {
 
+    const [selectedDay, setSelectedDay] = useState(moment());
     const [selectedDayEvents, setSelectedDayEvents] = useState([]);
 
     // For new event dialog
@@ -27,6 +29,7 @@ export default function Calendar(props) {
     const onDaySelect = (day) => {
         let dayEvents = getDayEvents(day, props.events);
         setSelectedDayEvents(dayEvents);
+        setSelectedDay(day)
     }
 
     const handleOpenNewEventDialog = () => {
@@ -69,7 +72,8 @@ export default function Calendar(props) {
                             events={props.events}
                             onDaySelect={onDaySelect}
                         />
-                        <CalendarEventList events={selectedDayEvents}
+                        <CalendarEventList selectedDay={selectedDay}
+                                           events={selectedDayEvents}
                                            handleCreate={handleOpenNewEventDialog}
                                            handleDetail={handleOpenEventDetailDialog}
                         />

@@ -33,7 +33,7 @@ export default function CalendarEventList(props) {
     return (
         <td className={'calendar-event-list-container'}>
             <div className={"event-controls-container"}>
-                <div style={{color: "white", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>[day here]</div>
+                <div style={{color: "white", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{props.selectedDay.format("ddd MMM Do")}</div>
                 <Chip className={"event-add-button"}
                       label={<AddIcon fontSize={"small"}/>}
                       size={"medium"}
