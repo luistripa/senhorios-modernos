@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {
-    Chip,
+    Box,
+    Chip, CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
@@ -22,6 +23,9 @@ export default function EventDetailDialog(props) {
 
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
+    const [editProcessing, setEditProcessing] = useState(false)
+    const [deleteProcessing, setDeleteProcessing] = useState(false)
+
     useEffect(() => {
         setEventName(props.event ? props.event.name : "");
         setEventDescription(props.event ? props.event.description : "");
@@ -34,18 +38,43 @@ export default function EventDetailDialog(props) {
             description: document.getElementById("event-description").value,
             type: eventType,
         }
-
-        props.handleEdit(eventData);
+        setEditProcessing(true);
+        new Promise((resolve, reject) => props.handleEdit(resolve, reject, eventData))
+            .then(handleCancel)
+            .catch(handleEditFailed)
     }
 
     const handleDelete = () => {
-        setDeleteConfirmOpen(false);
-        props.handleDelete(props.event);
+        setDeleteProcessing(true);
+        new Promise((resolve, reject) => props.handleDelete(resolve, reject, props.event))
+            .then(handleCancel)
+            .catch(handleDeleteFailed)
     }
 
     const handleCancel = () => {
+        setTimeout(() => { // Avoids setting the button back to 'Edit' just before closing the dialog
+            setEditProcessing(false);
+        }, 200)
+        setDeleteConfirmOpen(false);
+        props.onClose();
+    }
+
+    const handleEditFailed = () => {
+        setEditProcessing(false);
+    }
+
+    const handleDeleteFailed = () => {
+        setDeleteProcessing(false);
         setDeleteConfirmOpen(false);
     }
+
+    let editButton;
+    if (editProcessing) editButton = <Box sx={{display: "flex"}}><CircularProgress color={"inherit"} size={20}/></Box>;
+    else editButton = "Edit";
+
+    let deleteButton;
+    if (deleteProcessing) deleteButton = <Box sx={{display: "flex"}}><CircularProgress color={"inherit"} size={20}/></Box>;
+    else deleteButton = "Yes";
 
     return (
         <>
@@ -93,7 +122,10 @@ export default function EventDetailDialog(props) {
                 <DialogActions>
                     <Chip label={"Cancel"} onClick={props.handleCancel}/>
                     <Chip label={"Delete"} onClick={() => setDeleteConfirmOpen(true)} color={"error"}/>
-                    <Chip label={"Edit"} onClick={handleEdit} color={"primary"}/>
+                    <Chip label={editButton}
+                          onClick={handleEdit}
+                          color={"primary"}
+                    />
                 </DialogActions>
             </Dialog>
 
@@ -103,7 +135,7 @@ export default function EventDetailDialog(props) {
                     <Chip label={"Cancel"}
                           onClick={handleCancel}
                     />
-                    <Chip label={"Yes"}
+                    <Chip label={deleteButton}
                           color={"error"}
                           onClick={handleDelete}
                     />

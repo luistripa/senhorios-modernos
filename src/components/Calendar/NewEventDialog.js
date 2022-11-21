@@ -1,6 +1,7 @@
 import {Component, useState} from "react";
 import {
-    Chip,
+    Box,
+    Chip, CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
@@ -18,6 +19,8 @@ export function NewEventDialog(props) {
 
     const [eventType, setEventType] = useState('GENERIC');
 
+    const [createProcessing, setCreateProcessing] = useState(false);
+
     const handleEventTypeChange = (event) => {
         setEventType(event.target.value);
     }
@@ -29,12 +32,31 @@ export function NewEventDialog(props) {
             type: eventType,
         }
 
-        props.handleCreate(eventData)
+        setCreateProcessing(true);
+
+        new Promise((resolve, reject) => props.handleCreate(resolve, reject, eventData))
+            .then(handleCancel)
+            .catch(handleCreateFailed)
+
     }
+
+    const handleCreateFailed = () => {
+        setCreateProcessing(false);
+    }
+
+    const handleCancel = () => {
+        setTimeout(() => { // Avoids setting the button back to 'Create' just before closing the dialog
+            setCreateProcessing(false);
+        }, 200)
+        props.onClose();
+    }
+
+    let createButton;
+    if (createProcessing) createButton = <Box sx={{display: "flex"}}><CircularProgress color={"inherit"} size={20}/></Box>;
+    else createButton = "Create";
 
     return (
         <Dialog open={props.open}
-                //container={() => document.getElementById("CalendarComponent-container")}
                 sx={{position: "absolute"}}
                 onClose={() => props.handleCancel()}
                 scroll={"paper"}
@@ -69,8 +91,8 @@ export function NewEventDialog(props) {
                 </form>
             </DialogContent>
             <DialogActions>
-                <Chip label={"Cancel"} onClick={props.handleCancel}/>
-                <Chip label={"Submit"} onClick={handleCreate} color={"primary"}/>
+                <Chip label={"Cancel"} onClick={handleCancel}/>
+                <Chip label={createButton} onClick={handleCreate} color={"primary"}/>
             </DialogActions>
 
         </Dialog>

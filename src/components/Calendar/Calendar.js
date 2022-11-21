@@ -33,25 +33,30 @@ export default function Calendar(props) {
         setNewEventDialogOpen(true);
     }
 
+    const handleCloseNewEventDialog = () => {
+        setNewEventDialogOpen(false);
+    }
+
     const handleOpenEventDetailDialog = (event) => {
-        console.log(event)
         setEventDetailDialogEvent(event);
         setEventDetailDialogOpen(true);
     }
 
-    const handleEventCreate = (eventData) => {
-        setNewEventDialogOpen(false);
-        console.log(eventData);
-    }
-
-    const handleEventEdit = (eventData) => {
-        console.log(eventData);
+    const handleCloseEventDetailDialog = (event) => {
+        setEventDetailDialogEvent(null);
         setEventDetailDialogOpen(false);
     }
 
-    const handleEventDelete = (event) => {
-        console.log("delete", event)
-        setEventDetailDialogOpen(false);
+    const handleEventCreate = (resolve, reject, eventData) => {
+        props.onEventCreate(resolve, reject, eventData);
+    }
+
+    const handleEventEdit = (resolve, reject, eventData) => {
+        props.onEventEdit(resolve, reject, eventData)
+    }
+
+    const handleEventDelete = (resolve, reject, eventData) => {
+        props.onEventDelete(resolve, reject, eventData);
     }
 
     return (
@@ -72,10 +77,12 @@ export default function Calendar(props) {
                     </tbody>
                 </table>
                 <NewEventDialog open={newEventDialogOpen}
+                                onClose={handleCloseNewEventDialog}
                                 handleCreate={handleEventCreate}
                                 handleCancel={() => setNewEventDialogOpen(false)}
                 />
                 <EventDetailDialog open={eventDetailDialogOpen}
+                                   onClose={handleCloseEventDetailDialog}
                                    event={eventDetailDialogEvent}
                                    handleEdit={handleEventEdit}
                                    handleDelete={handleEventDelete}
