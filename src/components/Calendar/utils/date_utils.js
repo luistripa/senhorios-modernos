@@ -1,4 +1,5 @@
 import moment from "moment";
+import data from "bootstrap/js/src/dom/data";
 
 
 /**
@@ -7,7 +8,7 @@ import moment from "moment";
  * @param {moment.Moment} moment2
  */
 export function hasSameMonth(moment1, moment2) {
-    return moment1.year() === moment2.year() && moment1.month() === moment2.month();
+    return moment1.format("YYYY-MM") === moment2.format("YYYY-MM");
 }
 
 /**
@@ -16,7 +17,7 @@ export function hasSameMonth(moment1, moment2) {
  * @param {moment.Moment} moment2
  */
 export function hasSameDay(moment1, moment2) {
-    return hasSameMonth(moment1, moment2) && moment1.date() === moment2.date();
+    return moment1.format("YYYY-MM-DD") === moment2.format("YYYY-MM-DD");
 }
 
 /**
@@ -57,28 +58,43 @@ export function getDayEvents(day_date, events) {
 
     for (let event of events) {
         if (event.repeat === "NO") {
-            if (hasSameDay(day_date, event.startDate))
+            if (hasSameDay(day_date, event.startDate)) {
                 day_events.push(event);
+            } else if (hasSameDay(day_date, event.endDate)) {
+                day_events.push(event);
+            } else if (day_date.isBetween(event.startDate, event.endDate)) {
+                day_events.push(event)
+            }
 
         } else if (event.repeat === "DAILY") {
-            if (event.endDate) {
-                if (day_date.isBetween(event.startDate, event.endDate) || hasSameDay(day_date, event.startDate))
-                    day_events.push(event)
+            if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
+                if (hasSameDay(day_date, event.startDate)) {
+                    day_events.push(event);
+                } else if (hasSameDay(day_date, event.endDate)) {
+                    day_events.push(event);
+                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+                    day_events.push(event);
+                }
             }
 
         } else if (event.repeat === "WEEKLY") {
-            if (day_date.weekday() === event.startDate.weekday()) {
-                if (day_date.isBetween(event.startDate, event.endDate) || hasSameDay(day_date, event.startDate))
+            if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
+                if (day_date.weekday() === event.startDate.weekday()) {
                     day_events.push(event);
+                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+                    day_events.push(event);
+                }
             }
 
         } else if (event.repeat === "MONTHLY") {
-            if (day_date.isBetween(event.startDate, event.endDate) || hasSameDay(day_date, event.startDate)) {
-                if (day_date.date() === event.startDate.date())
+            if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
+                if (day_date.format("DD") === event.startDate.format("DD") && day_date.isSameOrAfter(event.startDate)) {
                     day_events.push(event);
+                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+                    day_events.push(event);
+                }
             }
         }
-        // End date < day_date and ( (repeat DAILY) or (repeat WEEKLY and startDate.weekday == day.weekDay) )
     }
 
     // TODO: Order events

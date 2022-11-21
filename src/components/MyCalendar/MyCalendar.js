@@ -12,7 +12,7 @@ export function MyCalendar(props) {
             description: "This is a description",
             startDate: moment("2022-11-23 19:00:00"),
             endDate: moment("2022-11-23 20:00:00"),
-            repeat: "NO"
+            repeat: "NO",
         },
         {
             id: 2,
@@ -21,8 +21,8 @@ export function MyCalendar(props) {
             description: "This is a description",
             startDate: moment("2022-11-22 19:00:00"),
             endDate: moment("2022-11-25 20:00:00"),
-            // TODO: what about infinite end date?
-            repeat: "DAILY"
+            repeat: "NO",
+            // TODO: what about infinite repeat util?
         },
         {
             id: 3,
@@ -30,9 +30,19 @@ export function MyCalendar(props) {
             name: "Canalisador",
             description: "This is a description",
             startDate: moment("2022-11-22 17:00:00"),
-            endDate: moment("2023-02-25 18:00:00"),
-            // TODO: what about infinite end date?
-            repeat: "MONTHLY"
+            endDate: moment("2022-11-22 18:00:00"),
+            repeat: "MONTHLY",
+            repeatUntil: moment("2023-02-22")
+            // TODO: what about infinite repeat util?
+        },
+        {
+            id: 4,
+            type: "CLEANING",
+            name: "Dona Elvira",
+            description: "This is a description",
+            startDate: moment("2022-11-25 17:00:00"),
+            endDate: moment("2022-11-25 18:00:00"),
+            repeat: "NO"
         },
     ]
 
