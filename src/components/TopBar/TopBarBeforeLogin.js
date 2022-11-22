@@ -1,14 +1,23 @@
 import "./TopBar.css"
-import {AppBar, IconButton, Toolbar, Icon, Stack, Button, Typography} from "@mui/material"
+import {AppBar, IconButton, Toolbar, Icon, Stack, Button, Typography, ListItemText} from "@mui/material"
 import logo from "../../static/LogoIPM.png"
 import * as React from "react";
+import {Router} from "@mui/icons-material";
+import {List, ListItem} from "@mui/joy";
 
-export function TopBarBeforeLogin(props) {
+export function TopBarBeforeLogin() {
+
+    const navLinks = [
+        { title: "About One Home", path: "/about" },
+        { title: "Features", path: "/features" },
+        { title: "Team", path: "/team" },
+        { title: "Login", path: "/login" }
+    ];
 
     return(
-       <AppBar position="static">
+       <AppBar className={'app_bar'} position="static">
            <Toolbar>
-               <IconButton size="large" edge="start" aria-label="logo" color="enherit" href={"https://www.google.com"}>
+               <IconButton size="large" edge="start" aria-label="logo" href={"#"}>
                    <Icon fontSize="large">
                        <img src={logo} height={40} width={40} alt="OneHome"/>
                    </Icon>
@@ -17,7 +26,9 @@ export function TopBarBeforeLogin(props) {
                    </Typography>
                </IconButton>
                <Stack direction="row" spacing={2} sx={{marginLeft: "auto"}}>
-                   <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>About OneHome</Button>
+                   <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>
+                       <span>About OneHome</span>
+                   </Button>
                    <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>Features</Button>
                    <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>Team</Button>
                    <Button href={"/login-and-register"} variant="contained" style={{textTransform: 'none'}}>Login</Button>
