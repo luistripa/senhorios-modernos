@@ -1,0 +1,121 @@
+html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    background-color: #FBF9FF;
+}
+
+.main-container_LAR{
+    display: flex;
+    position: relative;
+    width: 1200px;
+    height: 600px;
+    padding: 20px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1)), url("background1.jfif");
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.form-container_LAR{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    transition: 1.25s;
+}
+
+.change-form_LAR{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 1%;
+    width: 50%;
+    height: 100%;
+    transition: 1.0s;
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.form-input{
+    width: 60%;
+    height: 7%;
+    margin: 0.7% 0;
+    padding-left: 4%;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: #FBF9FF;
+    transition: 0.25s ease;
+    border-radius: 8px;
+}
+
+.form-input:focus{
+    box-shadow: inset 3px 3px 3px #FBF9FF, -3px -3px 3px #FBF9FF;
+}
+
+.form-span{
+    margin-bottom: 2%;
+}
+
+.form-link{
+    color: #282c34;
+    font-size: 15px;
+    margin-top: 2%;
+}
+
+.form-title{
+    font-size: 35px;
+    font-weight: 700;
+    color: #4B4E6D;
+}
+
+.form-title-2{
+    margin-top: 0;
+    font-size: 25px;
+    font-weight: 600;
+    color: #4B4E6D;
+}
+
+.form-button{
+    cursor: pointer;
+    width: 130px;
+    height: 50px;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    outline: none;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background-color: #282c34;
+    color: #FBF9FF;
+    margin-top: 3%;
+    transition: all 0.3s;
+}
+
+.form-button:hover{
+    box-shadow: 2px 2px 4px #4B4E6D, -2px -2px 4px #4B4E6D;
+}
+
