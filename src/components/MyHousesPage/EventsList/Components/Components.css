@@ -1,9 +1,15 @@
-.Timeline-line {
-    z-index: -1;
-    position: absolute;
-    width: 3px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    top: -2em;
+i.inverted.bordered.icon, i.inverted.circular.icon {
+    background-color: #4B4E6D !important;
+}
+
+.ui .purple.label, .ui.purple.labels .label {
+    background-color: #4B4E6D !important;
+}
+
+.ui.grid>.row>[class*="two wide"].column{
+    width: 15.2% !important;
+}
+
+.ui.grid>.row>[class*="five wide"].column{
+    width: 27.25% !important;
 }

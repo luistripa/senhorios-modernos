@@ -180,17 +180,17 @@ export default class DivisionItems extends Component {
           </tr>
         )}
 
-        {this.state.products.length == 0 &&
+        {this.state.products.length === 0 &&
           !this.state.AddItemButtonShown &&
           this.showForm()}
 
-        {this.state.products.length != 0 && this.state.AddItemButtonShown && (
+        {this.state.products.length !== 0 && this.state.AddItemButtonShown && (
           <>
             <div>{this.showTableOfItems()}</div>
           </>
         )}
 
-        {this.state.products.length != 0 && !this.state.AddItemButtonShown && (
+        {this.state.products.length !== 0 && !this.state.AddItemButtonShown && (
           <>
             <div>{this.showTableOfItems()}</div>
             <div>{this.showForm()}</div>

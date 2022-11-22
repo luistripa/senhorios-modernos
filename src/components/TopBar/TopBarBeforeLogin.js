@@ -1,18 +1,9 @@
 import "./TopBar.css"
-import {AppBar, IconButton, Toolbar, Icon, Stack, Button, Typography, ListItemText} from "@mui/material"
+import {AppBar, IconButton, Toolbar, Icon, Stack, Button, Typography} from "@mui/material"
 import logo from "../../static/LogoIPM.png"
 import * as React from "react";
-import {Router} from "@mui/icons-material";
-import {List, ListItem} from "@mui/joy";
 
 export function TopBarBeforeLogin() {
-
-    const navLinks = [
-        { title: "About One Home", path: "/about" },
-        { title: "Features", path: "/features" },
-        { title: "Team", path: "/team" },
-        { title: "Login", path: "/login" }
-    ];
 
     return(
        <AppBar className={'app_bar'} position="static">

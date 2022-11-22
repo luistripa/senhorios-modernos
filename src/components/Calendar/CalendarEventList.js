@@ -1,6 +1,6 @@
 
 import "./css/EventList.css"
-import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow, Button, Modal, Box} from "@mui/material";
+import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import moment from "moment";
 import {AccessTime, Build, CleaningServices, People, QuestionMark} from "@mui/icons-material";

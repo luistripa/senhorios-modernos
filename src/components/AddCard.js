@@ -11,9 +11,9 @@ export default function AddCard(props) {
     const [modalState, openModal] = useState(false);
 
     let modal;
-    if (props.subject == 'house') {
+    if (props.subject === 'house') {
         modal = <NewHouseModal modalState={modalState} functionCreate={props.functionCreate} openCloseModal={openCloseModal}/>;
-    } else if (props.subject == 'division'){
+    } else if (props.subject === 'division'){
         modal = <NewDivisionModal modalState={modalState} functionCreate={props.functionCreate} openCloseModal={openCloseModal}/>;
     }
 

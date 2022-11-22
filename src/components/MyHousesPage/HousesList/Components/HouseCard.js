@@ -8,9 +8,6 @@ import {Grid} from "@mui/material";
 import './components.css';
 
 export class GradientCover extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render(){
         return (

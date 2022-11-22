@@ -1,4 +1,4 @@
-import {Component, useState} from "react";
+import { useState} from "react";
 
 import "./css/CalendarBoard.css"
 import CalendarBoard from "./CalendarBoard";

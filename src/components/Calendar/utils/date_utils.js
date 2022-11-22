@@ -1,6 +1,4 @@
 import moment from "moment";
-import data from "bootstrap/js/src/dom/data";
-
 
 /**
  *
