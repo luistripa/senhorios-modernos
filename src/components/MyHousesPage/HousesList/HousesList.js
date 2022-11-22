@@ -3,8 +3,8 @@ import "./HousesList.css"
 import {Grid} from '@mui/material';
 import {Box} from "@mui/joy";
 import {GradientCover} from "./Components/HouseCard";
-import NewHouseModal from "./Components/NewHouseCard";
 import NewHouseSnackbar from "./Components/NewHouseSnackbar";
+import AddCard from "../../AddCard";
 
 
 export class HousesList extends Component{
@@ -44,12 +44,12 @@ export class HousesList extends Component{
                        direction="row"
                        justifyContent="center"
                        alignItems="center"
-                      spacing={2}>
+                        spacing={2}>
                     {this.state.houses.map(
                         house => (<GradientCover key={house.id} name={house.name} address={house.address} image={house.image}/>)
                     )}
                     <Grid item>
-                        <NewHouseModal functionCreate={this.createNewHouse}></NewHouseModal>
+                        <AddCard subject={'house'} functionCreate={this.createNewHouse}></AddCard>
                     </Grid>
                 </Grid>
                 </Box>

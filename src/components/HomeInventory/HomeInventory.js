@@ -1,7 +1,12 @@
-import {Component} from "react";
+import {Component, useState} from "react";
 
 import "./HomeInventory.css"
-import {HomeInventoryAddDivision} from "./HomeInventoryAddDivision";
+import {Grid} from "@mui/material";
+import {Box} from "@mui/joy";
+import {DivisionCard} from "./Components/DivisionCard";
+import AddCard from "../AddCard";
+import DivisionModal from "./Components/DivisionModal";
+import * as React from "react";
 
 export class HomeInventory extends Component {
 
@@ -10,65 +15,62 @@ export class HomeInventory extends Component {
 
         this.state = {
             divisions: [
-                {id: 1, name: "Ketchen", image: "?"},
-                {id: 2, name: "Bedroom", image: "?"},
-                {id: 3, name: "WC", image: "?"}
-            ]
+                {id: 1, name: "Kitchen", icon: "/kitchen.png"},
+                {id: 2, name: "Bedroom", icon: "/bedroom.png"},
+                {id: 3, name: "Bathroom", icon: "/bathroom.png"},
+                {id: 4, name: "Living Room", icon: "/living-room.png"}
+            ],
+            showModal: null
         }
+
     }
 
-    addDivision() {
-        let last_division = this.state.divisions[this.state.divisions.length-1];
 
+    addDivision = (division) => {
+        console.log('add division')
+        let last_division = this.state.divisions[this.state.divisions.length - 1];
         let new_division = {
-            id: last_division.id+1,
-            name: "teste",
-            image: "?"
+            id: last_division.id + 1,
+            name: division.name,
+            icon: division.icon
         }
-        console.log(this.state.divisions)
         this.state.divisions.push(new_division)
-
-        this.setState({
-            divisions: this.state.divisions
-        })
+        this.setState({divisions: this.state.divisions})
     }
 
     render() {
         return (
             <>
-                <div>Home Inventory</div>
-                <div className={'division-container'}>
-                    {
-                        this.state.divisions.map(
-                            division => (<HomeInventoryDivision key={division.id} name={division.name}/>)
-                        )
-                    }
-                    <HomeInventoryAddDivision addDivision={() => this.addDivision()}/>
-                </div>
+                <h1>Home Inventory</h1>
+                <Box className={'homeInventory'} sx={{ flexGrow: 1 }}>
+                    <Grid container
+                          className={'grid-inventory'}
+                          direction="row"
+                          spacing={4}>
+                        {this.state.divisions.map(
+                            division => (
+                                <>
+                                <Grid item>
+                                    <button onClick={() => this.setState({showModal: division})} style={{
+                                        border: "0px",
+                                        backgroundColor: "transparent",
+                                        cursor: "pointer"}}>
+                                        <DivisionCard key={division.id} name={division.name} image={division.icon}/>
+                                    </button>
+                                </Grid>
+                                </>
+                                )
+                        )}
+                                    <DivisionModal name={this.state.showModal != null ? this.state.showModal.name : ""}
+                                                   icon={this.state.showModal != null ? this.state.showModal.icon : ""}
+                                                   open={this.state.showModal != null}
+                                                   close={() => this.setState({showModal: null})}/>
+                        <Grid item>
+                            <AddCard subject={'division'} functionCreate={this.addDivision}/>
+                        </Grid>
+                    </Grid>
+                </Box>
             </>
-        )
-    }
-}
-
-class HomeInventoryDivision extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            counter: 0
-        }
-    }
-
-    incCounter() {
-        this.setState({counter: this.state.counter+1})
-    }
-
-    render() {
-        return (
-            <div
-                className={'division'}
-                onClick={() => this.incCounter()}>{this.props.name} {this.state.counter}</div>
         )
     }
 }
