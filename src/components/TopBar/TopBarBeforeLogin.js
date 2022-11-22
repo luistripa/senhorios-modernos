@@ -20,7 +20,7 @@ export function TopBarBeforeLogin(props) {
                    <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>About OneHome</Button>
                    <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>Features</Button>
                    <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>Team</Button>
-                   <Button href={"https://www.google.com"} variant="contained" style={{textTransform: 'none'}}>Login</Button>
+                   <Button href={"/login-and-register"} variant="contained" style={{textTransform: 'none'}}>Login</Button>
                </Stack>
            </Toolbar>
        </AppBar>

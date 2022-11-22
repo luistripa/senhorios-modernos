@@ -1,10 +1,6 @@
 import './App.css';
 import LoginAndRegister from "./components/LoginAndRegister/LoginAndRegister";
 import React, { Component }  from 'react';
-import{
-    BrowserRouter as Router,
-    Routes, Route, Link
-} from "react-router-dom"
 import {TopBarAfterLogin} from "./components/TopBar/TopBarAfterLogin";
 import {TopBarBeforeLogin} from "./components/TopBar/TopBarBeforeLogin";
 import {HomeInventory} from "./components/HomeInventory/HomeInventory";
