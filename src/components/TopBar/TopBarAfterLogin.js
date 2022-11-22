@@ -71,7 +71,7 @@ export function TopBarAfterLogin(props) {
                        <MenuItem onClick={handleClose}>Team</MenuItem>
                    </Menu>
                    <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>My Houses</Button>
-                   <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>My Calendar</Button>
+                   <Button color="inherit" href={"/mycalendar"} style={{textTransform: 'none'}}>My Calendar</Button>
                    <IconButton
                        id="account-button"
                        aria-controls={open ? "account-button" : undefined}
