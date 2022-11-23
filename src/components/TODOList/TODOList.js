@@ -9,13 +9,14 @@ import {
     ListItemIcon,
     ListItemText,
     Input,
+    Divider,
 } from '@mui/material';
 import {Delete, Add} from '@mui/icons-material';
 import {useEffect, useState} from "react";
 
 export function TODOList(props){
 
-    const [checked, setChecked] = useState([-1]);
+    const [checked, setChecked] = useState([-1]); //-1 -> not checked
 
     const [todoList, setTodoList] = useState([]);
 
@@ -32,9 +33,11 @@ export function TODOList(props){
     const handleToggle = (value) => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
-
         if (currentIndex === -1) {
-            newChecked.push(value);
+            const newTodoList = [...todoList]
+            newTodoList.push(newTodoList.splice(value, 1)[0])
+            setTodoList(newTodoList)
+            newChecked.push(value)
         } else {
             newChecked.splice(currentIndex, 1);
         }
@@ -54,9 +57,6 @@ export function TODOList(props){
     }
 
     const handleAdd = (string) => {
-        if(string === ""){
-
-        }
         let newTodoList = [...todoList];
         newTodoList.push(string);
         setTodoList(newTodoList);
@@ -87,9 +87,7 @@ export function TODOList(props){
                                 <Checkbox
                                     edge="start"
                                     checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
+                                    inputProps={{'aria-labelledby': labelId}}
                                 />
                             </ListItemIcon>
                             <ListItemText id={labelId} primary={todoList[value]} />
@@ -109,6 +107,7 @@ export function TODOList(props){
                        placeholder="Type new item "
                 />
             </ListItem>
+            <Divider/>
         </List>
     );
 }
