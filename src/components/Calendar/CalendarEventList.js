@@ -113,7 +113,7 @@ export default function CalendarEventList(props) {
             </div>
             <div className={'list'}>
                 {allDayEvents.map(event => (
-                    <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
+                    <ListItem key={event.id} className={"event"} onClick={() => props.handleDetail(event)}>
                         {createChipByEventType(event.type)}
                         <ListItemText
                             primary={
@@ -130,7 +130,7 @@ export default function CalendarEventList(props) {
                     </ListItem>
                 ))}
                 {finishTodayEvents.map(event => (
-                    <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
+                    <ListItem key={event.id} className={"event"} onClick={() => props.handleDetail(event)}>
                         {createChipByEventType(event.type)}
                         <ListItemText
                             primary={
@@ -150,7 +150,7 @@ export default function CalendarEventList(props) {
                 {separator}
 
                 {todayEvents.map(event => (
-                    <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
+                    <ListItem key={event.id} className={"event"} onClick={() => props.handleDetail(event)}>
                         {createChipByEventType(event.type)}
                         <ListItemText
                             primary={
