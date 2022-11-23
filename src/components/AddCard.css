@@ -1,0 +1,13 @@
+.add-card{
+    width: 150px;
+    height: 200px;
+}
+.add-button{
+    border-width:0;
+    background-color: white;
+}
+.iconPlus{
+    min-height: 200px;
+    width:4em;
+
+}
