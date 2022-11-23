@@ -12,7 +12,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {ArrowForward, Build, CleaningServices, People, QuestionMark} from "@mui/icons-material";
+import {AccessTime, ArrowForward, Build, CleaningServices, People, QuestionMark} from "@mui/icons-material";
 import {DatePicker, DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import moment from "moment/moment";
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
@@ -134,7 +134,7 @@ export function NewEventDialog(props) {
                                     SelectDisplayProps={{style: {display: "flex", alignItems: "center"}}}
                                     variant={"outlined"}
                                     fullWidth>
-                                <MenuItem value={"GENERIC"}><QuestionMark/><span> Generic</span></MenuItem>
+                                <MenuItem value={"GENERIC"}><AccessTime/><span> Generic</span></MenuItem>
                                 <MenuItem value={"CLEANING"}><CleaningServices/><span> Cleaning</span></MenuItem>
                                 <MenuItem value={"MAINTENANCE"}><Build/><span> Maintenance</span></MenuItem>
                                 <MenuItem value={"OCCUPATION"}><People/><span> Occupation</span></MenuItem>

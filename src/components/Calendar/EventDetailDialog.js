@@ -160,7 +160,7 @@ export default function EventDetailDialog(props) {
                                         SelectDisplayProps={{style: {display: "flex", alignItems: "center"}}}
                                         variant={"outlined"}
                                         fullWidth>
-                                    <MenuItem value={"GENERIC"}><QuestionMark/><span> Generic</span></MenuItem>
+                                    <MenuItem value={"GENERIC"}><AccessTime/><span> Generic</span></MenuItem>
                                     <MenuItem value={"CLEANING"}><CleaningServices/><span> Cleaning</span></MenuItem>
                                     <MenuItem value={"MAINTENANCE"}><Build/><span> Maintenance</span></MenuItem>
                                     <MenuItem value={"OCCUPATION"}><People/><span> Occupation</span></MenuItem>
