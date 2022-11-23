@@ -1,10 +1,10 @@
 import './App.css';
-import {HouseDescription} from "./components/HouseDescription/HouseDescription";
+import {TODOList} from "./components/TODOList/TODOList";
 
 function App() {
   return (
     <div className="App">
-       <HouseDescription/>
+        <TODOList/>
     </div>
   );
 }
