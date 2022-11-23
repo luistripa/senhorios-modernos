@@ -1,3 +1,9 @@
 .app_bar{
     background-color: #4B4E6D !important;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
