@@ -1,50 +1,53 @@
 import Calendar from "../Calendar/Calendar";
 import moment from "moment/moment";
+import {useEffect, useState} from "react";
 
 
 export function MyCalendar(props) {
 
-    let events = [
-        {
-            id: 1,
-            type: "MAINTENANCE",
-            name: "Carpinteiro",
-            description: "This is a description",
-            startDate: moment("2022-11-23 19:00:00"),
-            endDate: moment("2022-11-23 20:00:00"),
-            repeat: "NO",
-        },
-        {
-            id: 2,
-            type: "OCCUPATION",
-            name: "Casal de turistas dasdasdasdasdasdasdasdas",
-            description: "This is a description",
-            startDate: moment("2022-11-22 19:00:00"),
-            endDate: moment("2022-11-25 20:00:00"),
-            repeat: "NO",
-            // TODO: what about infinite repeat util?
-        },
-        {
-            id: 3,
-            type: "MAINTENANCE",
-            name: "Canalisador",
-            description: "This is a description",
-            startDate: moment("2022-11-22 17:00:00"),
-            endDate: moment("2022-11-22 18:00:00"),
-            repeat: "MONTHLY",
-            repeatUntil: moment("2023-02-22")
-            // TODO: what about infinite repeat util?
-        },
-        {
-            id: 4,
-            type: "CLEANING",
-            name: "Dona Elvira",
-            description: "This is a description",
-            startDate: moment("2022-11-25 17:00:00"),
-            endDate: moment("2022-11-25 18:00:00"),
-            repeat: "NO"
-        },
-    ]
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        setEvents([
+            {
+                id: 1,
+                type: "MAINTENANCE",
+                name: "Carpinteiro",
+                description: "This is a description",
+                startDate: moment("2022-11-23 19:00:00"),
+                endDate: moment("2022-11-23 20:00:00"),
+                repeat: "NO",
+            },
+            {
+                id: 2,
+                type: "OCCUPATION",
+                name: "Casal de turistas dasdasdasdasdasdasdasdas",
+                description: "This is a description",
+                startDate: moment("2022-11-22 19:00:00"),
+                endDate: moment("2022-11-25 20:00:00"),
+                repeat: "NO",
+            },
+            {
+                id: 3,
+                type: "MAINTENANCE",
+                name: "Canalisador",
+                description: "This is a description",
+                startDate: moment("2022-11-22 17:00:00"),
+                endDate: moment("2022-11-22 18:00:00"),
+                repeat: "MONTHLY",
+                repeatUntil: moment("2023-02-22")
+            },
+            {
+                id: 4,
+                type: "CLEANING",
+                name: "Dona Elvira",
+                description: "This is a description",
+                startDate: moment("2022-11-25 17:00:00"),
+                endDate: moment("2022-11-25 18:00:00"),
+                repeat: "NO"
+            },
+        ])
+    }, [])
 
     const handleEventCreate = (resolve, reject, eventData) => {
         setTimeout(() => { // Simulates backend request

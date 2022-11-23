@@ -1,15 +1,12 @@
 import {getDayEvents, hasSameDay, hasSameMonth} from "./utils/date_utils";
+import {useEffect, useState} from "react";
+import moment from "moment";
 
 
 export function Day(props) {
 
     const handleSelectDay = () => {
-        props.onDaySelect(
-            {
-                type: "SELECT",
-                date: props.date
-            }
-        )
+        props.onDaySelect(props.date);
     }
 
     let day_class;

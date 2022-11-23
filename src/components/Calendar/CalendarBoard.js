@@ -25,17 +25,14 @@ export default function CalendarBoard(props) {
         setCurrentMonth(currentMonth.clone().add(1, "month"));
     }
 
-    const handleDaySelect = (event) => {
-        if (event.type === "SELECT") {
-            let date = event.date
-            if (hasSameMonth(currentMonth, date)) {
-                setSelectedDay(date.clone())
-            } else {
-                setSelectedDay(date.clone());
-                setCurrentMonth(date.clone().date(15));
-            }
-            props.onDaySelect(date.clone(), [])
+    const handleDaySelect = (date) => {
+        if (hasSameMonth(currentMonth, date))
+            setSelectedDay(date.clone());
+        else {
+            setSelectedDay(date.clone());
+            setCurrentMonth(date.clone().date(15));
         }
+        props.onDaySelect(date.clone());
     }
 
     let firstDayOfCalendar = getFirstDayOfCalendar(currentMonth);
