@@ -41,7 +41,7 @@ export function TopBarAfterLogin() {
            <Toolbar>
                <IconButton size="large" edge="start" aria-label="logo" color="enherit" href={"https://www.google.com"}>
                    <Icon fontSize="large">
-                       <img src={logo} height={40} width={40} alt="OneHome"/>
+                       <img src={logo} height={30} width={30} alt="OneHome"/>
                    </Icon>
                    <Typography variant="h6" component="div" textAlign="left" color="white" sx={{marginLeft:"5px", flexGrow:1}}>
                        OneHome
