@@ -2,9 +2,10 @@ import { Form } from "react-bootstrap";
 import { createRef, Component } from "react";
 import * as React from "react";
 import "./components.css";
-import { Table, Button } from "@material-ui/core";
 import {
+  Button,
   Paper,
+  Table,
   TableBody,
   TableCell,
   TableContainer,

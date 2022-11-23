@@ -1,7 +1,6 @@
-import {responsiveFontSizes} from "@mui/material";
-import {createMuiTheme} from "@material-ui/core";
+import {createStyles, responsiveFontSizes} from "@mui/material";
 
-const theme = responsiveFontSizes(createMuiTheme({
+const theme = responsiveFontSizes(createStyles({
     typography: {
         fontFamily: [
             'Roboto',
