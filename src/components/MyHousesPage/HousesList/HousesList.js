@@ -7,7 +7,7 @@ import NewHouseSnackbar from "./Components/NewHouseSnackbar";
 import AddCard from "../../AddCard";
 
 
-export class HousesList extends Component{
+export class HousesList extends Component {
 
     constructor(props) {
         super(props);
@@ -22,7 +22,7 @@ export class HousesList extends Component{
     }
 
     //alert success qd cria casa
-     createNewHouse = (house) => {
+    createNewHouse = (house) => {
         let last_house = this.state.houses[this.state.houses.length - 1];
         let new_house = {
             id: last_house.id + 1,
@@ -34,24 +34,28 @@ export class HousesList extends Component{
         this.state.houses.push(new_house)
         this.state.newHouseCreated = true;
         this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated})
-     }
+    }
 
     render() {
         return (
             <>
-                <Box sx={{ flexGrow: 1 }}>
-                <Grid container
-                       direction="row"
-                       justifyContent="center"
-                       alignItems="center"
-                        spacing={2}>
-                    {this.state.houses.map(
-                        house => (<GradientCover key={house.id} name={house.name} address={house.address} image={house.image}/>)
-                    )}
-                    <Grid item>
-                        <AddCard subject={'house'} functionCreate={this.createNewHouse}></AddCard>
+                <div style={{display: "flex", justifyContent: "center", padding: "5% 0 6% 0"}}>
+                    <h1>My properties</h1>
+                </div>
+                <Box sx={{flexGrow: 1}}>
+                    <Grid container
+                          direction="row"
+                          justifyContent="center"
+                          alignItems="center"
+                          spacing={2}>
+                        {this.state.houses.map(
+                            house => (<GradientCover key={house.id} name={house.name} address={house.address}
+                                                     image={house.image}/>)
+                        )}
+                        <Grid item>
+                            <AddCard subject={'house'} functionCreate={this.createNewHouse}></AddCard>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </Box>
                 {console.log(this.state)}
                 {this.state.newHouseCreated ? <NewHouseSnackbar></NewHouseSnackbar> : null}

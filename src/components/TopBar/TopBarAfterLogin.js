@@ -17,7 +17,7 @@ import logo from "../../static/LogoIPM.png"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 
-export function TopBarAfterLogin(props) {
+export function TopBarAfterLogin() {
 
     const [dropDown, setDropDown] = React.useState(null);
     const [accountMenu, setAccountMenu] = React.useState(null);
@@ -37,7 +37,7 @@ export function TopBarAfterLogin(props) {
     };
 
     return(
-       <AppBar position="static">
+     <AppBar position="static">
            <Toolbar>
                <IconButton size="large" edge="start" aria-label="logo" color="enherit" href={"https://www.google.com"}>
                    <Icon fontSize="large">
@@ -70,8 +70,8 @@ export function TopBarAfterLogin(props) {
                        <MenuItem onClick={handleClose}>Features</MenuItem>
                        <MenuItem onClick={handleClose}>Team</MenuItem>
                    </Menu>
-                   <Button color="inherit" href={"https://www.google.com"} style={{textTransform: 'none'}}>My Houses</Button>
-                   <Button color="inherit" href={"/mycalendar"} style={{textTransform: 'none'}}>My Calendar</Button>
+                   <Button color="inherit" href={"/my-houses"} style={{textTransform: 'none'}}>My Houses</Button>
+                   <Button color="inherit" href={"/my-calendar"} style={{textTransform: 'none'}}>My Calendar</Button>
                    <IconButton
                        id="account-button"
                        aria-controls={open ? "account-button" : undefined}
