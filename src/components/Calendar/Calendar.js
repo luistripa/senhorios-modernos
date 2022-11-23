@@ -33,8 +33,6 @@ export default function Calendar(props) {
 
     const onDaySelect = (day) => {
         let dayEvents = getDayEvents(day, props.events);
-        console.log(dayEvents)
-        console.log(props.events)
         setSelectedDayEvents(dayEvents);
         setSelectedDay(day)
     }

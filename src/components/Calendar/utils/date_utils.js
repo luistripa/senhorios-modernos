@@ -44,6 +44,14 @@ export function getFirstDayOfCalendar(date) {
     return firstDayOfMonth.subtract(diffDays-1, "day");
 }
 
+function toMidnight(date) {
+    return date.clone().hours(0).minutes(0).seconds(0).milliseconds(0);
+}
+
+function toMax(date) {
+    return date.clone().hours(23).minutes(59).seconds(59).milliseconds(999);
+}
+
 
 /**
  *
@@ -60,7 +68,7 @@ export function getDayEvents(day_date, events) {
                 day_events.push(event);
             } else if (hasSameDay(day_date, event.endDate)) {
                 day_events.push(event);
-            } else if (day_date.isBetween(event.startDate, event.endDate)) {
+            } else if (day_date.isBetween(toMidnight(event.startDate), toMax(event.endDate))) {
                 day_events.push(event)
             }
 
@@ -70,7 +78,7 @@ export function getDayEvents(day_date, events) {
                     day_events.push(event);
                 } else if (hasSameDay(day_date, event.endDate)) {
                     day_events.push(event);
-                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+                } else if (day_date.isBetween(toMidnight(event.startDate), toMax(event.endDate))) { // TODO: Fix this
                     day_events.push(event);
                 }
             }
@@ -79,23 +87,21 @@ export function getDayEvents(day_date, events) {
             if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
                 if (day_date.weekday() === event.startDate.weekday()) {
                     day_events.push(event);
-                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+                } else if (day_date.isBetween(toMidnight(event.startDate), toMax(event.endDate))) { // TODO: Fix this
                     day_events.push(event);
                 }
             }
 
         } else if (event.repeat === "MONTHLY") {
             if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
-                if (day_date.format("DD") === event.startDate.format("DD") && day_date.isSameOrAfter(event.startDate)) {
+                if (day_date.format("DD") === event.startDate.format("DD") && day_date.isSameOrAfter(toMidnight(event.startDate))) {
                     day_events.push(event);
-                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+                } else if (day_date.isBetween(toMidnight(event.startDate), toMax(event.endDate))) { // TODO: Fix this
                     day_events.push(event);
                 }
             }
         }
     }
-
-    // TODO: Order events
 
     return day_events
 }
