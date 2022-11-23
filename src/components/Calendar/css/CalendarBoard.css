@@ -14,20 +14,7 @@
 }
 
 .calendar-top-controls-container .calendar-month-control-container {
-    display: flex;
-
     width: 20%;
-    float: left;
-
-    justify-content: center;
-    align-items: center;
-
-    transition: 0.2s background-color;
-}
-
-
-.calendar-top-controls-container .calendar-month-control-container:hover {
-    background-color: #e3e3e3;
 }
 
 .calendar-top-controls-container .calendar-current-month-container {
