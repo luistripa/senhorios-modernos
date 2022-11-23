@@ -3,7 +3,7 @@ import "./css/EventList.css"
 import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow, Button, Badge} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import moment from "moment";
-import {AccessTime, Build, CleaningServices, People, QuestionMark} from "@mui/icons-material";
+import {AccessTime, Build, CleaningServices, People, QuestionMark, Search} from "@mui/icons-material";
 import {hasSameDay} from "./utils/date_utils";
 import Avatar from "@mui/material/Avatar";
 
@@ -165,6 +165,15 @@ export default function CalendarEventList(props) {
                         />
                     </ListItem>
                 ))}
+
+                {allDayEvents.length + finishTodayEvents.length + todayEvents.length === 0 ? (
+                    <div style={{width: "100%", marginTop: "5%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <Typography color={"lightgray"} display={"flex"} justifyContent={"center"}>
+                            <Search/>
+                            <span>No events today...</span>
+                        </Typography>
+                    </div>
+                ) : undefined }
             </div>
         </td>
     );
