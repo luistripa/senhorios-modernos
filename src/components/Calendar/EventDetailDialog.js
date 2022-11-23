@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {
-    Box,
-    Chip, CircularProgress,
+    Box, Button,
+    Chip, CircularProgress, Container,
     Dialog,
     DialogActions,
     DialogContent,
@@ -134,9 +134,11 @@ export default function EventDetailDialog(props) {
                     fullWidth
             >
                 <DialogContent>
-                    <Typography variant={"h6"}>New Event</Typography>
-                    <hr/>
-                    <form>
+                    <Container maxWidth={"sm"}>
+                        <Typography variant={"h4"}>Edit event</Typography>
+                        <hr/>
+                        <br/>
+
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField label={"Event Name"}
@@ -198,7 +200,7 @@ export default function EventDetailDialog(props) {
                                     <MenuItem value={"MONTHLY"}>Monthly</MenuItem>
                                 </Select>
                             </Grid>
-                            <Grid item xs={12} visibility={eventRepeat === "NO" ? "hidden" : "visible"}>
+                            <Grid item xs={12} display={eventRepeat === "NO" ? "none" : "block"}>
                                 <LocalizationProvider dateAdapter={AdapterMoment}>
                                     <DatePicker label={"Repeat Until"}
                                                 inputFormat={"DD/MM/YYYY"}
@@ -209,28 +211,20 @@ export default function EventDetailDialog(props) {
                                 </LocalizationProvider>
                             </Grid>
                         </Grid>
-                    </form>
+                    </Container>
                 </DialogContent>
                 <DialogActions>
-                    <Chip label={"Cancel"} onClick={props.handleCancel}/>
-                    <Chip label={"Delete"} onClick={() => setDeleteConfirmOpen(true)} color={"error"}/>
-                    <Chip label={editButton}
-                          onClick={handleEdit}
-                          color={"primary"}
-                    />
+                    <Button variant={"contained"} size={"small"} color={"inherit"} onClick={props.handleCancel}>Cancel</Button>
+                    <Button variant={"contained"} size={"small"} color={"error"} onClick={() => setDeleteConfirmOpen(true)}>Delete</Button>
+                    <Button variant={"contained"} size={"small"} color={"primary"} onClick={handleEdit}>{editButton}</Button>
                 </DialogActions>
             </Dialog>
 
             <Dialog open={deleteConfirmOpen}>
                 <DialogContent>Are you sure you want to delete this event?</DialogContent>
                 <DialogActions>
-                    <Chip label={"Cancel"}
-                          onClick={handleConfirmDialogCancel}
-                    />
-                    <Chip label={deleteButton}
-                          color={"error"}
-                          onClick={handleDelete}
-                    />
+                    <Button variant={"contained"} size={"small"} color={"inherit"} onClick={handleConfirmDialogCancel}>Cancel</Button>
+                    <Button variant={"contained"} size={"small"} color={"error"} onClick={handleDelete}>{deleteButton}</Button>
                 </DialogActions>
             </Dialog>
         </>

@@ -1,10 +1,10 @@
 import {Component, useEffect, useState} from "react";
 import {
-    Box, Checkbox,
-    Chip, CircularProgress,
+    Box, Button,
+    Chip, CircularProgress, Container,
     Dialog,
     DialogActions,
-    DialogContent, FormControlLabel, FormGroup,
+    DialogContent,
     Grid,
     InputLabel,
     MenuItem,
@@ -111,9 +111,10 @@ export function NewEventDialog(props) {
 
         >
             <DialogContent>
-                <Typography variant={"h6"}>New Event</Typography>
-                <hr/>
-                <form>
+                <Container>
+                    <Typography variant={"h4"}>Create new event</Typography>
+                    <hr/>
+                    <br/>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField label={"Event Name"}
@@ -173,7 +174,7 @@ export function NewEventDialog(props) {
                                 <MenuItem value={"MONTHLY"}>Monthly</MenuItem>
                             </Select>
                         </Grid>
-                        <Grid item xs={12} visibility={eventRepeat === "NO" ? "hidden" : "visible"}>
+                        <Grid item xs={12} display={eventRepeat === "NO" ? "none" : "block"}>
                             <LocalizationProvider dateAdapter={AdapterMoment}>
                                 <DatePicker label={"Repeat Until"}
                                             inputFormat={"DD/MM/YYYY"}
@@ -184,11 +185,11 @@ export function NewEventDialog(props) {
                             </LocalizationProvider>
                         </Grid>
                     </Grid>
-                </form>
+                </Container>
             </DialogContent>
             <DialogActions>
-                <Chip label={"Cancel"} onClick={handleCancel}/>
-                <Chip label={createButton} onClick={handleCreate} color={"primary"}/>
+                <Button variant={"contained"} size={"small"} color={"inherit"} onClick={handleCancel}>Cancel</Button>
+                <Button variant={"contained"} size={"small"} color={"primary"} onClick={handleCreate}>{createButton}</Button>
             </DialogActions>
 
         </Dialog>
