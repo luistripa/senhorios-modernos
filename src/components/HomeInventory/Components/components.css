@@ -1,0 +1,167 @@
+.top-header-modal {
+    text-align: center;
+    position: absolute;
+    bottom: 87%;
+    width: 100%;
+    left: 0;
+}
+
+.division-top-header{
+    bottom: 82% !important;
+}
+
+.top {
+    display: inline-block;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
+
+.buttonClose {
+    position: absolute;
+    right: 0px;
+    bottom: -30%;
+}
+
+.buttonClose > button {
+    border: 0;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.addDivision-modal, .division-modal {
+    border: 0;
+    position: absolute;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vmin;
+    background-color: #FFF;
+    padding: 1.5em;
+    border-radius: 10px;
+    min-width: 60vmin;
+    max-width: 60vmin;
+    min-height: 47vmin;
+}
+
+.modal-modal-title {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 10%;
+    top: 13%;
+    right: 10%;
+    padding: 0;
+    color: #242038;
+}
+
+.division-title{
+    top: 7% !important;
+}
+
+.createDivision-form {
+    padding: 4rem 1rem 1rem 1rem;
+}
+
+.house-icon-card {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 100;
+    padding: 30%;
+}
+
+.division-icon-card {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 100;
+    padding: 30%;
+}
+
+.close-icon {
+    min-height: 72px;
+    width: 1em;
+}
+
+.input [type="file"] {
+    display: none;
+}
+
+.input.icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.input.icon > .input-label {
+    justify-content: start;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: flex;
+    padding: 7px;
+    cursor: pointer;
+    width: 35%;
+    justify-content: center;
+    align-items: flex-end;
+    border-radius: 10px;
+}
+
+.addItemBtnSection {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.submitBtn {
+    font: inherit;
+    font-size: 1.25rem;
+    padding: 0.55em;
+    width: 100%;
+    font-weight: 500;
+    background-color: #6658d3;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+}
+
+.submitBtn:focus {
+    outline: 0;
+
+}
+
+/*DivisionItems code styling*/
+
+.quantity-output-label {
+    color: #8597a3;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 1rem;
+    border-width: 0;
+}
+
+.quantity-button {
+    background-color: #A2A3BB;
+    padding: 7px 20px;
+    border-radius: 20px;
+    border-width: 0;
+}
+
+.division-items {
+    padding: 5rem 0rem 0rem 0rem;
+}
+
+.division-items-form {
+    padding: 0rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.division-item-group {
+    padding-bottom: 3%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}

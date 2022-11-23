@@ -1,23 +1,15 @@
-
-
-.division-container {
-    display: flex;
-    align-items: center;
-
-    width: 80%;
-    height: 150px;
-
-    background-color: aquamarine;
-    border: 1px solid black;
-}
-
-.division-container .division {
-    display: flex;
+.grid-inventory{
     justify-content: center;
     align-items: center;
-    
-    width: 80px;
-    height: 80px;
-    border: 3px solid yellow;
-    margin: 10px;
+}
+
+.division-card{
+    width: 100px;
+    height: 100px;
+}
+
+.division-image{
+    position: relative;
+    top: 20%;
+    left: 20%;
 }
