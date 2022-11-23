@@ -11,20 +11,22 @@ import {MyCalendar} from "./components/MyCalendar/MyCalendar";
 function App() {
 
   return (
-    <div className="App">
-        <TopBarAfterLogin/>
-        <TopBarBeforeLogin/>
-
         <BrowserRouter>
             <Routes>
-                <Route path={"/mycalendar"} element={<MyCalendar/>}/>
+                <Route path="/" element={<Homepage />} />
                 <Route path="/login-and-register" element={<LoginAndRegister />} />
+                <Route path={"/mycalendar"} element={<MyCalendar/>}/>
             </Routes>
         </BrowserRouter>
-        
-        <HomeInventory/>
-    </div>
   )
+}
+
+const Homepage = () => {
+    return(
+        <>
+            <TopBarBeforeLogin/>
+        </>
+    )
 }
 
 export default App
