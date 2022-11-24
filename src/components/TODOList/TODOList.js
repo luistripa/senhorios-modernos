@@ -16,26 +16,34 @@ import {useEffect, useState} from "react";
 
 export function TODOList(props){
 
-    const [checked, setChecked] = useState([-1]); //-1 -> not checked
+    const [checked, setChecked] = useState([-1]);
 
     const [todoList, setTodoList] = useState([]);
-
-    const [doneList, setDoneList] = useState([]);
 
     const [inputText, setInputText] = useState("");
 
     useEffect(() => {
         setTodoList([
-            "Clean Kitchen",
-            "Paint wall",
-            "Fix pipe"
-        ]);
-    }, []);
-
-    useEffect(() => {
-        setDoneList([
-            "Do laundry",
-            "Buy washing machine"
+            {
+                name: "Clean Kitchen",
+                isChecked: false
+            },
+            {
+                name: "Paint wall",
+                isChecked: false
+            },
+            {
+                name: "Fix pipe",
+                isChecked: false
+            },
+            {
+                name: "Do laundry",
+                isChecked: true
+            },
+            {
+                name: "Buy washing machine",
+                isChecked: true
+            }
         ]);
     }, []);
 
@@ -54,7 +62,7 @@ export function TODOList(props){
         setChecked(newChecked);
     };
 
-    const handleDeleteTodo = (value) => {
+    const handleDelete= (value) => {
         let newTodoList = [];
         let i = 0;
         todoList.forEach(elem => {
@@ -63,17 +71,6 @@ export function TODOList(props){
             i++;
         })
         setTodoList(newTodoList);
-    }
-
-    const handleDeleteDone = (value) => {
-        let newDoneList = [];
-        let i = 0;
-        doneList.forEach(elem => {
-            if (i !== value)
-                newDoneList.push(elem);
-            i++;
-        })
-        setDoneList(newDoneList);
     }
 
     const handleAdd = (string) => {
@@ -96,7 +93,7 @@ export function TODOList(props){
                     <ListItem
                         key={value}
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteTodo(value)}>
+                            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(value)}>
                                 <Delete/>
                             </IconButton>
                         }
@@ -110,7 +107,7 @@ export function TODOList(props){
                                     inputProps={{'aria-labelledby': labelId}}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={todoList[value]} />
+                            <ListItemText id={labelId} primary={todoList[value].name} />
                         </ListItemButton>
                     </ListItem>
                 );
@@ -128,32 +125,6 @@ export function TODOList(props){
                 />
             </ListItem>
             <Divider/>
-            {[...Array(doneList.length).keys()].map((value) => {
-                const labelId = `checkbox-list-label-${value}`;
-
-                return (
-                    <ListItem
-                        key={value}
-                        secondaryAction={
-                            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteDone(value)}>
-                                <Delete/>
-                            </IconButton>
-                        }
-                        disablePadding
-                    >
-                        <ListItemButton role={undefined} onClick={() => handleToggle(value)} dense>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    inputProps={{'aria-labelledby': labelId}}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={doneList[value]} />
-                        </ListItemButton>
-                    </ListItem>
-                );
-            })}
         </List>
     );
 }
