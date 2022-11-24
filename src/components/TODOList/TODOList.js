@@ -20,13 +20,22 @@ export function TODOList(props){
 
     const [todoList, setTodoList] = useState([]);
 
+    const [doneList, setDoneList] = useState([]);
+
     const [inputText, setInputText] = useState("");
 
     useEffect(() => {
         setTodoList([
             "Clean Kitchen",
             "Paint wall",
-            "Fix pipe",
+            "Fix pipe"
+        ]);
+    }, []);
+
+    useEffect(() => {
+        setDoneList([
+            "Do laundry",
+            "Buy washing machine"
         ]);
     }, []);
 
@@ -45,7 +54,7 @@ export function TODOList(props){
         setChecked(newChecked);
     };
 
-    const handleDelete = (value) => {
+    const handleDeleteTodo = (value) => {
         let newTodoList = [];
         let i = 0;
         todoList.forEach(elem => {
@@ -54,6 +63,17 @@ export function TODOList(props){
             i++;
         })
         setTodoList(newTodoList);
+    }
+
+    const handleDeleteDone = (value) => {
+        let newDoneList = [];
+        let i = 0;
+        doneList.forEach(elem => {
+            if (i !== value)
+                newDoneList.push(elem);
+            i++;
+        })
+        setDoneList(newDoneList);
     }
 
     const handleAdd = (string) => {
@@ -76,7 +96,7 @@ export function TODOList(props){
                     <ListItem
                         key={value}
                         secondaryAction={
-                            <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(value)}>
+                            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteTodo(value)}>
                                 <Delete/>
                             </IconButton>
                         }
@@ -108,6 +128,32 @@ export function TODOList(props){
                 />
             </ListItem>
             <Divider/>
+            {[...Array(doneList.length).keys()].map((value) => {
+                const labelId = `checkbox-list-label-${value}`;
+
+                return (
+                    <ListItem
+                        key={value}
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteDone(value)}>
+                                <Delete/>
+                            </IconButton>
+                        }
+                        disablePadding
+                    >
+                        <ListItemButton role={undefined} onClick={() => handleToggle(value)} dense>
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={checked.indexOf(value) !== -1}
+                                    inputProps={{'aria-labelledby': labelId}}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={doneList[value]} />
+                        </ListItemButton>
+                    </ListItem>
+                );
+            })}
         </List>
     );
 }
