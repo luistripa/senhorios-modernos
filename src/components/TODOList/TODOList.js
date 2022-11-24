@@ -16,8 +16,6 @@ import {useEffect, useState} from "react";
 
 export function TODOList(props){
 
-    const [checked, setChecked] = useState([-1]);
-
     const [todoList, setTodoList] = useState([]);
 
     const [inputText, setInputText] = useState("");
@@ -25,22 +23,27 @@ export function TODOList(props){
     useEffect(() => {
         setTodoList([
             {
+                id: 0,
                 name: "Clean Kitchen",
                 isChecked: false
             },
             {
+                id: 1,
                 name: "Paint wall",
                 isChecked: false
             },
             {
+                id: 2,
                 name: "Fix pipe",
                 isChecked: false
             },
             {
+                id: 3,
                 name: "Do laundry",
                 isChecked: true
             },
             {
+                id: 4,
                 name: "Buy washing machine",
                 isChecked: true
             }
@@ -48,18 +51,16 @@ export function TODOList(props){
     }, []);
 
     const handleToggle = (value) => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-        if (currentIndex === -1) {
-            const newTodoList = [...todoList]
-            newTodoList.push(newTodoList.splice(value, 1)[0])
-            setTodoList(newTodoList)
-            newChecked.push(value)
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
+        let newTodoList = [];
+        let i = 0;
+        todoList.forEach(elem => {
+            if (i === value){
+                elem.isChecked = !elem.isChecked;
+            }
+            newTodoList.push(elem);
+            i++;
+        })
+        setTodoList(newTodoList);
     };
 
     const handleDelete= (value) => {
@@ -75,7 +76,11 @@ export function TODOList(props){
 
     const handleAdd = (string) => {
         let newTodoList = [...todoList];
-        newTodoList.push(string);
+        newTodoList.push({
+            id: listIds().length,
+            name: string,
+            isChecked: false
+        });
         setTodoList(newTodoList);
         setInputText("");
     }
@@ -84,9 +89,17 @@ export function TODOList(props){
         setInputText(e.target.value);
     }
 
+    const listIds = () =>{
+        let ids = [];
+        todoList.forEach(elem => {
+            ids.push(elem.id)
+        })
+        return ids;
+    }
+
     return (
         <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
-            {[...Array(todoList.length).keys()].map((value) => {
+            {listIds().map((value) => {
                 const labelId = `checkbox-list-label-${value}`;
 
                 return (
@@ -103,7 +116,7 @@ export function TODOList(props){
                             <ListItemIcon>
                                 <Checkbox
                                     edge="start"
-                                    checked={checked.indexOf(value) !== -1}
+                                    checked={todoList[value].isChecked !== false}
                                     inputProps={{'aria-labelledby': labelId}}
                                 />
                             </ListItemIcon>
