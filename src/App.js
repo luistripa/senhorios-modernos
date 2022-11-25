@@ -7,6 +7,7 @@ import {HomeInventory} from "./components/HomeInventory/HomeInventory";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {MyCalendar} from "./components/MyCalendar/MyCalendar";
 import MyHousesPage from "./components/MyHousesPage/MyHousesPage";
+import TopBarTest from "./components/TopBar/TopBarTest";
 
 
 function App() {
@@ -14,12 +15,10 @@ function App() {
   return (
     <div className="App">
         <TopBarAfterLogin/>
-        <TopBarBeforeLogin/>
-
         <BrowserRouter>
             <Routes>
                 <Route path={"/my-calendar"} element={<MyCalendar/>}/>
-                <Route path="/login-and-register" element={<LoginAndRegister />} />
+                <Route path="/login-and-register" element={<LoginAndRegister/>} />
                 <Route path={"/my-houses"} element={<MyHousesPage/>}/>
             </Routes>
         </BrowserRouter>
