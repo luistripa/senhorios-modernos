@@ -22,6 +22,7 @@ export function TODOList(){
 
     const [addItem, setAddItem] = useState(false);
 
+    //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
         setTodoList([
             {
@@ -69,7 +70,7 @@ export function TODOList(){
             name: string,
             isChecked: false
         });
-        setTodoList(newTodoList);
+        sortTodoList(newTodoList);
         setInputText("");
         setAddItem(false);
     }
@@ -86,7 +87,7 @@ export function TODOList(){
                 newTodoList.push(elem);
             i++;
         })
-        setTodoList(newTodoList);
+        sortTodoList(newTodoList);
     }
 
     const handleToggle = (e, value) => {
@@ -105,8 +106,13 @@ export function TODOList(){
             newTodoList.push(elem);
             i++;
         })
-        setTodoList(newTodoList);
+        sortTodoList(newTodoList);
     };
+
+    const sortTodoList = (list) => {
+        const sortedList = list.sort((a, b) => Number(a.isChecked) - Number(b.isChecked));
+        setTodoList(sortedList);
+    }
 
     return(
         <Box sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
