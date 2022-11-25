@@ -7,7 +7,6 @@ import {HomeInventory} from "./components/HomeInventory/HomeInventory";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {MyCalendar} from "./components/MyCalendar/MyCalendar";
 import MyHousesPage from "./components/MyHousesPage/MyHousesPage";
-import TopBarTest from "./components/TopBar/TopBarTest";
 
 
 function App() {

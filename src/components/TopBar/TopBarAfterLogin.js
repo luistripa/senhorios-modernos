@@ -1,11 +1,7 @@
 import "./TopBar.css"
 import * as React from 'react';
 import {
-    AppBar,
     IconButton,
-    Toolbar,
-    Icon,
-    Stack,
     Button,
     Typography,
     Menu,
@@ -13,7 +9,7 @@ import {
     Avatar,
     ListItemIcon
 } from "@mui/material"
-import logo from "../../static/LogoIPM.png"
+import logo from "../../static/LogoIPM-no-background.png"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
