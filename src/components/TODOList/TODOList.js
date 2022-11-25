@@ -90,18 +90,12 @@ export function TODOList(){
         sortTodoList(newTodoList);
     }
 
-    const handleToggle = (e, value) => {
+    const handleToggle = (value) => {
         let newTodoList = [];
         let i = 0;
         todoList.forEach(elem => {
             if (i === value) {
                 elem.isChecked = !elem.isChecked;
-                if(elem.isChecked){
-                    e.target.style.setProperty('text-decoration', 'line-through');
-                }
-                else{
-                    e.target.style.removeProperty('text-decoration');
-                }
             }
             newTodoList.push(elem);
             i++;
@@ -151,7 +145,7 @@ export function TODOList(){
                             }
                             disablePadding
                         >
-                            <ListItemButton role={undefined} onClick={e => handleToggle(e, value)} dense>
+                            <ListItemButton role={undefined} onClick={()=> handleToggle(value)} dense>
                                 <ListItemIcon>
                                     <Checkbox
                                         edge="start"
@@ -159,7 +153,11 @@ export function TODOList(){
                                         inputProps={{'aria-labelledby': labelId}}
                                     />
                                 </ListItemIcon>
-                                <ListItemText id={labelId} primary={todoList[value].name}/>
+                                {!todoList[value].isChecked && <ListItemText id={labelId} primary={todoList[value].name}/>}
+                                {todoList[value].isChecked && <ListItemText id={labelId}
+                                                                            primary={todoList[value].name}
+                                                                            style={{textDecoration: 'line-through'}}
+                                />}
                             </ListItemButton>
                         </ListItem>
                     );
