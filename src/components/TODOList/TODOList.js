@@ -22,6 +22,8 @@ export function TODOList(){
 
     const [addItem, setAddItem] = useState(false);
 
+    //TODO - Fazer scroll bar
+
     //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
         setTodoList([
@@ -64,14 +66,16 @@ export function TODOList(){
     }
 
     const handleAdd = (string) => {
-        let newTodoList = [...todoList];
-        newTodoList.push({
-            id: todoList.length,
-            name: string,
-            isChecked: false
-        });
-        sortTodoList(newTodoList);
-        setInputText("");
+        if(string !== ""){
+            let newTodoList = [...todoList];
+            newTodoList.push({
+                id: todoList.length,
+                name: string,
+                isChecked: false
+            });
+            sortTodoList(newTodoList);
+            setInputText("");
+        }
         setAddItem(false);
     }
 
