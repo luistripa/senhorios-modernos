@@ -1,7 +1,6 @@
 import Calendar from "../Calendar/Calendar";
 import moment from "moment/moment";
 import {useEffect, useState} from "react";
-import axios from 'axios';
 
 export function MyCalendar(props) {
 
