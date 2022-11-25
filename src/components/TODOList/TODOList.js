@@ -18,6 +18,8 @@ export function TODOList(props){
 
     const [todoList, setTodoList] = useState([]);
 
+    const [doneList, setDoneList] = useState([]);
+
     const [inputText, setInputText] = useState("");
 
     useEffect(() => {
@@ -36,19 +38,25 @@ export function TODOList(props){
                 id: 2,
                 name: "Fix pipe",
                 isChecked: false
-            },
+            }
+        ]);
+    }, []);
+
+    useEffect(() => {
+        setDoneList([
             {
-                id: 3,
+                id: 0,
                 name: "Do laundry",
                 isChecked: true
             },
             {
-                id: 4,
+                id: 1,
                 name: "Buy washing machine",
                 isChecked: true
             }
         ]);
     }, []);
+
 
     const handleToggle = (value) => {
         let newTodoList = [];
@@ -56,11 +64,32 @@ export function TODOList(props){
         todoList.forEach(elem => {
             if (i === value){
                 elem.isChecked = !elem.isChecked;
+                /*if(elem.isChecked){
+                    let newDoneList = [...doneList]
+                    newDoneList.push(elem);
+                    setDoneList(newDoneList);
+                }*/
             }
+            /*else{
+
+            }*/
             newTodoList.push(elem);
             i++;
         })
         setTodoList(newTodoList);
+    };
+
+    const handleToggleDone = (value) => {
+        let newDoneList = [];
+        let i = 0;
+        doneList.forEach(elem => {
+            if (i === value){
+                elem.isChecked = !elem.isChecked;
+            }
+            newDoneList.push(elem);
+            i++;
+        })
+        setDoneList(newDoneList);
     };
 
     const handleDelete= (value) => {
@@ -72,6 +101,17 @@ export function TODOList(props){
             i++;
         })
         setTodoList(newTodoList);
+    }
+
+    const handleDeleteDone= (value) => {
+        let newDoneList = [];
+        let i = 0;
+        doneList.forEach(elem => {
+            if (i !== value)
+                newDoneList.push(elem);
+            i++;
+        })
+        setDoneList(newDoneList);
     }
 
     const handleAdd = (string) => {
@@ -92,6 +132,14 @@ export function TODOList(props){
     const listIds = () =>{
         let ids = [];
         todoList.forEach(elem => {
+            ids.push(elem.id)
+        })
+        return ids;
+    }
+
+    const listDoneIds = () =>{
+        let ids = [];
+        doneList.forEach(elem => {
             ids.push(elem.id)
         })
         return ids;
@@ -138,6 +186,32 @@ export function TODOList(props){
                 />
             </ListItem>
             <Divider/>
+            {listDoneIds().map((value) => {
+                const labelId = `checkbox-list-label-${value}`;
+
+                return (
+                    <ListItem
+                        key={value}
+                        secondaryAction={
+                            <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteDone(value)}>
+                                <Delete/>
+                            </IconButton>
+                        }
+                        disablePadding
+                    >
+                        <ListItemButton role={undefined} onClick={() => handleToggleDone(value)} dense>
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={doneList[value].isChecked !== false}
+                                    inputProps={{'aria-labelledby': labelId}}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={doneList[value].name} />
+                        </ListItemButton>
+                    </ListItem>
+                );
+            })}
         </List>
     );
 }
