@@ -1,7 +1,7 @@
 import Calendar from "../Calendar/Calendar";
 import moment from "moment/moment";
 import {useEffect, useState} from "react";
-
+import axios from 'axios';
 
 export function MyCalendar(props) {
 
@@ -44,7 +44,8 @@ export function MyCalendar(props) {
                 description: "This is a description",
                 startDate: moment("2022-11-25 17:00:00"),
                 endDate: moment("2022-11-25 18:00:00"),
-                repeat: "NO"
+                repeat: "WEEKLY",
+                repeatUntil: moment("2023-02-25"),
             },
         ])
     }, [])
