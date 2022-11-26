@@ -2,8 +2,8 @@ import "./HouseDescription.css"
 
 import casaAmarela from "../../static/casaamarela.jpeg"
 import * as React from 'react';
-import {Box, Divider, Grid, Typography} from '@mui/material';
-import {LocationOn, Groups, Bed} from '@mui/icons-material';
+import {Divider, Grid, Typography} from '@mui/material';
+import {LocationOn} from '@mui/icons-material';
 import {useEffect, useState} from "react";
 
 export function HouseDescription() {
@@ -12,63 +12,56 @@ export function HouseDescription() {
 
     useEffect(() => {
         setYellowHouse(
-        {
-            name:"Casa Amarela",
-            address: "Rua Amarela",
-            capacity:"4",
-            typology:"T3",
-            img: casaAmarela
-        }
-    );
+            {
+                name:"Casa Amarela",
+                address: "Rua Amarela",
+                capacity:"4",
+                typology:"T3",
+                img: casaAmarela
+            }
+        );
     }, []);
 
     return(
-        <React.Fragment>
+        <div style={{backgroundRepeat: 'no-repeat', backgroundSize:'cover', backgroundPosition:'0% 75%',
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${casaAmarela})`}}>
             <Grid container padding={10}>
-                <Grid item xs={6} padding={10} sx={{display: "flex", alignItems: "center"}}>
+                <Grid item padding={10}>
                     <Grid container>
-                        <Typography variant={"h1"} marginBottom={"5%"}>
+                        <Typography variant={"h2"} marginBottom={"5%"} style={{color:"#FFD8A9", fontWeight:"600"}}>
                             {yellowHouse.name}
                         </Typography>
                         <Grid container style={{backgroundColor: '#FFD8A9', borderRadius: 10, padding: 10}}>
                             <Grid item style={{flexDirection: 'column', width:'33%'}}>
                                 <Grid item>
-                                    <LocationOn fontSize="large"/>
+                                    <LocationOn style={{fontSize:'200%', fontWeight:"800"}}/>
                                 </Grid>
-                                <Grid item>
+                                <Grid item fontSize="large">
                                     {yellowHouse.address}
                                 </Grid>
                             </Grid>
                             <Divider orientation="vertical" flexItem/>
                             <Grid item style={{flexDirection: 'column', width:'33%'}}>
-                                <Grid item>
-                                    <Groups fontSize="large"/>
-                                </Grid>
-                                <Grid item>
+                                <Grid item style={{fontSize:'200%', fontWeight:"800"}}>
                                     {yellowHouse.capacity}
+                                </Grid>
+                                <Grid item fontSize="large">
+                                    Capacity
                                 </Grid>
                             </Grid>
                             <Divider orientation="vertical" flexItem/>
                             <Grid item style={{flexDirection: 'column', width:'33%'}}>
-                                <Grid item>
-                                    <Bed fontSize="large"/>
-                                </Grid>
-                                <Grid item>
+                                <Grid item style={{fontSize:'200%', fontWeight:"800"}}>
                                     {yellowHouse.typology}
+                                </Grid>
+                                <Grid item fontSize="large">
+                                    Typology
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                    <Box
-                        component="img"
-                        src={yellowHouse.img}
-                        alt="HousePhoto"
-                        sx={{width: "100%", borderRadius: "10px 10px 10px 10px"}}
-                    />
-                </Grid>
             </Grid>
-        </React.Fragment>
+        </div>
     );
 }
