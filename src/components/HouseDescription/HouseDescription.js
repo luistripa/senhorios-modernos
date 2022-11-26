@@ -3,18 +3,24 @@ import "./HouseDescription.css"
 import casaAmarela from "../../static/casaamarela.jpeg"
 import * as React from 'react';
 import {Box, Grid, Typography} from '@mui/material';
-import {Signpost, Groups, Bed} from '@mui/icons-material';
-import {useState} from "react";
+import {LocationOn, Groups, Bed} from '@mui/icons-material';
+import {useEffect, useState} from "react";
 
-export function HouseDescription(props) {
+export function HouseDescription() {
 
-    const [yellowHouse, setYellowHouse] = useState( {
-        name:"Casa Amarela",
-        address: "Rua Amarela",
-        capacity:"4",
-        typology:"T3",
-        img: casaAmarela
-    });
+    const [yellowHouse, setYellowHouse] = useState({});
+
+    useEffect(() => {
+        setYellowHouse(
+        {
+            name:"Casa Amarela",
+            address: "Rua Amarela",
+            capacity:"4",
+            typology:"T3",
+            img: casaAmarela
+        }
+    );
+    }, []);
 
     return(
         <React.Fragment>
@@ -26,7 +32,7 @@ export function HouseDescription(props) {
                         </Typography>
                         <Grid container direction="row" alignItems="stretch">
                             <Grid item marginRight={2}>
-                                <Signpost fontSize="large"/>
+                                <LocationOn fontSize="large"/>
                             </Grid>
                             <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
                                 {yellowHouse.address}
