@@ -20,6 +20,7 @@ body{
     position: relative;
     width: 1200px;
     height: 600px;
+    margin: auto;
     padding: 20px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1)), url("background1.jfif");
     background-size: cover;
