@@ -22,8 +22,6 @@ export function TODOList(){
 
     const [addItem, setAddItem] = useState(false);
 
-    //TODO - Fazer scroll bar
-
     //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
         setTodoList([
@@ -113,7 +111,7 @@ export function TODOList(){
     }
 
     return(
-        <Box sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
+        <Box sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto'}}>
             <List>
                 <ListItem
                     secondaryAction={
