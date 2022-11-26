@@ -2,7 +2,7 @@ import "./HouseDescription.css"
 
 import casaAmarela from "../../static/casaamarela.jpeg"
 import * as React from 'react';
-import {Box, Grid, Typography} from '@mui/material';
+import {Box, Divider, Grid, Typography} from '@mui/material';
 import {LocationOn, Groups, Bed} from '@mui/icons-material';
 import {useEffect, useState} from "react";
 
@@ -30,28 +30,32 @@ export function HouseDescription() {
                         <Typography variant={"h2"}>
                             {yellowHouse.name}
                         </Typography>
-                        <Grid container direction="row" alignItems="stretch">
-                            <Grid item marginRight={2}>
-                                <LocationOn fontSize="large"/>
+                        <Grid container style={{backgroundColor: '#FFD8A9', borderRadius: 10, padding: 10}}>
+                            <Grid item style={{flexDirection: 'column', width:'33%'}}>
+                                <Grid item>
+                                    <LocationOn fontSize="large"/>
+                                </Grid>
+                                <Grid item>
+                                    {yellowHouse.address}
+                                </Grid>
                             </Grid>
-                            <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
-                                {yellowHouse.address}
+                            <Divider orientation="vertical" flexItem/>
+                            <Grid item style={{flexDirection: 'column', width:'33%'}}>
+                                <Grid item>
+                                    <Groups fontSize="large"/>
+                                </Grid>
+                                <Grid item>
+                                    {yellowHouse.capacity}
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid container direction="row" alignItems="stretch">
-                            <Grid item marginRight={2}>
-                                <Groups fontSize="large"/>
-                            </Grid>
-                            <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
-                                {yellowHouse.capacity}
-                            </Grid>
-                        </Grid>
-                        <Grid container direction="row" alignItems="stretch">
-                            <Grid item marginRight={2}>
-                                <Bed fontSize="large"/>
-                            </Grid>
-                            <Grid item fontSize="large" sx={{display: "flex", alignItems: "center"}}>
-                                {yellowHouse.typology}
+                            <Divider orientation="vertical" flexItem/>
+                            <Grid item style={{flexDirection: 'column', width:'33%'}}>
+                                <Grid item>
+                                    <Bed fontSize="large"/>
+                                </Grid>
+                                <Grid item>
+                                    {yellowHouse.typology}
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
