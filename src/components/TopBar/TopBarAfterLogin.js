@@ -17,18 +17,17 @@ import {useEffect, useState} from "react";
 export function TopBarAfterLogin() {
     const [sticky, setSticky] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setSticky(window.scrollY > 50);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    });
+    //replace with database
+    const userName = 'Nome';
+    const userApelido = 'Apelido';
+    const userEmail = 'Email@user.com';
+    const userAvatar = '/avatar.jpeg';
 
     const [dropDown, setDropDown] = React.useState(null);
     const [accountMenu, setAccountMenu] = React.useState(null);
     const open = Boolean(dropDown);
     const open2 = Boolean(accountMenu);
+
     const handleClick = (event) => {
         setDropDown(event.currentTarget);
     };
@@ -42,13 +41,50 @@ export function TopBarAfterLogin() {
         setAccountMenu(null);
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setSticky(window.scrollY > 50);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    });
+
+    function dropDownMenuLogin() {
+        return (
+            <>
+                <div className={'profile-user'}
+                     style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                    <div className={'avatar'}>
+                        <Avatar src={userAvatar}/>
+                    </div>
+                    <div className={'data-user'} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                        <div className={'names-user'} style={{display: "flex", flexDirection: "row"}}>
+                            <p>{userName}</p>
+                            &nbsp;
+                            <p>{userApelido}</p>
+                        </div>
+                        <p id='userEmail'> {userEmail} </p>
+                    </div>
+                    <div className={'log-out'}>
+                        <ListItemIcon>
+                            <Logout fontSize="small"/>
+                        </ListItemIcon>
+                        Logout
+                    </div>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <nav className={`${sticky ? "sticky" : ""}`}>
                 <div className="nav-inner">
                     <div className="logo">
                         <img src={logo} height={40} width={40}/>
-                        <p id={'logoTitle'}>OneHome</p>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
+                            <p id={'logoTitle'}>OneHome</p>
+                        </div>
                     </div>
                     <div className="links">
                         <Button
@@ -57,9 +93,9 @@ export function TopBarAfterLogin() {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                             onClick={handleClick}
-                            color="inherit"
-                            style={{textTransform: 'none'}}
-                            endIcon={<KeyboardArrowDownIcon/>}>
+                            endIcon={<KeyboardArrowDownIcon/>}
+                            color={'inherit'}
+                            style={{textTransform: 'none'}}>
                             OneHome
                         </Button>
                         <Menu
@@ -72,9 +108,8 @@ export function TopBarAfterLogin() {
                             <MenuItem onClick={handleClose}>Features</MenuItem>
                             <MenuItem onClick={handleClose}>Team</MenuItem>
                         </Menu>
-                        <Button color="inherit" href={"/my-houses"} style={{textTransform: 'none'}}>My Houses</Button>
-                        <Button color="inherit" href={"/my-calendar"} style={{textTransform: 'none'}}>My
-                            Calendar</Button>
+                        <a href="/my-houses">My Houses</a>
+                        <a href="/my-calendar">My Calendar</a>
                         <IconButton
                             id="account-button"
                             aria-controls={open ? "account-button" : undefined}
@@ -83,8 +118,8 @@ export function TopBarAfterLogin() {
                             onClick={handleClick2}
                             color="inherit"
                         >
-                            <Avatar/>
-                            <Typography sx={{marginLeft: "5px"}}>Nome</Typography>
+                            <Avatar src={userAvatar}/>&nbsp;&nbsp;
+                            <p sx={{marginLeft: "5px"}}>{userName}</p>
                         </IconButton>
                         <Menu
                             id="account-menu"
@@ -93,10 +128,7 @@ export function TopBarAfterLogin() {
                             onClose={handleClose2}
                         >
                             <MenuItem onClick={handleClose2}>
-                                <ListItemIcon>
-                                    <Logout fontSize="small"/>
-                                </ListItemIcon>
-                                Logout
+                                {dropDownMenuLogin()}
                             </MenuItem>
                         </Menu>
                     </div>
@@ -106,3 +138,4 @@ export function TopBarAfterLogin() {
         </>
     );
 }
+
