@@ -27,7 +27,7 @@ export function HouseDescription() {
             <Grid container padding={10}>
                 <Grid item xs={6} padding={10} sx={{display: "flex", alignItems: "center"}}>
                     <Grid container>
-                        <Typography variant={"h2"}>
+                        <Typography variant={"h1"} marginBottom={"5%"}>
                             {yellowHouse.name}
                         </Typography>
                         <Grid container style={{backgroundColor: '#FFD8A9', borderRadius: 10, padding: 10}}>
