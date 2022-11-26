@@ -6,7 +6,7 @@ export class MyHousesHeader extends Component {
 
     setImageByHour() {
         let image = '';
-        let hour = 18;
+        let hour = moment().hour();
 
         if (hour >= 6 && hour < 9) {
             image = "/sunrise.jpg";
