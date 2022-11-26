@@ -36,3 +36,97 @@
     transform: rotate(360deg);
   }
 }
+
+.CarouselPic_Home{
+  height: 380px;
+  width: 100%;
+}
+
+.CarouselCaption_Home{
+  font-size: 100px;
+  transform: translate(0, -60%);
+}
+
+.CarouselDescription_Home{
+  transform: translate(0, -450%);
+}
+
+.CarouselButton_Home{
+  transform: translate(528%, -325%);
+  position: relative;
+  border: none;
+  border-radius: 0px;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #242038;
+  color: #FBF9FF;
+  text-align: center;
+  cursor: pointer;
+}
+
+.CarouselButton_Home:hover{
+  color: #242038;
+  background-color: #FBF9FF;
+}
+
+.About_Home{
+  height: 500px;
+  background-color: #7A82AB;
+  color: white;
+  text-align: justify;
+  padding: 2%;
+  font-size: 18px;
+  display: flex;
+}
+
+.About_Home h1{
+  text-align: center;
+  background-color: #242038;
+  color: white;
+  padding: 5px;
+}
+
+.About_Home .container_Home{
+  padding: 20px 50px 20px 50px;
+  width: 50%;
+  background-color: #7A82AB;
+}
+
+.About_Home img{
+  height: 100% !important;
+  width: 100%;
+}
+
+#First_About_Home{
+  margin-top: -3%;
+}
+
+.CardsContainer_Home{
+  margin-top: 5%;
+  background-color: #7A82AB;
+  color: #242038;
+  display: flex;
+}
+
+.Card_Home{
+  margin-top: -1%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.CardTitle_Home{
+  /*align center*/
+}
+
+.card-text_Home {
+  font-size: 15px;
+}
+
+.card:hover {
+  box-shadow: 0 16px 20px 0 rgba(0,0,0,0.2);
+}
+
+
+
+
