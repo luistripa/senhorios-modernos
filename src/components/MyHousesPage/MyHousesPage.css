@@ -1,15 +1,6 @@
 .containerFirstPart {
-    display: flex;
     flex-direction: row;
     column-gap: 8%;
-}
-
-.containerRentalInfo {
-    display: flex;
-    flex-direction: column;
-    width: 33.5%;
-    padding: 6% 0 0 15%;
-    row-gap: 3%;
 }
 
 .containerHousesList {
@@ -18,6 +9,6 @@
     padding-top: 3%;
 }
 
-.containerSecondPart {
+.containerEventsList {
     margin-top: 8%;
 }

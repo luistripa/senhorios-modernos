@@ -1,0 +1,11 @@
+.divCardsProperties {
+    display: flex;
+    flex-direction: row;
+    padding: 5%;
+    justify-content: center;
+}
+
+.cardProperties {
+    background-color: gainsboro;
+    padding: 2%;
+}
