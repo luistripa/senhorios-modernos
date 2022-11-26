@@ -21,7 +21,9 @@ export function TopBarBeforeLogin() {
                 <div className="nav-inner">
                     <div className="logo">
                         <img src={logo} height={40} width={40}/>
-                        <p id={'logoTitle'}>OneHome</p>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
+                            <p id={'logoTitle'}>OneHome</p>
+                        </div>
                     </div>
                     <div className="links">
                         <a href="#">About OneHome</a>
