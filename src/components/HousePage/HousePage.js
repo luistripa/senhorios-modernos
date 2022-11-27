@@ -37,22 +37,22 @@ export function HousePage() {
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell sx={{width: "70%"}}>
+                        <TableCell sx={{width: "70%", borderBottom:"none"}}>
                             <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>Events</p>
                         </TableCell>
-                        <TableCell sx={{width: "30%"}}>
+                        <TableCell sx={{width: "30%", borderBottom:"none"}}>
                             <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>To Do List</p>
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell sx={{width: "70%"}}>
+                        <TableCell sx={{width: "70%", borderBottom:"none"}}>
                             <Calendar events={[]}
                                       onEventCreate={handleEventCreate}
                                       onEventEdit={handleEventEdit}
                                       onEventDelete={handleEventDelete}
                             />
                         </TableCell>
-                        <TableCell sx={{width: "30%", verticalAlign: "top"}}>
+                        <TableCell sx={{width: "30%", verticalAlign: "top", borderBottom:"none"}}>
                             <Box sx={{width: '100%', overflowY: 'scroll', maxHeight: "calc(calc(100vw * 0.42) - 16px)", minHeight: "calc(calc(100vw * 0.42) - 16px)"}}>
                                 <TODOList/>
                             </Box>
