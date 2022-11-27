@@ -22,9 +22,13 @@ export function TODOList(){
 
     const [inputText, setInputText] = useState("");
 
+    const [inputTextEdit, setInputTextEdit] = useState("");
+
     const [addItem, setAddItem] = useState(false);
 
     const [isEmpty, setIsEmpty] = useState(false);
+
+    const [editItemId, setEditItemId] = useState(undefined);
 
     //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
@@ -103,6 +107,10 @@ export function TODOList(){
         setInputText(e.target.value);
     }
 
+    const handleInputEdit = e => {
+        setInputTextEdit(e.target.value);
+    }
+
     const handleKeyDown = e => {
         if(e.key === 'Enter'){
             handleAdd(e.target.value)
@@ -118,6 +126,7 @@ export function TODOList(){
             setInputText("");
         }
         setIsEmpty(false);
+        setAddItem(false);
     }
 
     const handleAddButton = () => {
@@ -149,15 +158,34 @@ export function TODOList(){
         sortTodoList(newTodoList);
     };
 
+    const handleClick = (value, index) => {
+        setEditItemId(index);
+        setInputTextEdit(value.name);
+    }
+
     const sortTodoList = (list) => {
         const sortedList = list.sort((a, b) => Number(a.checked) - Number(b.checked));
         setTodoList(sortedList);
-    }
+    };
+
+    const handleKeyDownEdit = (e, index) => {
+        if(e.key === 'Enter' || e.type === "blur"){
+            let newTodoList = [];
+            todoList.forEach(elem => {
+                if(elem.id === index){
+                    elem.name = inputTextEdit
+                }
+                newTodoList.push(elem);
+            })
+            setTodoList(newTodoList);
+            setInputTextEdit("");
+        }
+    };
 
     return(
         <Table sx={{tableLayout: "fixed"}}>
             <TableBody>
-                <TableRow>
+                <TableRow sx={{justifyContent: "center", display: 'flex'}}>
                     <List component={"td"} sx={{padding: "0"}}>
                         <ListItem sx={{padding: "0"}}>
                             <Button variant="contained" aria-label="addButton" onClick={() => handleAddButton()}
@@ -177,9 +205,8 @@ export function TODOList(){
                                 <Check style={{color: '#4B4E6D'}} onClick={() => handleAdd(inputText)}/>
                             </IconButton>
                             <Input value={inputText} onChange={handleInput} onKeyDown={handleKeyDown}
-                                   sx={{bgcolor: 'background.paper', width:'75%'}}
-                                   style={{color: '#4B4E6D'}}
-                                   placeholder="Type new item "
+                                   sx={{bgcolor: 'background.paper', width:'80%'}}
+                                   placeholder="Type new item"
                             />
                         </ListItem>
                     </List>
@@ -200,17 +227,25 @@ export function TODOList(){
                 : todoList.map((value, index, array) => (
                             <TableRow key={index}>
                                 <List component={"td"} sx={{padding: "0"}}>
-                                    <ListItem sx={{padding: "0"}}>
+                                    <ListItem sx={{padding: "0"}} onClick={() => handleClick(value, index)}>
                                         <Checkbox
                                             style={{color: '#4B4E6D'}}
                                             checked={array[index].checked}
                                             onClick={() => handleToggle(index)}
                                         />
-                                        <ListItemText primary={
-                                            <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name} overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
-                                                {value.name}
-                                            </Typography>
-                                        }/>
+                                        {editItemId === index ? <ListItemText primary={
+                                                <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, index)}
+                                                       onBlur={(e) => handleKeyDownEdit(e, index)}
+                                                       sx={{bgcolor: 'background.paper', width:'100%'}}
+                                                />
+                                            }/>
+                                        : <ListItemText primary={
+                                                <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name}
+                                                            overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
+                                                    {value.name}
+                                                </Typography>
+                                            }/>
+                                        }
                                         <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
                                             <Delete style={{color: '#4B4E6D'}}/>
                                         </IconButton>
