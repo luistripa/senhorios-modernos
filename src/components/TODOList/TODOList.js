@@ -57,46 +57,6 @@ export function TODOList(){
                 id: 4,
                 name: "Buy washing machine",
                 checked: true
-            },
-            {
-                id: 5,
-                name: "Do laundry",
-                checked: true
-            },
-            {
-                id: 6,
-                name: "Buy washing machine",
-                checked: true
-            },
-            {
-                id: 7,
-                name: "Do laundry",
-                checked: true
-            },
-            {
-                id: 8,
-                name: "Buy washing machine",
-                checked: true
-            },
-            {
-                id: 9,
-                name: "Do laundry",
-                checked: true
-            },
-            {
-                id: 10,
-                name: "Buy washing machine",
-                checked: true
-            },
-            {
-                id: 11,
-                name: "Clean Kitchen",
-                checked: false
-            },
-            {
-                id: 12,
-                name: "Paint wall",
-                checked: false
             }
         ];
 
@@ -178,9 +138,21 @@ export function TODOList(){
                 newTodoList.push(elem);
             })
             setTodoList(newTodoList);
-            setInputTextEdit("");
+            setEditItemId(undefined);
         }
     };
+
+    const handleEdit = (index) => {
+        let newTodoList = [];
+        todoList.forEach(elem => {
+            if(elem.id === index){
+                elem.name = inputTextEdit
+            }
+            newTodoList.push(elem);
+        })
+        setTodoList(newTodoList);
+        setEditItemId(undefined);
+    }
 
     return(
         <Table sx={{tableLayout: "fixed"}}>
@@ -190,7 +162,7 @@ export function TODOList(){
                         <ListItem sx={{padding: "0"}}>
                             <Button variant="contained" aria-label="addButton" onClick={() => handleAddButton()}
                                     sx={{color: '#FBF9FF', backgroundColor:'#4B4E6D',  "&:hover": {
-                                            backgroundColor: "#242038",
+                                            backgroundColor: "#242038"
                                         }}}>
                                 Add Item
                             </Button>
@@ -233,22 +205,29 @@ export function TODOList(){
                                             checked={array[index].checked}
                                             onClick={() => handleToggle(index)}
                                         />
-                                        {editItemId === index ? <ListItemText primary={
-                                                <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, index)}
-                                                       onBlur={(e) => handleKeyDownEdit(e, index)}
-                                                       sx={{bgcolor: 'background.paper', width:'100%'}}
-                                                />
-                                            }/>
-                                        : <ListItemText primary={
+                                        {editItemId === index ? <>
+                                                <ListItemText primary={
+                                                    <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, index)}
+                                                           onBlur={(e) => handleKeyDownEdit(e, index)}
+                                                           sx={{bgcolor: 'background.paper', width:'100%'}}
+                                                    />
+                                                }/>
+                                                <IconButton>
+                                                    <Check style={{color: '#4B4E6D'}} onClick={() => handleEdit(value.id)}/>
+                                                </IconButton>
+                                            </>
+                                        : <>
+                                                <ListItemText primary={
                                                 <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name}
                                                             overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
                                                     {value.name}
                                                 </Typography>
-                                            }/>
+                                                }/>
+                                                <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
+                                                    <Delete style={{color: '#4B4E6D'}}/>
+                                                </IconButton>
+                                            </>
                                         }
-                                        <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
-                                            <Delete style={{color: '#4B4E6D'}}/>
-                                        </IconButton>
                                     </ListItem>
                                 </List>
                             </TableRow>
