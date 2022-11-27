@@ -44,58 +44,69 @@ export function getFirstDayOfCalendar(date) {
     return firstDayOfMonth.subtract(diffDays-1, "day");
 }
 
+function removeTime(date) {
+    return date.clone().hours(0).minutes(0).seconds(0).milliseconds(0);
+}
+
 
 /**
  *
  * @param {moment.Moment} day_date
- * @param events
+ * @param all_events
  * @returns {*[]}
  */
-export function getDayEvents(day_date, events) {
+export function getDayEvents(day_date, all_events) {
     let day_events = [];
 
-    for (let event of events) {
-        if (event.repeat === "NO") {
-            if (hasSameDay(day_date, event.startDate)) {
-                day_events.push(event);
-            } else if (hasSameDay(day_date, event.endDate)) {
-                day_events.push(event);
-            } else if (day_date.isBetween(event.startDate, event.endDate)) {
-                day_events.push(event)
-            }
-
-        } else if (event.repeat === "DAILY") {
-            if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
-                if (hasSameDay(day_date, event.startDate)) {
+    for (let event of all_events) {
+        switch (event.repeat) {
+            case "NO": {
+                if (day_date.isBetween(removeTime(event.startDate), removeTime(event.endDate))) {
                     day_events.push(event);
+
+                } else if (hasSameDay(day_date, event.startDate)) {
+                    day_events.push(event);
+
                 } else if (hasSameDay(day_date, event.endDate)) {
                     day_events.push(event);
-                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
-                    day_events.push(event);
                 }
+                break;
             }
-
-        } else if (event.repeat === "WEEKLY") {
-            if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
-                if (day_date.weekday() === event.startDate.weekday()) {
-                    day_events.push(event);
-                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
+            case "DAILY": {
+                if (day_date.isSameOrAfter(removeTime(event.startDate)) && day_date.isSameOrBefore(event.repeatUntil)) {
+                    // If event has started and event repeat hasn't ended
                     day_events.push(event);
                 }
+                break;
             }
-
-        } else if (event.repeat === "MONTHLY") {
-            if (!event.repeatUntil || (event.repeatUntil && event.repeatUntil.isSameOrAfter(day_date))) {
-                if (day_date.format("DD") === event.startDate.format("DD") && day_date.isSameOrAfter(event.startDate)) {
-                    day_events.push(event);
-                } else if (day_date.isBetween(event.startDate, event.endDate)) { // TODO: Fix this
-                    day_events.push(event);
+            case "WEEKLY": {
+                if (day_date.isSameOrAfter(removeTime(event.startDate)) && day_date.isSameOrBefore(event.repeatUntil)) {
+                    // If inside event repeat
+                    if (day_date.weekday() === event.startDate.weekday())
+                        day_events.push(event);
                 }
+                break;
+            }
+            case "MONTHLY": {
+                if (day_date.isSameOrAfter(removeTime(event.startDate)) && day_date.isSameOrBefore(event.repeatUntil)) {
+                    // If inside event repeat
+                    if (day_date.date() === event.startDate.date())
+                        // If event has same date as day
+                        day_events.push(event);
+                }
+                break;
+            }
+            case "YEARLY": {
+                if (day_date.isSameOrAfter(removeTime(event.startDate)) && day_date.isSameOrBefore(event.repeatUntil)) {
+                    // If inside event repeat
+                    if (day_date.month() === event.startDate.month() && day_date.date() === event.startDate.date()) {
+                        // If event has same date and month as day
+                        day_events.push(event);
+                    }
+                }
+                break;
             }
         }
     }
-
-    // TODO: Order events
-
-    return day_events
+    return day_events;
 }
