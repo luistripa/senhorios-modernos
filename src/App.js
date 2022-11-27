@@ -1,32 +1,26 @@
 import './App.css';
+import {Homepage} from "./components/Homepage/Homepage";
 import LoginAndRegister from "./components/LoginAndRegister/LoginAndRegister";
-import React from 'react';
-import {TopBarAfterLogin} from "./components/TopBar/TopBarAfterLogin";
-import {TopBarBeforeLogin} from "./components/TopBar/TopBarBeforeLogin";
-import {HomeInventory} from "./components/HomeInventory/HomeInventory";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {MyCalendar} from "./components/MyCalendar/MyCalendar";
 import MyHousesPage from "./components/MyHousesPage/MyHousesPage";
+import React from 'react';
+
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 
-function App() {
+const App = () => {
 
   return (
-    <div className="App">
-        <TopBarAfterLogin/>
-        <TopBarBeforeLogin/>
-
-        <BrowserRouter>
-            <Routes>
-                <Route path={"/my-calendar"} element={<MyCalendar/>}/>
-                <Route path="/login-and-register" element={<LoginAndRegister />} />
-                <Route path={"/my-houses"} element={<MyHousesPage/>}/>
-            </Routes>
-        </BrowserRouter>
-        
-        <HomeInventory/>
-    </div>
+      <BrowserRouter>
+        <Routes>
+            <Route path={"/"} element={<Homepage/>}/>
+            <Route path="/login-and-register" element={<LoginAndRegister/>} />
+            <Route path={"/my-houses"} element={<MyHousesPage/>}/>
+            <Route path={"/my-calendar"} element={<MyCalendar/>}/>
+        </Routes>
+      </BrowserRouter>
   )
 }
+
 
 export default App

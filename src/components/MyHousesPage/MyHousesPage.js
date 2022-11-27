@@ -1,7 +1,7 @@
 import React from 'react';
 import {EventsList} from "./EventsList/EventsList";
 import {HousesList} from "./HousesList/HousesList";
-import {MyHousesHeader} from "./Header /MyHousesHeader";
+import {MyHousesHeader} from "./Header/MyHousesHeader";
 import {RentalsInfo} from "./RentalsInfo/RentalsInfo";
 import './MyHousesPage.css';
 

@@ -6,11 +6,10 @@ export class MyHousesHeader extends Component {
 
     setImageByHour() {
         let image = '';
-        //let hour = moment().hour();
-        let hour = 10;
+        let hour = moment().hour();
 
         if (hour >= 6 && hour < 9) {
-            image = "/sunrise2.png";
+            image = "/sunrise.jpg";
         } else if (hour >= 9 && hour < 17) {
             image = "/daylight.jpg";
         } else if (hour >= 17 && hour < 20) {
@@ -26,7 +25,7 @@ export class MyHousesHeader extends Component {
         let image = this.setImageByHour();
         return (
             <>
-                <div className='myHousesHeader ${image}' style={{backgroundImage: `url(${image})`}}>
+                <div className='myHousesHeader' style={{backgroundImage: `url(${image})`}}>
                     <div style={{display: "flex", justifyContent: "flex-start", padding: "9% 0% 0% 13%"}}>
                         <Avatar src={"/avatar.jpeg"} sx={{width: 200, height: 200}} style={{border: "5px solid white"}}>
                         </Avatar>

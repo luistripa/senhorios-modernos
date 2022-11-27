@@ -10,6 +10,7 @@
     "@mui/material": "^5.10.15",
     "@mui/styled-engine": "^5.10.14",
     "@mui/x-date-pickers": "^5.0.8",
+    "axios": "^1.2.0",
     "bootstrap": "^5.2.3",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
