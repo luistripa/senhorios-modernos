@@ -28,15 +28,15 @@ export function HouseDescription() {
             <Grid container padding={10}>
                 <Grid item padding={10}>
                     <Grid container>
-                        <Typography variant={"h2"} marginBottom={"5%"} style={{color:"#FFD8A9", fontWeight:"600"}}>
+                        <Typography variant={"h2"} marginBottom={"5%"} style={{color:"#FBF9FF", fontWeight:"600"}}>
                             {yellowHouse.name}
                         </Typography>
-                        <Grid container style={{backgroundColor: '#FFD8A9', borderRadius: 10, padding: 10}}>
+                        <Grid container style={{backgroundColor: '#FBF9FF', borderRadius: 10, padding: 10}}>
                             <Grid item style={{display: "flex", flexDirection: "column", alignItems: "center", width: "33%", justifyContent:"center"}}>
                                 <Grid item>
                                     <LocationOn style={{fontSize:'200%', fontWeight:"900"}}/>
                                 </Grid>
-                                <Grid item>
+                                <Grid item marginTop="5%">
                                     {yellowHouse.address}
                                 </Grid>
                             </Grid>
