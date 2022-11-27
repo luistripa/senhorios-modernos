@@ -9,9 +9,10 @@ import {
     Input,
     Table,
     TableBody,
-    TableRow
+    TableRow,
+    Button
 } from '@mui/material';
-import {Delete, Check, AddBox} from '@mui/icons-material';
+import {Delete, Check, ListAlt} from '@mui/icons-material';
 import {useEffect, useState} from "react";
 import Typography from "@mui/joy/Typography";
 
@@ -22,6 +23,8 @@ export function TODOList(){
     const [inputText, setInputText] = useState("");
 
     const [addItem, setAddItem] = useState(false);
+
+    const [isEmpty, setIsEmpty] = useState(false);
 
     //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
@@ -94,8 +97,6 @@ export function TODOList(){
         ];
 
         sortTodoList(todoList)
-
-        setTodoList(todoList);
     }, []);
 
     const handleInput = e => {
@@ -116,7 +117,7 @@ export function TODOList(){
             sortTodoList(newTodoList);
             setInputText("");
         }
-        setAddItem(false);
+        setIsEmpty(false);
     }
 
     const handleAddButton = () => {
@@ -129,6 +130,9 @@ export function TODOList(){
             if (elem.id !== id)
                 newTodoList.push(elem);
         })
+        if(newTodoList.length === 0){
+            setIsEmpty(true);
+        }
         sortTodoList(newTodoList);
     }
 
@@ -156,9 +160,12 @@ export function TODOList(){
                 <TableRow>
                     <List component={"td"} sx={{padding: "0"}}>
                         <ListItem sx={{padding: "0"}}>
-                            <IconButton aria-label="addButton" onClick={() => handleAddButton()}>
-                                <AddBox style={{color: '#E38B29'}}/>
-                            </IconButton>
+                            <Button variant="contained" aria-label="addButton" onClick={() => handleAddButton()}
+                                    sx={{color: '#FBF9FF', backgroundColor:'#4B4E6D',  "&:hover": {
+                                            backgroundColor: "#242038",
+                                        }}}>
+                                Add Item
+                            </Button>
                         </ListItem>
                     </List>
                 </TableRow>
@@ -167,42 +174,54 @@ export function TODOList(){
                     <List component={"td"} sx={{padding: "0"}}>
                         <ListItem sx={{padding: "0"}}>
                             <IconButton>
-                                <Check style={{color: '#E38B29'}} onClick={() => handleAdd(inputText)}/>
+                                <Check style={{color: '#4B4E6D'}} onClick={() => handleAdd(inputText)}/>
                             </IconButton>
                             <Input value={inputText} onChange={handleInput} onKeyDown={handleKeyDown}
-                                   sx={{bgcolor: 'background.paper'}}
+                                   sx={{bgcolor: 'background.paper', width:'75%'}}
+                                   style={{color: '#4B4E6D'}}
                                    placeholder="Type new item "
                             />
                         </ListItem>
-
-
                     </List>
                 </TableRow> : undefined}
 
-                {todoList.map((value, index, array) => (
-                    <TableRow key={index}>
+                { isEmpty ? <TableRow>
                         <List component={"td"} sx={{padding: "0"}}>
                             <ListItem sx={{padding: "0"}}>
-                                <Checkbox
-                                    style={{color: '#E38B29'}}
-                                    checked={array[index].checked}
-                                    onClick={() => handleToggle(index)}
-                                />
-                                <ListItemText primary={
-                                    <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name} overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
-                                        {value.name}
+                                <div style={{width: "100%", marginTop: "5%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <Typography color={"lightgray"} display={"flex"} justifyContent={"center"}>
+                                        <ListAlt/>
+                                        <span>Empty List</span>
                                     </Typography>
-                                }/>
-                                <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
-                                    <Delete style={{color: '#E38B29'}}/>
-                                </IconButton>
+                                </div>
                             </ListItem>
                         </List>
                     </TableRow>
-
-                ))}
+                : todoList.map((value, index, array) => (
+                            <TableRow key={index}>
+                                <List component={"td"} sx={{padding: "0"}}>
+                                    <ListItem sx={{padding: "0"}}>
+                                        <Checkbox
+                                            style={{color: '#4B4E6D'}}
+                                            checked={array[index].checked}
+                                            onClick={() => handleToggle(index)}
+                                        />
+                                        <ListItemText primary={
+                                            <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name} overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
+                                                {value.name}
+                                            </Typography>
+                                        }/>
+                                        <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
+                                            <Delete style={{color: '#4B4E6D'}}/>
+                                        </IconButton>
+                                    </ListItem>
+                                </List>
+                            </TableRow>
+                        ))
+                }
             </TableBody>
         </Table>
+
     );
 
 }
