@@ -10,7 +10,7 @@ class Timeline extends Component {
 
     render() {
         const {
-            direction, icon, title, time, description, tags, labelColor, lineColor,
+            direction, icon, title, date, time, house, labelColor, lineColor,
         } = this.props;
         const textAlign = direction === 'left' ? 'right' : 'left';
 
@@ -22,24 +22,22 @@ class Timeline extends Component {
                         display: 'flex',
                         justifyContent: direction === 'left' ? 'flex-end' : 'flex-start'
                     }}>
-                        {time}
+                        {date}
                     </Label>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
                         <Card.Header style={{display: 'flex', justifyContent: 'center', color: 'black'}}>
                             {title}
                         </Card.Header> &nbsp;&nbsp;&nbsp;
                         <Card.Description style={{display: 'flex', justifyContent: 'center', color: 'grey'}}>
-                            {description}
+                            {time}
                         </Card.Description>
                     </div>
                     <Divider/>
-                    <div style={{display:"flex", justifyContent:"center"}}>
-                        <Label.Group color={"purple"}>
-                            {tags.map((tag, i) => (
-                                <Label key={i.toString()}>
-                                    {tag}
-                                </Label>
-                            ))}
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                       <Label.Group color={"purple"}>
+                            <Label>
+                                {house ? house.name : undefined}
+                            </Label>
                         </Label.Group>
                     </div>
                 </Card.Content>
@@ -79,8 +77,8 @@ Timeline.propTypes = {
     direction: PropTypes.string,
     icon: PropTypes.string,
     title: PropTypes.string,
+    date: PropTypes.string,
     time: PropTypes.string,
-    description: PropTypes.string,
     color: PropTypes.string,
 };
 

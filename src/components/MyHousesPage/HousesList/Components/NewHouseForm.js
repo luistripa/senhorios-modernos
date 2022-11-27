@@ -8,7 +8,7 @@ export class NewHouseForm extends Component {
         super(props);
 
         this.state = {
-            name: '', address: '', capacity: 0, typology: '', image: ''
+            name: '', address: '', capacity: 0, typology: '', image: 'img'
         };
     }
 
