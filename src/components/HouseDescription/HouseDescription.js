@@ -32,26 +32,26 @@ export function HouseDescription() {
                             {yellowHouse.name}
                         </Typography>
                         <Grid container style={{backgroundColor: '#FFD8A9', borderRadius: 10, padding: 10}}>
-                            <Grid item style={{flexDirection: 'column', width:'33%'}}>
+                            <Grid item style={{display: "flex", flexDirection: "column", alignItems: "center", width: "33%", justifyContent:"center"}}>
                                 <Grid item>
-                                    <LocationOn style={{fontSize:'200%', fontWeight:"800"}}/>
+                                    <LocationOn style={{fontSize:'200%', fontWeight:"900"}}/>
                                 </Grid>
                                 <Grid item>
                                     {yellowHouse.address}
                                 </Grid>
                             </Grid>
-                            <Divider orientation="vertical" flexItem/>
-                            <Grid item style={{flexDirection: 'column', width:'33%'}}>
-                                <Grid item style={{fontSize:'200%', fontWeight:"800"}}>
+                            <Divider orientation="vertical"  style={{height:'100%'}} flexItem/>
+                            <Grid item style={{display: "flex", flexDirection: "column", alignItems: "center", width: "33%", justifyContent:"center"}}>
+                                <Grid item style={{fontSize:'200%', fontWeight:"900"}}>
                                     {yellowHouse.capacity}
                                 </Grid>
                                 <Grid item>
                                     Capacity
                                 </Grid>
                             </Grid>
-                            <Divider orientation="vertical" flexItem/>
-                            <Grid item style={{flexDirection: 'column', width:'33%'}}>
-                                <Grid item style={{fontSize:'200%', fontWeight:"800"}}>
+                            <Divider orientation="vertical" style={{height:'100%'}} flexItem/>
+                            <Grid item style={{display: "flex", flexDirection: "column", alignItems: "center", width: "33%", justifyContent:"center"}}>
+                                <Grid item style={{fontSize:'200%', fontWeight:"900"}}>
                                     {yellowHouse.typology}
                                 </Grid>
                                 <Grid item>

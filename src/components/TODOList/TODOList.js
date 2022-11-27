@@ -5,11 +5,11 @@ import {
     IconButton,
     List,
     ListItem,
-    ListItemButton,
-    ListItemIcon,
     ListItemText,
     Input,
-    Box, Table, TableBody, TableRow
+    Table,
+    TableBody,
+    TableRow
 } from '@mui/material';
 import {Delete, Check, AddBox} from '@mui/icons-material';
 import {useEffect, useState} from "react";
