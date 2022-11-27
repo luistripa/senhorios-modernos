@@ -9,10 +9,11 @@ import {
     ListItemIcon,
     ListItemText,
     Input,
-    Box
+    Box, Table, TableBody, TableRow
 } from '@mui/material';
 import {Delete, Check, AddBox} from '@mui/icons-material';
 import {useEffect, useState} from "react";
+import Typography from "@mui/joy/Typography";
 
 export function TODOList(){
 
@@ -24,73 +25,77 @@ export function TODOList(){
 
     //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
-        setTodoList([
+        let todoList = [
             {
                 id: 0,
                 name: "Clean Kitchen",
-                isChecked: false
+                checked: false
             },
             {
                 id: 1,
                 name: "Paint wall",
-                isChecked: false
+                checked: false
             },
             {
                 id: 2,
                 name: "Fix pipe",
-                isChecked: false
+                checked: false
             },
             {
                 id: 3,
                 name: "Do laundry",
-                isChecked: true
+                checked: true
             },
             {
                 id: 4,
                 name: "Buy washing machine",
-                isChecked: true
+                checked: true
             },
             {
                 id: 5,
                 name: "Do laundry",
-                isChecked: true
+                checked: true
             },
             {
                 id: 6,
                 name: "Buy washing machine",
-                isChecked: true
+                checked: true
             },
             {
                 id: 7,
                 name: "Do laundry",
-                isChecked: true
+                checked: true
             },
             {
                 id: 8,
                 name: "Buy washing machine",
-                isChecked: true
+                checked: true
             },
             {
                 id: 9,
                 name: "Do laundry",
-                isChecked: true
+                checked: true
             },
             {
                 id: 10,
                 name: "Buy washing machine",
-                isChecked: true
+                checked: true
             },
             {
                 id: 11,
                 name: "Clean Kitchen",
-                isChecked: false
+                checked: false
             },
             {
                 id: 12,
                 name: "Paint wall",
-                isChecked: false
+                checked: false
             }
-        ]);
+        ];
+
+        sortTodoList(todoList)
+
+        setTodoList(todoList);
     }, []);
 
     const handleInput = e => {
@@ -106,11 +111,8 @@ export function TODOList(){
     const handleAdd = (string) => {
         if(string !== ""){
             let newTodoList = [...todoList];
-            newTodoList.push({
-                id: todoList.length,
-                name: string,
-                isChecked: false
-            });
+            newTodoList.splice(0, 0, {id: todoList.length, name: string, checked: false})
+
             sortTodoList(newTodoList);
             setInputText("");
         }
@@ -121,13 +123,11 @@ export function TODOList(){
         setAddItem(!addItem);
     }
 
-    const handleDelete= (value) => {
+    const handleDelete= (id) => {
         let newTodoList = [];
-        let i = 0;
         todoList.forEach(elem => {
-            if (i !== value)
+            if (elem.id !== id)
                 newTodoList.push(elem);
-            i++;
         })
         sortTodoList(newTodoList);
     }
@@ -137,7 +137,7 @@ export function TODOList(){
         let i = 0;
         todoList.forEach(elem => {
             if (i === value) {
-                elem.isChecked = !elem.isChecked;
+                elem.checked = !elem.checked;
             }
             newTodoList.push(elem);
             i++;
@@ -146,67 +146,63 @@ export function TODOList(){
     };
 
     const sortTodoList = (list) => {
-        const sortedList = list.sort((a, b) => Number(a.isChecked) - Number(b.isChecked));
+        const sortedList = list.sort((a, b) => Number(a.checked) - Number(b.checked));
         setTodoList(sortedList);
     }
 
     return(
-        <Box sx={{width: '100%', overflowY: 'scroll'}}>
-            <List sx={{margin: "0 30px"}}>
-                <ListItem
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="addButton" onClick={() => handleAddButton()}>
-                            <AddBox style={{color: '#E38B29'}}/>
-                        </IconButton>
-                    }
-                />
-                {addItem &&
-                    <ListItem
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="add">
-                            <Check style={{color: '#E38B29'}} onClick={() => handleAdd(inputText)}/>
-                        </IconButton>
-                    }
-                    >
-                        <Input value={inputText} onChange={handleInput} onKeyDown={handleKeyDown}
-                               sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}
-                               placeholder="Type new item "
-                        />
-                    </ListItem>
-                }
-                {[...Array(todoList.length).keys()].map((value) => {
-                    const labelId = `checkbox-list-label-${value}`;
+        <Table sx={{tableLayout: "fixed"}}>
+            <TableBody>
+                <TableRow>
+                    <List component={"td"} sx={{padding: "0"}}>
+                        <ListItem sx={{padding: "0"}}>
+                            <IconButton aria-label="addButton" onClick={() => handleAddButton()}>
+                                <AddBox style={{color: '#E38B29'}}/>
+                            </IconButton>
+                        </ListItem>
+                    </List>
+                </TableRow>
 
-                    return (
-                        <ListItem
-                            key={value}
-                            secondaryAction={
-                                <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(value)}>
+                { addItem ? <TableRow>
+                    <List component={"td"} sx={{padding: "0"}}>
+                        <ListItem sx={{padding: "0"}}>
+                            <IconButton>
+                                <Check style={{color: '#E38B29'}} onClick={() => handleAdd(inputText)}/>
+                            </IconButton>
+                            <Input value={inputText} onChange={handleInput} onKeyDown={handleKeyDown}
+                                   sx={{bgcolor: 'background.paper'}}
+                                   placeholder="Type new item "
+                            />
+                        </ListItem>
+
+
+                    </List>
+                </TableRow> : undefined}
+
+                {todoList.map((value, index, array) => (
+                    <TableRow key={index}>
+                        <List component={"td"} sx={{padding: "0"}}>
+                            <ListItem sx={{padding: "0"}}>
+                                <Checkbox
+                                    style={{color: '#E38B29'}}
+                                    checked={array[index].checked}
+                                    onClick={() => handleToggle(index)}
+                                />
+                                <ListItemText primary={
+                                    <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name} overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
+                                        {value.name}
+                                    </Typography>
+                                }/>
+                                <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
                                     <Delete style={{color: '#E38B29'}}/>
                                 </IconButton>
-                            }
-                            disablePadding
-                        >
-                            <ListItemButton role={undefined} onClick={()=> handleToggle(value)} dense>
-                                <ListItemIcon>
-                                    <Checkbox
-                                        style={{color: '#E38B29'}}
-                                        edge="start"
-                                        checked={todoList[value].isChecked !== false}
-                                        inputProps={{'aria-labelledby': labelId}}
-                                    />
-                                </ListItemIcon>
-                                {!todoList[value].isChecked && <ListItemText id={labelId} primary={todoList[value].name}/>}
-                                {todoList[value].isChecked && <ListItemText id={labelId}
-                                                                            primary={todoList[value].name}
-                                                                            style={{textDecoration: 'line-through'}}
-                                />}
-                            </ListItemButton>
-                        </ListItem>
-                    );
-                })}
-            </List>
-        </Box>
+                            </ListItem>
+                        </List>
+                    </TableRow>
+
+                ))}
+            </TableBody>
+        </Table>
     );
 
 }

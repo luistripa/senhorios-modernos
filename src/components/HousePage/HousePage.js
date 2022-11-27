@@ -2,8 +2,7 @@ import {HouseDescription} from "../HouseDescription/HouseDescription";
 import {TopBarAfterLogin} from "../TopBar/TopBarAfterLogin";
 import {TODOList} from "../TODOList/TODOList";
 import Calendar from "../Calendar/Calendar";
-import {Grid, Table, TableBody, TableCell, TableRow} from "@mui/material";
-
+import {Table, TableBody, TableCell, TableRow, Box} from "@mui/material";
 
 export function HousePage() {
 
@@ -34,40 +33,42 @@ export function HousePage() {
             <TopBarAfterLogin/>
             <HouseDescription/>
 
-            <Grid container>
-                <Grid item sx={{width: "70vw"}}>
-                    <Calendar events={[]}
-                              onEventCreate={handleEventCreate}
-                              onEventEdit={handleEventEdit}
-                              onEventDelete={handleEventDelete}
-                    />
-                </Grid>
-                <Grid item sx={{width: "30vw"}}>
-                    <TODOList/>
-                </Grid>
-            </Grid>
 
-            <div style={{width: "100%", height: "100%", marginTop: "50px", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                <table style={{tableLayout: "fixed", width: "95%"}}>
-                    <tbody>
-                    <tr style={{width: "100%"}}>
-                        <td style={{width: "60%"}}>
+            <Table>
+                <TableBody>
+                    <TableRow>
+                        <TableCell sx={{width: "70%"}}>
                             <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>Events</p>
+                        </TableCell>
+                        <TableCell sx={{width: "30%"}}>
+                            <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>To Do List</p>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell sx={{width: "70%"}}>
                             <Calendar events={[]}
                                       onEventCreate={handleEventCreate}
                                       onEventEdit={handleEventEdit}
                                       onEventDelete={handleEventDelete}
                             />
+                        </TableCell>
+                        <TableCell sx={{width: "30%", verticalAlign: "top"}}>
+                            <Box sx={{width: '100%', overflowY: 'scroll', maxHeight: "calc(calc(100vw * 0.42) - 16px)", minHeight: "calc(calc(100vw * 0.42) - 16px)"}}>
+                                <TODOList/>
+                            </Box>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
 
-                        </td>
-                        <td style={{width: "40%", maxHeight: "400px"}}>
-                            <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>To Do List</p>
-                            <TODOList/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </>
     );
 }
