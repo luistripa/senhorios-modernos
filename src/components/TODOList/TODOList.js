@@ -63,20 +63,24 @@ export function TODOList(){
         sortTodoList(todoList)
     }, []);
 
+    // Handles changes from the create item input
     const handleInput = e => {
         setInputText(e.target.value);
     }
 
+    // Handles changes from the edit item input
     const handleInputEdit = e => {
         setInputTextEdit(e.target.value);
     }
 
+    // Handle enter keydown for add input
     const handleKeyDown = e => {
         if(e.key === 'Enter'){
             handleAdd(e.target.value)
         }
     }
 
+    // Adds a new item to the todo list
     const handleAdd = (string) => {
         if(string !== ""){
             let newTodoList = [...todoList];
@@ -89,6 +93,27 @@ export function TODOList(){
         setAddItem(false);
     }
 
+    // Handle enter keydown or input blur for edit input
+    const handleKeyDownEdit = (e, value) => {
+        if(e.key === 'Enter' || e.type === "blur"){
+            handleEdit(value);
+        }
+    };
+
+    // Edits an existing item in the todo list
+    const handleEdit = (value) => {
+        let newTodoList = [];
+        todoList.forEach(elem => {
+            if(elem.id === value.id){
+                elem.name = inputTextEdit
+            }
+            newTodoList.push(elem);
+        })
+        setTodoList(newTodoList);
+        setEditItemId(undefined);
+    }
+
+    // Toggles item add menu
     const handleAddButton = () => {
         setAddItem(!addItem);
     }
@@ -105,21 +130,21 @@ export function TODOList(){
         sortTodoList(newTodoList);
     }
 
+    // Handles the todo check box change
     const handleToggle = (value) => {
         let newTodoList = [];
-        let i = 0;
         todoList.forEach(elem => {
-            if (i === value) {
+            if (elem.id === value.id) {
                 elem.checked = !elem.checked;
             }
             newTodoList.push(elem);
-            i++;
         })
         sortTodoList(newTodoList);
     };
 
-    const handleClick = (value, index) => {
-        setEditItemId(index);
+    // Opens edit input on item click
+    const handleClick = (value) => {
+        setEditItemId(value.id);
         setInputTextEdit(value.name);
     }
 
@@ -170,16 +195,16 @@ export function TODOList(){
                             </ListItem>
                         </List>
                     </TableRow>
-                : todoList.map((value, index, array) => (
-                            <TableRow key={index}>
+                : todoList.map((value, _index, _) => (
+                            <TableRow key={_index}>
                                 <List component={"td"} sx={{padding: "0"}}>
                                     <ListItem sx={{padding: "0"}}>
                                         <Checkbox
                                             style={{color: '#4B4E6D'}}
-                                            checked={array[index].checked}
-                                            onClick={() => handleToggle(index)}
+                                            checked={value.checked}
+                                            onClick={() => handleToggle(value)}
                                         />
-                                        {editItemId === index ? <>
+                                        {editItemId === value.id ? <>
                                                 <ListItemText primary={
                                                     <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, value)}
                                                            onBlur={(e) => handleKeyDownEdit(e, value)}
@@ -193,7 +218,7 @@ export function TODOList(){
                                         : <>
                                                 <ListItemText primary={
                                                 <Typography sx={value.checked ? {textDecoration: "line-through", opacity: "30%"} : {}} title={value.name}
-                                                            overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
+                                                            overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"} onClick={() => handleClick(value)}>
                                                     {value.name}
                                                 </Typography>
                                                 }/>
