@@ -1,10 +1,12 @@
-import {Component} from "react";
+import {Component, useState} from "react";
 import "./HousesList.css"
 import {Grid} from '@mui/material';
 import {Box} from "@mui/joy";
 import {GradientCover} from "./Components/HouseCard";
 import NewHouseSnackbar from "./Components/NewHouseSnackbar";
 import AddCard from "../../AddCard";
+import * as React from "react";
+import NewHouseModal from "./Components/NewHouseModal";
 
 
 export class HousesList extends Component {
@@ -21,7 +23,6 @@ export class HousesList extends Component {
         }
     }
 
-    //alert success qd cria casa
     createNewHouse = (house) => {
         let last_house = this.state.houses[this.state.houses.length - 1];
         let new_house = {
@@ -36,13 +37,18 @@ export class HousesList extends Component {
         this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated})
     }
 
+    closeSnackbar = () => {
+        this.state.newHouseCreated = false;
+        this.setState({newHouseCreated: this.state.newHouseCreated})
+    }
+
     render() {
         return (
             <>
-                <div style={{display: "flex", justifyContent: "center", padding: "5% 0 6% 0"}}>
+                <div style={{padding: "3% 0 3% 0"}}>
                     <h1>My properties</h1>
                 </div>
-                <Box sx={{flexGrow: 1}}>
+                <Box sx={{flexGrow: 1}} flexDirection={"column"}>
                     <Grid container
                           direction="row"
                           justifyContent="center"
@@ -52,17 +58,15 @@ export class HousesList extends Component {
                             house => (<GradientCover key={house.id} name={house.name} address={house.address}
                                                      image={house.image}/>)
                         )}
-                        <Grid item>
-                            <AddCard subject={'house'} functionCreate={this.createNewHouse}></AddCard>
-                        </Grid>
                     </Grid>
                 </Box>
+                <div style={{justifyContent: "center", display: "flex"}}>
+                    <NewHouseModal functionCreate={this.createNewHouse}></NewHouseModal>
+                </div>
                 {console.log(this.state)}
-                {this.state.newHouseCreated ? <NewHouseSnackbar></NewHouseSnackbar> : null}
+                {this.state.newHouseCreated ? <NewHouseSnackbar close={this.closeSnackbar}></NewHouseSnackbar> : null}
             </>
         )
     }
 }
-
-
 

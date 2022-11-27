@@ -67,33 +67,37 @@ export class EventsList extends Component {
 
     showEvents = (event, totalEvents) => {
         return (<Timeline
-                direction={this.getDirection(event)}
-                icon="clock outline"
-                title={event.title}
-                time={this.getTime()}
-                description={event.description}
-                tags={event.tags}
-                lineColor={this.state.lineColor}
-                lineHeight={totalEvents}
-            />)
+            direction={this.getDirection(event)}
+            icon="clock outline"
+            title={event.title}
+            time={this.getTime()}
+            description={event.description}
+            tags={event.tags}
+            lineColor={this.state.lineColor}
+            lineHeight={totalEvents}
+        />)
     }
 
     render() {
         const totalEventsToday = this.state.eventsToday.length;
         const totalEventsTomorrow = this.state.eventsTomorrow.length;
+        const maxEventsHeight = Math.max(totalEventsToday, totalEventsTomorrow) * 100;
         const lineHeight = this.state.isTodayShown ? totalEventsToday : totalEventsTomorrow;
-        const height = `${lineHeight * 190}px`;
+        const height = `${lineHeight * 150}px`;
 
         return (
             <>
-                {this.state.isTodayShown ? <h1> Today's Events</h1> : <h1> Tomorrow's Events</h1>}
+                <div style={{display: "flex", flexDirection: "column", alignItems: "center", paddingBottom:"4%"}}>
+                    {this.state.isTodayShown ? <h1> Today's Events</h1> : <h1> Tomorrow's Events</h1>}
+                </div>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <div style={{display: "flex", justifyContent: "flex-end", marginRight: "13%"}}>
-                        <button onClick={() => this.setState({isTodayShown: !this.state.isTodayShown})}>Tomorrow
+                        <button onClick={() => this.setState({isTodayShown: !this.state.isTodayShown})}>
+                            {this.state.isTodayShown ? "Tomorrow" : "Today"}
                         </button>
                     </div>
                     <div className="Timeline-line" style={{height, background: this.state.lineColor}}/>
-
+                    <div style={{position:'absolute', width: '100%', minHeight: `${maxEventsHeight}px`}}>
                     {this.state.isTodayShown &&
                         this.state.eventsToday.map(event => {
                             if (event.isToday == this.state.isTodayShown) {
@@ -108,7 +112,7 @@ export class EventsList extends Component {
                                 return this.showEvents(event, totalEventsTomorrow);
                             }
                         })}
-
+                </div>
                 </div>
             </>
         )

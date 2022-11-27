@@ -10,9 +10,6 @@ export default function MyHousesPage() {
     return (
         <div>
             <MyHousesHeader/>
-            <div className={'containerFirstPart'}>
-                 <DashboardInfo/>
-            </div>
             <div className={'containerHousesList'}>
                 <HousesList/>
             </div>

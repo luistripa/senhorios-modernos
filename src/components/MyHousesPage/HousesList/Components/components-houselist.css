@@ -14,7 +14,7 @@
 
 .top {
     display: inline-block;
-    padding: 1rem 1rem;
+    padding: 10% 4%;
     vertical-align: middle;
 }
 
@@ -43,12 +43,12 @@
     border-radius: 10px;
 }
 
-.modal-modal-title {
+.modal-modal-title-house-list {
     display: flex;
     justify-content: center;
     position: absolute;
     left: 10%;
-    top: 13%;
+    top: 8%;
     right: 10%;
     padding: 0;
     color: #242038;
@@ -64,6 +64,8 @@
     transform: translate(-50%);
     z-index: 100;
     padding: 30%;
+    width: 65px !important;
+    height: 65px !important;
 }
 
 .close-icon {
@@ -85,10 +87,11 @@
 
 .capacity-output-label {
     color: #8597a3;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 3rem;
     border-width: 0;
+    text-align: center;
 }
 
 .input {
@@ -145,18 +148,22 @@
 }
 
 .custom-file-upload {
+    column-gap: 9%;
     border: 1px solid #ccc;
     display: flex;
+    padding: 3%;
     padding: 7px;
     cursor: pointer;
     width: 35%;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     border-radius: 10px;
+    flex-direction: row;
 }
 
 .btn {
     margin-top: 1.5rem;
+    display:flex;
 }
 
 .nextBtn {

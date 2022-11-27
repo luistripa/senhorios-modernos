@@ -3,7 +3,7 @@ import {BsPlusLg} from "react-icons/bs";
 import Card from "@mui/joy/Card";
 import BasicModal from "./Modal";
 import {useState} from "react";
-import './components.css';
+import './components-homeinventory.css';
 
 export default function NewDivisionCard(props) {
     const [modalState, openModal] = useState(false);

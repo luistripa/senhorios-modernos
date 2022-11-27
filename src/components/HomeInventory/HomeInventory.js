@@ -38,6 +38,11 @@ export class HomeInventory extends Component {
         this.setState({divisions: this.state.divisions})
     }
 
+    gridClicked = e => division => {
+        e.preventDefault();
+        this.setState({showModal: division})
+    }
+
     render() {
         return (
             <>
@@ -51,7 +56,7 @@ export class HomeInventory extends Component {
                             division => (
                                 <>
                                 <Grid item>
-                                    <button onClick={() => this.setState({showModal: division})} style={{
+                                    <button onClick={() => this.gridClicked(division)} style={{
                                         border: "0px",
                                         backgroundColor: "transparent",
                                         cursor: "pointer"}}>
