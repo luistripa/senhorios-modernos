@@ -13,7 +13,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 
-export function TopBarAfterLogin() {
+export function TopBar() {
     const [sticky, setSticky] = useState(false);
 
     //replace with database
@@ -56,7 +56,8 @@ export function TopBarAfterLogin() {
                     <div className={'avatar'}>
                         <Avatar src={userAvatar}/>
                     </div>
-                    <div className={'data-user'} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                    <div className={'data-user'}
+                         style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                         <div className={'names-user'} style={{display: "flex", flexDirection: "row"}}>
                             <p>{userName}</p>
                             &nbsp;
@@ -75,8 +76,13 @@ export function TopBarAfterLogin() {
         );
     }
 
-    return (
-        <>
+    let login = false;
+    if(sessionStorage.getItem('token')){
+        login = true;
+    }
+
+    if(login){
+        return (<>
             <nav className={`${sticky ? "sticky" : ""}`}>
                 <div className="nav-inner">
                     <div className="logo">
@@ -133,7 +139,28 @@ export function TopBarAfterLogin() {
                     </div>
                 </div>
             </nav>
-        </>
-    );
+        </>);
+    }
+    else{
+        return (
+            <>
+                <nav className={`${sticky ? "sticky" : ""}`}>
+                    <div className="nav-inner">
+                        <div className="logo">
+                            <img src={logo} height={40} width={40}/>
+                            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
+                                <p id={'logoTitle'}>OneHome</p>
+                            </div>
+                        </div>
+                        <div className="links">
+                            <a href="#">About OneHome</a>
+                            <a href="#">Features</a>
+                            <a href="#">Team</a>
+                            <a href="/login-and-register">Login</a>
+                        </div>
+                    </div>
+                </nav>
+            </>
+        );
+    }
 }
-
