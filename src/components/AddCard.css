@@ -1,15 +1,5 @@
-.add-card{
-    width: 200px;
-    height: 200px;
-    padding: 0 !important;
-    background-color: transparent !important;
-}
 .add-button{
     border-width:0;
-    padding: 0 !important;
-}
-.iconPlus{
-    min-height: 200px;
-    width:4em;
-    color: #242038 !important;
+    border-radius: 8px;
+    font-size: 17px;
 }

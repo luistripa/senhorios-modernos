@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 import { createRef, Component } from "react";
 import * as React from "react";
-import "./components.css";
+import "./components-homeinventory.css";
 import {
   Button,
   Paper,

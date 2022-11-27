@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import * as React from "react";
-import './components.css';
+import './components-homeinventory.css';
 import {GrClose} from "react-icons/gr";
 import DivisionItems from "./DivisionItems";
 
@@ -13,7 +13,7 @@ export default function DivisionModal(props) {
             open={props.open}>
             <Box className={'division-modal'}>
                 <div className={'top-header-modal division-top-header'}>
-                    <div className={'top buttonClose'}>
+                    <div className={'topdiv buttonClose'}>
                         <button onClick={props.close}><GrClose className={'close-icon'}/></button>
                     </div>
                 </div>

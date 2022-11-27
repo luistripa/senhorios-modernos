@@ -26,7 +26,7 @@ export class MyHousesHeader extends Component {
         return (
             <>
                 <div className='myHousesHeader' style={{backgroundImage: `url(${image})`}}>
-                    <div style={{display: "flex", justifyContent: "flex-start", padding: "9% 0% 0% 13%"}}>
+                    <div style={{display: "flex", justifyContent: "flex-start", padding: "11% 0% 0% 13%"}}>
                         <Avatar src={"/avatar.jpeg"} sx={{width: 200, height: 200}} style={{border: "5px solid white"}}>
                         </Avatar>
                     </div>
