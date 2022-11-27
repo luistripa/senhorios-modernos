@@ -49,6 +49,46 @@ export function TODOList(){
                 id: 4,
                 name: "Buy washing machine",
                 isChecked: true
+            },
+            {
+                id: 5,
+                name: "Do laundry",
+                isChecked: true
+            },
+            {
+                id: 6,
+                name: "Buy washing machine",
+                isChecked: true
+            },
+            {
+                id: 7,
+                name: "Do laundry",
+                isChecked: true
+            },
+            {
+                id: 8,
+                name: "Buy washing machine",
+                isChecked: true
+            },
+            {
+                id: 9,
+                name: "Do laundry",
+                isChecked: true
+            },
+            {
+                id: 10,
+                name: "Buy washing machine",
+                isChecked: true
+            },
+            {
+                id: 11,
+                name: "Clean Kitchen",
+                isChecked: false
+            },
+            {
+                id: 12,
+                name: "Paint wall",
+                isChecked: false
             }
         ]);
     }, []);
@@ -111,12 +151,12 @@ export function TODOList(){
     }
 
     return(
-        <Box sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto'}}>
-            <List>
+        <Box sx={{width: '100%', overflowY: 'scroll'}}>
+            <List sx={{margin: "0 30px"}}>
                 <ListItem
                     secondaryAction={
                         <IconButton edge="end" aria-label="addButton" onClick={() => handleAddButton()}>
-                            <AddBox/>
+                            <AddBox style={{color: '#E38B29'}}/>
                         </IconButton>
                     }
                 />
@@ -124,7 +164,7 @@ export function TODOList(){
                     <ListItem
                     secondaryAction={
                         <IconButton edge="end" aria-label="add">
-                            <Check onClick={() => handleAdd(inputText)}/>
+                            <Check style={{color: '#E38B29'}} onClick={() => handleAdd(inputText)}/>
                         </IconButton>
                     }
                     >
@@ -142,7 +182,7 @@ export function TODOList(){
                             key={value}
                             secondaryAction={
                                 <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(value)}>
-                                    <Delete/>
+                                    <Delete style={{color: '#E38B29'}}/>
                                 </IconButton>
                             }
                             disablePadding
@@ -150,6 +190,7 @@ export function TODOList(){
                             <ListItemButton role={undefined} onClick={()=> handleToggle(value)} dense>
                                 <ListItemIcon>
                                     <Checkbox
+                                        style={{color: '#E38B29'}}
                                         edge="start"
                                         checked={todoList[value].isChecked !== false}
                                         inputProps={{'aria-labelledby': labelId}}

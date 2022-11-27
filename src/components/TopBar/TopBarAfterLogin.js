@@ -3,7 +3,6 @@ import * as React from 'react';
 import {
     IconButton,
     Button,
-    Typography,
     Menu,
     MenuItem,
     Avatar,
@@ -81,7 +80,7 @@ export function TopBarAfterLogin() {
             <nav className={`${sticky ? "sticky" : ""}`}>
                 <div className="nav-inner">
                     <div className="logo">
-                        <img src={logo} height={40} width={40}/>
+                        <img alt="logo" src={logo} height={40} width={40}/>
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
                             <p id={'logoTitle'}>OneHome</p>
                         </div>
@@ -134,7 +133,6 @@ export function TopBarAfterLogin() {
                     </div>
                 </div>
             </nav>
-
         </>
     );
 }
