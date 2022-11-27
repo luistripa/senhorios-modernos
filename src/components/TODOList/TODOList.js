@@ -128,32 +128,6 @@ export function TODOList(){
         setTodoList(sortedList);
     };
 
-    const handleKeyDownEdit = (e, index) => {
-        if(e.key === 'Enter' || e.type === "blur"){
-            let newTodoList = [];
-            todoList.forEach(elem => {
-                if(elem.id === index){
-                    elem.name = inputTextEdit
-                }
-                newTodoList.push(elem);
-            })
-            setTodoList(newTodoList);
-            setEditItemId(undefined);
-        }
-    };
-
-    const handleEdit = (index) => {
-        let newTodoList = [];
-        todoList.forEach(elem => {
-            if(elem.id === index){
-                elem.name = inputTextEdit
-            }
-            newTodoList.push(elem);
-        })
-        setTodoList(newTodoList);
-        setEditItemId(undefined);
-    }
-
     return(
         <Table sx={{tableLayout: "fixed"}}>
             <TableBody>
@@ -199,7 +173,7 @@ export function TODOList(){
                 : todoList.map((value, index, array) => (
                             <TableRow key={index}>
                                 <List component={"td"} sx={{padding: "0"}}>
-                                    <ListItem sx={{padding: "0"}} onClick={() => handleClick(value, index)}>
+                                    <ListItem sx={{padding: "0"}}>
                                         <Checkbox
                                             style={{color: '#4B4E6D'}}
                                             checked={array[index].checked}
@@ -207,13 +181,13 @@ export function TODOList(){
                                         />
                                         {editItemId === index ? <>
                                                 <ListItemText primary={
-                                                    <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, index)}
-                                                           onBlur={(e) => handleKeyDownEdit(e, index)}
+                                                    <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, value)}
+                                                           onBlur={(e) => handleKeyDownEdit(e, value)}
                                                            sx={{bgcolor: 'background.paper', width:'100%'}}
                                                     />
                                                 }/>
                                                 <IconButton>
-                                                    <Check style={{color: '#4B4E6D'}} onClick={() => handleEdit(value.id)}/>
+                                                    <Check style={{color: '#4B4E6D'}} onClick={() => handleEdit(value)}/>
                                                 </IconButton>
                                             </>
                                         : <>
