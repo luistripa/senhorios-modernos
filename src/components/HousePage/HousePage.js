@@ -1,9 +1,10 @@
 import {HouseDescription} from "../HouseDescription/HouseDescription";
-import {TopBarAfterLogin} from "../TopBar/TopBarAfterLogin";
+import {TopBar} from "../TopBar/TopBar";
 import {TODOList} from "../TODOList/TODOList";
 import Calendar from "../Calendar/Calendar";
 import {Table, TableBody, TableCell, TableRow, Box, Button} from "@mui/material";
 import {HomeInventory} from "../HomeInventory/HomeInventory";
+import API from "../../api"
 import * as React from "react";
 
 export function HousePage() {
@@ -31,10 +32,9 @@ export function HousePage() {
         }, 1000);
     }
 
-
     return(
         <>
-            <TopBarAfterLogin/>
+            <TopBar/>
             <HouseDescription/>
             <Table>
                 <TableBody>
