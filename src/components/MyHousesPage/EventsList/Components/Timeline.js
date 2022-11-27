@@ -10,30 +10,36 @@ class Timeline extends Component {
 
     render() {
         const {
-            direction, icon, title, time, description, tags, labelColor, lineColor,
+            direction, icon, title, date, time, house, labelColor, lineColor,
         } = this.props;
         const textAlign = direction === 'left' ? 'right' : 'left';
 
         const card = (
             <Card fluid raised style={{color: "#A2A3BB"}}>
                 <Card.Content>
-                    <Label pointing={textAlign} color={labelColor} attached="top" style={{marginLeft: '0', display: 'flex', justifyContent: direction === 'left' ? 'flex-end' : 'flex-start'}}>
-                        {time}
+                    <Label pointing={textAlign} color={labelColor} attached="top" style={{
+                        marginLeft: '0',
+                        display: 'flex',
+                        justifyContent: direction === 'left' ? 'flex-end' : 'flex-start'
+                    }}>
+                        {date}
                     </Label>
-                    <Card.Header style={{display: 'flex', justifyContent: 'center'}}>
-                        {title}
-                    </Card.Header>
-                    <Card.Description style={{display: 'flex', justifyContent: 'center'}}>
-                        {description}
-                    </Card.Description>
+                    <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+                        <Card.Header style={{display: 'flex', justifyContent: 'center', color: 'black'}}>
+                            {title}
+                        </Card.Header> &nbsp;&nbsp;&nbsp;
+                        <Card.Description style={{display: 'flex', justifyContent: 'center', color: 'grey'}}>
+                            {time}
+                        </Card.Description>
+                    </div>
                     <Divider/>
-                    <Label.Group color={"purple"}>
-                        {tags.map((tag, i) => (
-                            <Label key={i.toString()}>
-                                {tag}
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                       <Label.Group color={"purple"}>
+                            <Label>
+                                {house ? house.name : undefined}
                             </Label>
-                        ))}
-                    </Label.Group>
+                        </Label.Group>
+                    </div>
                 </Card.Content>
             </Card>
         );
@@ -50,10 +56,10 @@ class Timeline extends Component {
                         <Grid.Column width={5}>
                             {left}
                         </Grid.Column>
-                        <Grid.Column width={2} style={{display:"block"}}>
+                        <Grid.Column width={2} style={{display: "block"}}>
                             <div style={{float: left ? "left" : "right"}}>
-                            <Icon name={icon} size={iconSize} inverted circular
-                                  style={{margin: 'auto', boxShadow: `0 0 0 0.1em ${lineColor} inset`}}/>
+                                <Icon name={icon} size={iconSize} inverted circular
+                                      style={{margin: 'auto', boxShadow: `0 0 0 0.1em ${lineColor} inset`}}/>
                             </div>
                         </Grid.Column>
                         <Grid.Column width={5}>
@@ -71,8 +77,8 @@ Timeline.propTypes = {
     direction: PropTypes.string,
     icon: PropTypes.string,
     title: PropTypes.string,
+    date: PropTypes.string,
     time: PropTypes.string,
-    description: PropTypes.string,
     color: PropTypes.string,
 };
 

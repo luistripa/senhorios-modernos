@@ -27,7 +27,6 @@ export class HomeInventory extends Component {
 
 
     addDivision = (division) => {
-        console.log('add division')
         let last_division = this.state.divisions[this.state.divisions.length - 1];
         let new_division = {
             id: last_division.id + 1,
@@ -38,10 +37,17 @@ export class HomeInventory extends Component {
         this.setState({divisions: this.state.divisions})
     }
 
+    gridClicked = e => division => {
+        e.preventDefault();
+        this.setState({showModal: division})
+    }
+
     render() {
         return (
             <>
-                <h1>Home Inventory</h1>
+                <div style={{padding: "3% 0 3% 0"}}>
+                    <h1>House Inventory</h1>
+                </div>
                 <Box className={'homeInventory'} sx={{ flexGrow: 1 }}>
                     <Grid container
                           className={'grid-inventory'}
@@ -51,7 +57,7 @@ export class HomeInventory extends Component {
                             division => (
                                 <>
                                 <Grid item>
-                                    <button onClick={() => this.setState({showModal: division})} style={{
+                                    <button onClick={() => this.gridClicked(division)} style={{
                                         border: "0px",
                                         backgroundColor: "transparent",
                                         cursor: "pointer"}}>

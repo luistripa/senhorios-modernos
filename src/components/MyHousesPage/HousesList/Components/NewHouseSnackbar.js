@@ -5,7 +5,7 @@ import MuiAlert from '@mui/material/Alert';
 import {Component} from "react";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert   elevation={6} ref={ref} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default class NewHouseSnackbar extends Component {
@@ -23,6 +23,7 @@ export default class NewHouseSnackbar extends Component {
             return;
         }
         this.setState({open: false});
+        this.props.close();
     }
 
     render() {
@@ -33,7 +34,7 @@ export default class NewHouseSnackbar extends Component {
                           onClose={(event, reason) => this.handleClose(event,reason)}
                             anchorOrigin={{vertical: 'bottom', horizontal:'right'}}>
                     <Alert onClose={(event, reason) => this.handleClose(event,reason)} severity="success" sx={{ width: '100%' }}>
-                        Criado com sucesso!
+                        Success!
                     </Alert>
                 </Snackbar>
             </Stack>
