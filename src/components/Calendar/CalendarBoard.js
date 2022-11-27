@@ -5,7 +5,7 @@ import {getFirstDayOfCalendar, hasSameMonth} from "./utils/date_utils";
 import "./css/CalendarBoard.css"
 import moment from "moment";
 import {ArrowBack, ArrowForward} from "@mui/icons-material";
-import {Chip} from "@mui/material";
+import {Button, Chip} from "@mui/material";
 
 export default function CalendarBoard(props) {
 
@@ -25,17 +25,14 @@ export default function CalendarBoard(props) {
         setCurrentMonth(currentMonth.clone().add(1, "month"));
     }
 
-    const handleDaySelect = (event) => {
-        if (event.type === "SELECT") {
-            let date = event.date
-            if (hasSameMonth(currentMonth, date)) {
-                setSelectedDay(date.clone())
-            } else {
-                setSelectedDay(date.clone());
-                setCurrentMonth(date.clone().date(15));
-            }
-            props.onDaySelect(date.clone(), [])
+    const handleDaySelect = (date) => {
+        if (hasSameMonth(currentMonth, date))
+            setSelectedDay(date.clone());
+        else {
+            setSelectedDay(date.clone());
+            setCurrentMonth(date.clone().date(15));
         }
+        props.onDaySelect(date.clone());
     }
 
     let firstDayOfCalendar = getFirstDayOfCalendar(currentMonth);
@@ -43,13 +40,16 @@ export default function CalendarBoard(props) {
     return (
         <td className={"calendar-board-container"}>
             <div className={"calendar-top-controls-container"}>
-                <Chip className={'calendar-month-control-container'} label={<ArrowBack/>} onClick={handlePreviousMonth}/>
-
+                <Button className={"calendar-month-control-container"} color={"inherit"} onClick={handlePreviousMonth}>
+                    <ArrowBack/>
+                </Button>
                 <div className={'calendar-current-month-container'}>
                     <div className={'month-name'}>{currentMonth.startOf("month").format("MMMM")}</div>
                     <div className={'month-year'}>{currentMonth.year()}</div>
                 </div>
-                <Chip className={'calendar-month-control-container'} label={<ArrowForward/>} onClick={handleNextMonth}/>
+                <Button className={"calendar-month-control-container"} color={"inherit"} onClick={handleNextMonth}>
+                    <ArrowForward/>
+                </Button>
             </div>
             <div className={"calendar-weekdays-container"}>
                 <div className={"weekday"}><div className={'content'}>Mon.</div></div>
