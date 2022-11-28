@@ -176,8 +176,7 @@ export function MyCalendar(props) {
                                    handleCancel={() => setEventDetailDialogOpen(false)}
                 />
             </Container>
-
-
+            <br/>
         </>
 
     );
