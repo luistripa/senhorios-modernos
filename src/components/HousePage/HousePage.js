@@ -146,7 +146,6 @@ export function HousePage() {
 
     return(
         <>
-            <TopBar/>
             <HouseDescription/>
             <Table>
                 <TableBody>
