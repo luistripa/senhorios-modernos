@@ -9,6 +9,9 @@ import inesImage from "../../static/ines.jpg";
 import luisImage from "../../static/luis.jpg";
 import raquelImage from "../../static/raquel.jpg";
 import introImage from "../../static/frontpage-intro.png";
+import myCalendar from "../../static/MyCalendar.png";
+import todo from "../../static/todo.png";
+import events from "../../static/events.png";
 import {Footer} from "./Footer";
 import {Grid} from "@mui/material";
 import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
@@ -53,17 +56,17 @@ export const Homepage = () => {
                                         HOUSES!</p>
                                 </div>
                                 <br/>
-                                <p>
+                                <p style={{fontSize: '15px'}}>
                                     OneHome website is a place for you to gather all your rented houses information in just one
                                     place!
                                 </p>
-                                <p>
+                                <p style={{fontSize: '15px'}}>
                                     This website will help you manage all your tasks, stock and dates!
                                 </p>
-                                <p>
+                                <p style={{fontSize: '15px'}}>
                                     All in a easy and efficient website.
                                 </p>
-                                <p>
+                                <p style={{fontSize: '15px'}}>
                                     Create an account and start organizing right now!
                                 </p>
                             </div>
@@ -86,7 +89,7 @@ export const Homepage = () => {
                         <Grid item xs={12}>
                             <div className={'services'}>
                                 <div className={'service s1'}>
-                                    <img src={'to-do-lists.png'}/>
+                                    <img src={todo} style={{alignSelf:"center", width:'90%'}}/>
                                     <div className={'description s1'}>
                                         <p className={'firstDescription'}>
                                             To-do Lists
@@ -97,7 +100,7 @@ export const Homepage = () => {
                                     </div>
                                 </div>
                                 <div className={'service s2'}>
-                                    <img src={'to-do-lists.png'}/>
+                                    <img src={events} style={{alignSelf:"center", width:'90%', height:"55%"}}/>
                                     <div className={'description s2'}>
                                         <p className={'firstDescription'}>
                                             Your Today Events
@@ -108,7 +111,7 @@ export const Homepage = () => {
                                     </div>
                                 </div>
                                 <div className={'service s3'}>
-                                    <img src={'to-do-lists.png'}/>
+                                    <img src={myCalendar} style={{alignSelf:"center", width:'90%'}}/>
                                     <div className={'description s3'}>
                                         <p className={'firstDescription'}>
                                             All Your Events
@@ -178,6 +181,7 @@ export const Homepage = () => {
                     </Grid>
                 </div>
                 <Footer/>
+                <br/>
             </>
         )
     }
