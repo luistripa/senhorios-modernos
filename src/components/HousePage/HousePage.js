@@ -17,7 +17,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {NewEventDialog} from "../Calendar/NewEventDialog";
 import EventDetailDialog from "../Calendar/EventDetailDialog";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 import API from "../../api";
 import moment from "moment";
@@ -26,6 +26,8 @@ import Snackbar from "@mui/material/Snackbar";
 export function HousePage() {
 
     let {houseId} = useParams();
+
+    const navigate = useNavigate()
 
     const [house, setHouse] = useState(undefined);
     const [houseList, setHouseList] = useState([]);
@@ -99,10 +101,6 @@ export function HousePage() {
         setDeleteHouseDialog(false);
     };
 
-
-    //TODO - Fazer o onClick para apagar a casa!
-
-
     const handleOpenNewEventDialog = (selectedDay) => {
         setNewEventDialogSelectedDay(selectedDay);
         setNewEventDialogOpen(true);
@@ -122,11 +120,20 @@ export function HousePage() {
         setEventDetailDialogOpen(false);
     }
 
-    const handleHouseDelete = (resolve, reject) => {
-        setTimeout(() => {
-            console.log("delete", house);
-            resolve()
-        }, 1000)
+    const handleHouseDelete = (resolve) => {
+        API.delete(`/houses/${houseId}`, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    navigate('/my-houses');
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("House deleted successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to delete house: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     const handleEventCreate = (resolve, reject, eventData) => {
@@ -185,7 +192,7 @@ export function HousePage() {
                     })
                     setEvents(newEvents)
                     setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("Event delete successfully")
+                    setSuccessSnackbarMessage("Event deleted successfully")
                     resolve();
                 }
             })
@@ -195,22 +202,66 @@ export function HousePage() {
             })
     }
 
-    const handleTodoItemCreate = (todoItem) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("create", todoItem);
-        }, 1000);
+    const handleTodoItemCreate = (resolve, todoItem) => {
+        API.post(`/houses/${houseId}/todo`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if(response.status === 200){
+                    let newTodoList = [...todoItems];
+                    newTodoList.splice(0, 0, todoItem) //TODO: Falta o ID
+                    setTodoItems(newTodoList);
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Item created successfully");
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to create an item: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
-    const handleTodoItemEdit = (todoItem) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("edit", todoItem);
-        }, 1000);
+    const handleTodoItemEdit = (resolve, todoItem) => {
+        API.put(`/houses/${houseId}/todo/${todoItem.id}`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newTodoList = [];
+                    todoItems.forEach(item => {
+                        if (item.id !== todoItem.id)
+                            newTodoList.push(item);
+                        else
+                            newTodoList.push(todoItem);
+                    })
+                    setTodoItems(newTodoList);
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Item edited successfully");
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to edit item: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
-    const handleTodoItemDelete = (todoItem) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("delete", todoItem);
-        }, 1000);
+    const handleTodoItemDelete = (resolve, todoItem) => {
+        API.delete(`/houses/${houseId}/todo/${todoItem.id}/delete`, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newTodoList = [];
+                    todoItems.forEach(item => {
+                        if (item.id !== todoItem.id)
+                            newTodoList.push(item);
+                    })
+                    setTodoItems(newTodoList);
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Item deleted successfully");
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to delete item: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     return(
@@ -265,7 +316,7 @@ export function HousePage() {
                             Close
                         </Button>
                         <Button variant='contained' color={"error"}
-                                onClick={handleCloseDeleteHouseDialog} autoFocus>
+                                onClick={handleHouseDelete} autoFocus>
                             Delete
                         </Button>
                     </DialogActions>
