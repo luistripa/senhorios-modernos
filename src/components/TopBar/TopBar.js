@@ -8,13 +8,16 @@ import {
     Avatar,
     ListItemIcon
 } from "@mui/material"
-import logo from "../../static/LogoIPM-no-background.png"
+import logo2 from "../../static/LogoIPM-roxo.png"
+import logo1 from "../../static/LogoIPM-branco.png"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
+import { Navigate } from "react-router-dom";
 
 import API from "../../api";
+
 
 export function TopBar() {
     const [sticky, setSticky] = useState(false);
@@ -94,7 +97,7 @@ export function TopBar() {
                         <p id='userEmail'> {loggedInUser.email} </p>
                     </div>
                     <Button className={'log-out'}>
-                        <ListItemIcon>
+                        <ListItemIcon onClick={() => sessionStorage.removeItem('token') && window.location.reload() && <Navigate to={'/Homepage'}/>}>
                             <Logout fontSize="small"/>
                         </ListItemIcon>
                         Logout
@@ -115,7 +118,7 @@ export function TopBar() {
                 <div className="nav-inner">
                     <a href="/">
                         <div className="logo">
-                            <img alt="logo" src={logo} height={40} width={40}/>
+                            <img alt="logo" src={sticky ? logo1 : logo2} height={40} width={40}/>
                             <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
                                 <p className={'title'}>OneHome</p>
                             </div>
@@ -188,7 +191,7 @@ export function TopBar() {
                 <nav className={sticky ? "topBar sticky" : "topBar"}>
                     <div className="nav-inner">
                         <a href="/" className="logo">
-                            <img src={logo} height={40} width={40}/>
+                            <img src={sticky ? logo1 : logo2} height={40} width={40}/>
                             <div>
                                 <p className={'title'}>OneHome</p>
                             </div>
