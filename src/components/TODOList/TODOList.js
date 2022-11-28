@@ -30,14 +30,14 @@ export function TODOList(props){
 
     const [editItemId, setEditItemId] = useState(undefined);
 
-    //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
         setTodoList(props.items)
 
         if (props.items.length === 0)
             setIsEmpty(true);
-
-        sortTodoList(todoList)
+        else
+            setIsEmpty(false);
+        sortTodoList(props.items)
     }, [props.items]);
 
     // Handles changes from the create item input
@@ -69,7 +69,7 @@ export function TODOList(props){
         setIsEmpty(false);
         setAddItem(false);
 
-        props.onItemAdd({name: string})
+        props.onItemAdd({name: string, checked:false})
     }
 
     // Handle enter keydown or input blur for edit input
