@@ -18,10 +18,10 @@ export default function DivisionModal(props) {
                     </div>
                 </div>
                 <Typography className={"modal-modal-title division-title"} variant="h4">
-                    {props.name}
+                    {props.division && props.division.name}
                 </Typography>
                 <div>
-                    <DivisionItems handleClose={props.close} nameDivision={props.name}></DivisionItems>
+                    <DivisionItems deleteDivision={props.deleteDivision} handleClose={props.close} division={props.division}></DivisionItems>
                 </div>
             </Box>
         </Modal>

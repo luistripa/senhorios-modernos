@@ -17,7 +17,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {NewEventDialog} from "../Calendar/NewEventDialog";
 import EventDetailDialog from "../Calendar/EventDetailDialog";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 import API from "../../api";
 import moment from "moment";
@@ -27,13 +27,12 @@ export function HousePage() {
 
     let {houseId} = useParams();
 
-    const navigate = useNavigate()
-
     const [house, setHouse] = useState(undefined);
     const [houseList, setHouseList] = useState([]);
 
 
     const [todoItems, setTodoItems] = useState([]);
+    const [divisions, setDivisions] = useState([]);
     const [events, setEvents] = useState([]);
 
     const [successSnackbarMessage, setSuccessSnackbarMessage] = useState(undefined);
@@ -53,7 +52,7 @@ export function HousePage() {
     useEffect(() => {
 
         // Get House Info
-        API.get('/houses/'+houseId, {headers: {authorization: sessionStorage.getItem('token')}})
+        API.get('/houses/' + houseId, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let house = response.data;
                 setHouse(house);
@@ -72,9 +71,6 @@ export function HousePage() {
         API.get(`/houses/${houseId}/todo`, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let todoItems = response.data;
-                todoItems.map(todoItem => {
-                    todoItem.checked = todoItem.checked ? true : false;
-                });
                 setTodoItems(todoItems);
             })
             .catch(reason => console.error(reason))
@@ -92,7 +88,16 @@ export function HousePage() {
                 setEvents(events);
             })
 
-        // TODO: GET house divisions
+        // Get house divisions
+        console.log(houseId);
+        API.get(`/houses/${houseId}/inventory/list`, {headers: {authorization: sessionStorage.getItem('token')}})
+            .then(response => {
+                let divisions = response.data;
+                setDivisions(divisions);
+            })
+            .catch(reason => console.error(reason))
+
+        console.log(divisions);
 
     }, [])
 
@@ -103,6 +108,10 @@ export function HousePage() {
     const handleCloseDeleteHouseDialog = () => {
         setDeleteHouseDialog(false);
     };
+
+
+    //TODO - Fazer o onClick para apagar a casa!
+
 
     const handleOpenNewEventDialog = (selectedDay) => {
         setNewEventDialogSelectedDay(selectedDay);
@@ -123,20 +132,11 @@ export function HousePage() {
         setEventDetailDialogOpen(false);
     }
 
-    const handleHouseDelete = (resolve) => {
-        API.delete(`/houses/${houseId}`, {headers: {authorization: sessionStorage.getItem("token")}})
-            .then(response => {
-                if (response.status === 200) {
-                    navigate('/my-houses');
-                    setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("House deleted successfully")
-                    resolve();
-                }
-            })
-            .catch(reason => {
-                setErrorSnackbarMessage("Failed to delete house: " + reason.toString());
-                setSuccessSnackbarMessage(undefined)
-            })
+    const handleHouseDelete = (resolve, reject) => {
+        setTimeout(() => {
+            console.log("delete", house);
+            resolve()
+        }, 1000)
     }
 
     const handleEventCreate = (resolve, reject, eventData) => {
@@ -195,7 +195,7 @@ export function HousePage() {
                     })
                     setEvents(newEvents)
                     setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("Event deleted successfully")
+                    setSuccessSnackbarMessage("Event delete successfully")
                     resolve();
                 }
             })
@@ -206,88 +206,50 @@ export function HousePage() {
     }
 
     const handleTodoItemCreate = (todoItem) => {
-        API.post(`/houses/${houseId}/todo`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
-            .then(response => {
-                if(response.status === 200){
-                    let newTodoList = [...todoItems];
-                    let newItem = response.data
-                    newItem.checked = newItem.checked ? true : false;
-                    newTodoList.splice(0, 0, newItem)
-                    setTodoItems(newTodoList);
-                    setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("Item created successfully");
-                }
-            })
-            .catch(reason => {
-                setErrorSnackbarMessage("Failed to create an item: " + reason.toString());
-                setSuccessSnackbarMessage(undefined)
-            })
+        setTimeout(() => { // Simulates backend request
+            console.log("create", todoItem);
+        }, 1000);
     }
 
     const handleTodoItemEdit = (todoItem) => {
-        API.put(`/houses/${houseId}/todo/${todoItem.id}`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
-            .then(response => {
-                if (response.status === 200) {
-                    let newTodoList = [];
-                    todoItems.forEach(item => {
-                        if (item.id !== todoItem.id)
-                            newTodoList.push(item);
-                        else
-                            newTodoList.push(todoItem);
-                    })
-                    setTodoItems(newTodoList);
-                    setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("Item edited successfully");
-                }
-            })
-            .catch(reason => {
-                setErrorSnackbarMessage("Failed to edit item: " + reason.toString());
-                setSuccessSnackbarMessage(undefined)
-            })
+        setTimeout(() => { // Simulates backend request
+            console.log("edit", todoItem);
+        }, 1000);
     }
 
     const handleTodoItemDelete = (todoItem) => {
-        API.delete(`/houses/${houseId}/todo/${todoItem.id}/delete`, {headers: {authorization: sessionStorage.getItem("token")}})
-            .then(response => {
-                if (response.status === 200) {
-                    let newTodoList = [];
-                    todoItems.forEach(item => {
-                        if (item.id !== todoItem.id)
-                            newTodoList.push(item);
-                    })
-                    setTodoItems(newTodoList);
-                    setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("Item deleted successfully");
-                }
-            })
-            .catch(reason => {
-                setErrorSnackbarMessage("Failed to delete item: " + reason.toString());
-                setSuccessSnackbarMessage(undefined)
-            })
+        setTimeout(() => { // Simulates backend request
+            console.log("delete", todoItem);
+        }, 1000);
     }
 
-    return(
+    return (
         <>
-            <HouseDescription house={house}/>
+            <HouseDescription/>
             <Table>
                 <TableBody>
                     <TableRow>
-                        <TableCell sx={{width: "70%", borderBottom:"none"}}>
-                            <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>Events</p>
+                        <TableCell sx={{width: "70%", borderBottom: "none"}}>
+                            <p style={{fontSize: "200%", fontWeight: "600", textAlign: "center"}}>Events</p>
                         </TableCell>
-                        <TableCell sx={{width: "30%", borderBottom:"none"}}>
-                            <p style={{fontSize:"200%", fontWeight:"600", textAlign:"center"}}>To Do List</p>
+                        <TableCell sx={{width: "30%", borderBottom: "none"}}>
+                            <p style={{fontSize: "200%", fontWeight: "600", textAlign: "center"}}>To Do List</p>
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell sx={{width: "70%", borderBottom:"none"}}>
+                        <TableCell sx={{width: "70%", borderBottom: "none"}}>
                             <Calendar events={events}
                                       onEventCreate={handleOpenNewEventDialog}
                                       onEventDetail={(event) => handleOpenEventDetailDialog(event)}
                             />
                         </TableCell>
-                        <TableCell sx={{width: "30%", verticalAlign: "top", borderBottom:"none"}}>
-                            <Box sx={{width: '100%', overflowY: 'scroll', maxHeight: "calc(calc(100vw * 0.42) - 16px)", minHeight: "calc(calc(100vw * 0.42) - 16px)"}}>
+                        <TableCell sx={{width: "30%", verticalAlign: "top", borderBottom: "none"}}>
+                            <Box sx={{
+                                width: '100%',
+                                overflowY: 'scroll',
+                                maxHeight: "calc(calc(100vw * 0.42) - 16px)",
+                                minHeight: "calc(calc(100vw * 0.42) - 16px)"
+                            }}>
                                 <TODOList items={todoItems}
                                           onItemAdd={handleTodoItemCreate}
                                           onItemEdit={handleTodoItemEdit}
@@ -299,9 +261,15 @@ export function HousePage() {
                 </TableBody>
             </Table>
             <br/>
-            <HomeInventory/>
-            <Box textAlign='center'>
-                <Button variant="contained" sx={{marginTop:"5%", marginBottom:"3%"}} aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog} color={"error"}>
+            <HomeInventory divisions={divisions} houseId={houseId}/>
+            <Box textAlign='center' marginTop="5%">
+                <Button variant="contained" aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog}
+                        sx={{
+                            color: '#FBF9FF', backgroundColor: '#4B4E6D',
+                            "&:hover": {
+                                backgroundColor: "#242038"
+                            }
+                        }}>
                     Delete House
                 </Button>
                 <Dialog
@@ -314,11 +282,8 @@ export function HousePage() {
                         {"Are you sure you want to delete this house?"}
                     </DialogTitle>
                     <DialogActions>
-                        <Button onClick={handleCloseDeleteHouseDialog} sx={{color: '#4B4E6D'}}>
-                            Close
-                        </Button>
-                        <Button variant='contained' color={"error"}
-                                onClick={handleHouseDelete} autoFocus>
+                        <Button onClick={handleCloseDeleteHouseDialog}>Close</Button>
+                        <Button onClick={handleCloseDeleteHouseDialog} autoFocus>
                             Delete
                         </Button>
                     </DialogActions>
@@ -343,11 +308,14 @@ export function HousePage() {
                                handleCancel={() => setEventDetailDialogOpen(false)}
             />
 
-            <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(undefined)}>
-                <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
+            <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
+                      onClose={() => setSuccessSnackbarMessage(undefined)}>
+                <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
+                       variant={"filled"}>{successSnackbarMessage}</Alert>
             </Snackbar>
             <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
-                <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
+                <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
+                       variant={"filled"}>{errorSnackbarMessage}</Alert>
             </Snackbar>
         </>
     );

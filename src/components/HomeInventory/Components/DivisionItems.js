@@ -138,7 +138,7 @@ export default class DivisionItems extends Component {
     render() {
         return (<div className={"division-items"}>
             {this.state.products.length == 0 && this.state.AddItemButtonShown && (
-                <tr style={{display: "flex", justifyContent: "center"}}>
+                <div style={{display: "flex", justifyContent: "center"}}>
                     <div
                         style={{
                             display: "flex", flexDirection: "column", alignItems: "center",
@@ -153,7 +153,7 @@ export default class DivisionItems extends Component {
                             Empty room!
                         </p>
                     </div>
-                </tr>)}
+                </div>)}
 
             {this.state.products.length === 0 && !this.state.AddItemButtonShown &&
                 <div>{this.showForm()}</div>}
@@ -179,7 +179,8 @@ export default class DivisionItems extends Component {
                 {this.state.products.length == 0 &&
                     <button
                         style={{backgroundColor: "#A2A3BB"}}
-                        onClick={() => this.props.handleClose}
+                        onClick={() =>
+                            this.props.deleteDivision(this.props.division)}
                     >
                         Delete Division
                     </button>}

@@ -1,108 +1,130 @@
-import {Component, useState} from "react";
+import {Component, useEffect, useState} from "react";
 
 import "./HomeInventory.css"
-import {Grid} from "@mui/material";
+import {Alert, Grid} from "@mui/material";
 import {Box} from "@mui/joy";
 import {DivisionCard} from "./Components/DivisionCard";
-import AddCard from "../AddCard";
 import DivisionModal from "./Components/DivisionModal";
 import * as React from "react";
-import NewHouseModal from "../MyHousesPage/HousesList/Components/NewHouseModal";
 import NewDivisionModal from "./Components/NewDivisionModal";
 import API from "../../api";
-import NewHouseSnackbar from "../MyHousesPage/HousesList/Components/NewHouseSnackbar";
+import Snackbar from "@mui/material/Snackbar";
 
-export class HomeInventory extends Component {
-    houseId = 1;
+export function HomeInventory(props) {
+    const [divisions, setDivisions] = useState([]);
+    const [newDivisionCreated, setNewDivisionCreated] = useState(false);
+    const [divisionDeleted, setDivisionDeleted] = useState(false);
+    const [division, setDivision] = useState(null);
 
-    constructor(props) {
-        super(props);
+    const [successSnackbarMessage, setSuccessSnackbarMessage] = useState(undefined);
+    const [errorSnackbarMessage, setErrorSnackbarMessage] = useState(undefined);
 
-        this.state = {
-            divisions: [
-                //{id: 1, name: "Kitchen", icon: "/kitchen.png"},
-                //{id: 2, name: "Bedroom", icon: "/bedroom.png"},
-                //{id: 3, name: "Bathroom", icon: "/bathroom.png"},
-                //{id: 4, name: "Living Room", icon: "/living-room.png"}
-            ],
-            newDivisionCreated: false,
-            showModal: null
-        }
+    useEffect(() => {
+        setDivisions(props.divisions);
+    }, [props.divisions]);
 
-    }
-
-    //To-Do replace with 'this.props.houseId'
-    componentDidMount() {
-        API.get('/houses/' + '1' + '/inventory/list',
-            {headers: {authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6Imx1aXNoIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImVtYWlsIjoibHVpc0BtYWlsLmNvbSJ9LCJpYXQiOjE2Njk1NzAyMzYsImV4cCI6MTY3MDE3NTAzNn0.CF8Mhub7zrzWlgRkKKeCaukPI66WsOf0bVmAt8Ia1jw"}})
+    const addDivision = (division) => {
+        API.post('/houses/' + props.houseId + '/inventory', division, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
-                let divisionsList = response.data;
-                this.setState({divisions: divisionsList})
+                let tmp = [];
+                divisions.map((div) => {
+                    tmp.push(div);
+                })
+                tmp.push(division);
+                setDivisions(tmp);
+                setSuccessSnackbarMessage("Created successfully!");
             }).catch(reason => {
             console.log(reason)
         })
     }
 
-    //To-Do replace with 'this.props.houseId'
-    addDivision = (division) => {
-        API.post('/houses/' + '1' + '/inventory', division, {headers: {authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6Imx1aXNoIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImVtYWlsIjoibHVpc0BtYWlsLmNvbSJ9LCJpYXQiOjE2Njk1NzAyMzYsImV4cCI6MTY3MDE3NTAzNn0.CF8Mhub7zrzWlgRkKKeCaukPI66WsOf0bVmAt8Ia1jw"}})
+    const deleteDivision = (division) => {
+        API.delete('/houses/' + props.houseId + '/inventory/' + division.id + '/delete', {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
-                this.state.newDivisionCreated = true;
-                this.state.divisions.push(division);
-                this.setState({divisions: this.state.divisions, newDivisionCreated: this.state.newDivisionCreated});
-
+                if (response.status === 200) {
+                    let newDivisions = [];
+                    divisions.forEach(div => {
+                        if (div.id !== division.id)
+                            newDivisions.push(div);
+                    })
+                    setDivisions(newDivisions);
+                    setSuccessSnackbarMessage("Deleted successfully!")
+                }
             }).catch(reason => {
             console.log(reason)
         })
     }
 
-    closeSnackbar = () => {
-        this.state.newHouseCreated = false;
-        this.setState({newHouseCreated: this.state.newHouseCreated})
+    const editDivision = (division) => {
+        API.put('/houses/' + props.houseId + '/inventory/' + division.id, division, {headers: {authorization: sessionStorage.getItem('token')}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newDivisions = [];
+                    divisions.forEach(div => {
+                        if (div.id !== division.id)
+                            newDivisions.push(div);
+                        else
+                            newDivisions.push(division);
+                    })
+                    setDivisions(newDivisions);
+                    setSuccessSnackbarMessage("Changed successfully!")
+                }
+            }).catch(reason => {
+            console.log(reason)
+        })
     }
 
-    gridClicked = (division) => {
-        console.log(division);
-        this.setState({showModal: division})
+    const openDivision = (division) => {
+        setDivision(division);
     }
 
-    render() {
-        return (
-            <>
+    return (
+        <>
 
-                <div style={{padding: "3% 0 3% 0", display: 'flex', justifyContent:'center'}}>
-                    <h1>House Inventory</h1>
-                </div>
-                <Box className={'homeInventory'} sx={{flexGrow: 1}}>
-                    <Grid container
-                          className={'grid-inventory'}
-                          direction="row"
-                          spacing={4}>
-                        {this.state.divisions.map(
-                            division => (
-                                    <Grid item>
-                                        <button type='button' onClick={() => this.gridClicked(division)}
-                                                style={{
-                                                    border: "0px",
-                                                    backgroundColor: "transparent",
-                                                    cursor: "pointer"
-                                                }}>
-                                            <DivisionCard key={division.id} name={division.name} image={division.icon}/>
-                                        </button>
-                                    </Grid>
-                            )
-                        )}
-                        <DivisionModal name={this.state.showModal != null ? this.state.showModal.name : ""}
-                                       icon={this.state.showModal != null ? this.state.showModal.icon : ""}
-                                       open={this.state.showModal != null}
-                                       close={() => this.setState({showModal: null})}/>
-                    </Grid>
-                </Box>
-                <div style={{justifyContent: "center", display: "flex", marginTop:"5%"}}>
-                    <NewDivisionModal functionCreate={this.addDivision}></NewDivisionModal>
-                </div>
-                {this.state.newDivisionCreated ? <NewHouseSnackbar close={this.closeSnackbar}></NewHouseSnackbar> : null}
-            </>
-        )
-    }
+            <div style={{padding: "3% 0 3% 0", display: 'flex', justifyContent: 'center'}}>
+                <h1>House Inventory</h1>
+            </div>
+            <Box className={'homeInventory'} sx={{flexGrow: 1}}>
+                <Grid container
+                      className={'grid-inventory'}
+                      direction="row"
+                      spacing={4}
+                      style={{marginLeft: "0", padding: "0 15% 0 15%"}}>
+                    {divisions.map(
+                        division => (
+                            <>
+                                <Grid item xs={2.4}>
+                                    <div onClick={() => openDivision(division)}
+                                            style={{
+                                                border: "0px",
+                                                backgroundColor: "transparent",
+                                                cursor: "pointer"
+                                            }}>
+                                        <DivisionCard key={division.id} name={division.name} image={division.icon }/>
+                                    </div>
+                                </Grid>
+                            </>
+                        )
+                    )}
+                </Grid>
+            </Box>
+            <div style={{justifyContent: "center", display: "flex", marginTop: "5%"}}>
+                <NewDivisionModal functionCreate={addDivision}></NewDivisionModal>
+            </div>
+            <DivisionModal division={division}
+                           open={division != null}
+                           close={() => setDivision(null)}
+                           deleteDivision={division != null ? deleteDivision : null}/>
+            <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
+                      onClose={() => setSuccessSnackbarMessage(undefined)}>
+                <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
+                       variant={"filled"}>{successSnackbarMessage}</Alert>
+            </Snackbar>
+            <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
+                <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
+                       variant={"filled"}>{errorSnackbarMessage}</Alert>
+            </Snackbar>
+        </>
+    );
+
 }
