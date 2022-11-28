@@ -24,14 +24,6 @@ export class NewHouseForm extends Component {
         this.props.handleClose();
     }
 
-    onImageChange = event => {
-        if (event.target.files && event.target.files[0]) {
-            let img = event.target.files[0];
-            this.setState({
-                image: URL.createObjectURL(img)
-            });
-        }
-    };
 
     removeCapacity = capacity => {
         let newCapacity = parseInt(capacity) - 1;
@@ -80,18 +72,10 @@ export class NewHouseForm extends Component {
                         </button>
                     </div>
                 </div>
-                <div className={'input'}>
-                    <label className={'input-label'}>Image:</label>
-                    <div className={'input image'}>
-                        <label htmlFor="input-image" className="custom-file-upload">
-                            <BsCloudUpload/>Upload
-                        </label>
-                        <input type="file" id="input-image" className={'input-field'} name={'image'}
-                               onChange={(event) => this.onImageChange(event)}/>
-                    </div>
-                </div>
-                <div className={'btn'}>
-                    <input type='submit' value="Create"/>
+                <div className={'btn'} style={{display:'flex', justifyContent:'center', marginTop: "5%"}}>
+                    <button type='submit' className={'addhouse-button'} >
+                        Create
+                    </button>
                 </div>
             </form>
         );

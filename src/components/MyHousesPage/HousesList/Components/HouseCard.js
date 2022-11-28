@@ -5,6 +5,7 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import {Grid} from "@mui/material";
+import casaAmarela from '../../../../static/casaamarela.jpeg';
 import './components-houselist.css';
 
 export class GradientCover extends Component {
@@ -15,8 +16,8 @@ export class GradientCover extends Component {
                 <a href={'/house-page/'+this.props.house.id}>
                     <Card className={'house-card'}>
                         <CardCover>
-                            <img src={this.props.house.image}
-                                 alt={this.props.house.name}
+                            <img src={casaAmarela}
+                                 alt={"House image"}
                                  loading="lazy"/>
                         </CardCover>
                         <CardCover

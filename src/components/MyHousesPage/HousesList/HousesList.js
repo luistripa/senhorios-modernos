@@ -45,16 +45,6 @@ export class HousesList extends Component {
             console.log(reason)
         })
 
-        /*API.post('/media', , {headers: {authorization: token}})
-            .then(response => {
-                let newHouse = response.data;
-                this.state.newHouseCreated = true;
-                this.state.houses.push(newHouse);
-                this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated});
-
-            }).catch(reason => {
-            console.log(reason)
-        })*/
 
     }
 
