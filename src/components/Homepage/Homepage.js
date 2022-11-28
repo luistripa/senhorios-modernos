@@ -12,6 +12,7 @@ import introImage from "../../static/frontpage-intro.png";
 import myCalendar from "../../static/MyCalendar.png";
 import todo from "../../static/todo.png";
 import events from "../../static/events.png";
+import inventory from "../../static/inventario.png"
 import {Footer} from "./Footer";
 import {Grid} from "@mui/material";
 import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
@@ -73,7 +74,7 @@ export const Homepage = () => {
 
                         </Grid>
                         <Grid item xs={6} sx={{display: "flex", alignItems: "center"}}>
-                            <img src={introImage} width={'100%'}></img>
+                            <img src={introImage} width={'90%'}></img>
                         </Grid>
 
                         <Grid item xs={12} id={'feature-section'}>
@@ -100,7 +101,7 @@ export const Homepage = () => {
                                     </div>
                                 </div>
                                 <div className={'service s2'}>
-                                    <img src={events} style={{alignSelf:"center", width:'90%', height:"55%"}}/>
+                                    <img src={events} style={{alignSelf:"center", width:'90%', height:"60%"}}/>
                                     <div className={'description s2'}>
                                         <p className={'firstDescription'}>
                                             Your Today Events
@@ -122,7 +123,7 @@ export const Homepage = () => {
                                     </div>
                                 </div>
                                 <div className={'service s4'}>
-                                    <img src={'to-do-lists.png'}/>
+                                    <img src={inventory} style={{alignSelf:"center", width:'90%'}}/>
                                     <div className={'description s4'}>
                                         <p className={'firstDescription'}>
                                             Your House Inventory
