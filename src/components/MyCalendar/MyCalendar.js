@@ -6,6 +6,7 @@ import EventDetailDialog from "../Calendar/EventDetailDialog";
 
 import API from '../../api';
 import {Container} from "@mui/material";
+import {TopBar} from "../TopBar/TopBar";
 
 export function MyCalendar(props) {
 
@@ -114,8 +115,8 @@ export function MyCalendar(props) {
 
     return (
         <>
-            <Container maxWidth={"md"}>
-                <h1>My Calendar</h1>
+            <TopBar/>
+            <Container>
                 <div>
                     <Calendar events={events}
                               onEventCreate={handleOpenNewEventDialog}

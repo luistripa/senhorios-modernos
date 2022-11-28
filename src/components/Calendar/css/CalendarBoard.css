@@ -95,18 +95,18 @@
 }
 
 .calendar-days-container .day-line .day:hover {
-    background-color: #e3e3e3;
+    background-color: #A2A3BB;
 }
 
 .calendar-days-container .day-line .day.selected {
-    box-shadow: 0 0 8px 3px #dbbee7;
-    background-color: #aa8cd7;
+    box-shadow: 0 0 8px 3px #A2A3BB;
+    background-color: #7A82AB;
 
     z-index: 1;
 }
 
 .calendar-days-container .day-line .day.other-month {
-    color: darkgray;
+    color: #7A82AB;
 }
 
 .calendar-days-container .day-line .day .content {
@@ -127,7 +127,7 @@
 }
 
 .calendar-days-container .day-line .day.selected .content .day-text {
-    color: white;
+    color: #FBF9FF;
     font-size: 120%;
     font-weight: bolder;
 }
@@ -142,13 +142,13 @@
 
     border-radius: 5px;
 
-    background-color: mediumpurple;
+    background-color: #7A82AB;
 }
 
 
 .calendar-days-container .day-line .day.selected .content .with-events {
     position: absolute;
 
-    background-color: white;
+    background-color: #FBF9FF;
     z-index: 2;
 }
