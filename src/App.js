@@ -6,6 +6,7 @@ import MyHousesPage from "./components/MyHousesPage/MyHousesPage";
 import React from 'react';
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {HousePage} from "./components/HousePage/HousePage";
 
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/login-and-register" element={<LoginAndRegister/>} />
             <Route path={"/my-houses"} element={<MyHousesPage/>}/>
             <Route path={"/my-calendar"} element={<MyCalendar/>}/>
+            <Route path={"/house-page/:houseId"} element={<HousePage/>}/>
         </Routes>
       </BrowserRouter>
   )

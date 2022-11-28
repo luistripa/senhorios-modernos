@@ -16,7 +16,7 @@ import {Delete, Check, ListAlt} from '@mui/icons-material';
 import {useEffect, useState} from "react";
 import Typography from "@mui/joy/Typography";
 
-export function TODOList(){
+export function TODOList(props){
 
     const [todoList, setTodoList] = useState([]);
 
@@ -32,36 +32,13 @@ export function TODOList(){
 
     //TODO - Fazer sort aqui no useEffect
     useEffect(() => {
-        let todoList = [
-            {
-                id: 0,
-                name: "Clean Kitchen",
-                checked: false
-            },
-            {
-                id: 1,
-                name: "Paint wall",
-                checked: false
-            },
-            {
-                id: 2,
-                name: "Fix pipe",
-                checked: false
-            },
-            {
-                id: 3,
-                name: "Do laundry",
-                checked: true
-            },
-            {
-                id: 4,
-                name: "Buy washing machine",
-                checked: true
-            }
-        ];
+        setTodoList(props.items)
+
+        if (props.items.length === 0)
+            setIsEmpty(true);
 
         sortTodoList(todoList)
-    }, []);
+    }, [props.items]);
 
     // Handles changes from the create item input
     const handleInput = e => {
@@ -91,6 +68,8 @@ export function TODOList(){
         }
         setIsEmpty(false);
         setAddItem(false);
+
+        props.onItemAdd({name: string})
     }
 
     // Handle enter keydown or input blur for edit input
@@ -111,6 +90,8 @@ export function TODOList(){
         })
         setTodoList(newTodoList);
         setEditItemId(undefined);
+
+        props.onItemEdit(value);
     }
 
     // Toggles item add menu
@@ -118,16 +99,17 @@ export function TODOList(){
         setAddItem(!addItem);
     }
 
-    const handleDelete= (id) => {
+    const handleDelete= (value) => {
         let newTodoList = [];
         todoList.forEach(elem => {
-            if (elem.id !== id)
+            if (elem.id !== value.id)
                 newTodoList.push(elem);
         })
         if(newTodoList.length === 0){
             setIsEmpty(true);
         }
         sortTodoList(newTodoList);
+        props.onItemDelete(value)
     }
 
     // Handles the todo check box change
@@ -172,10 +154,10 @@ export function TODOList(){
                 { addItem ? <TableRow>
                     <List component={"td"} sx={{padding: "0"}}>
                         <ListItem sx={{padding: "0"}}>
-                            <IconButton>
-                                <Check style={{color: '#4B4E6D'}} onClick={() => handleAdd(inputText)}/>
+                            <IconButton onClick={() => handleAdd(inputText)}>
+                                <Check style={{color: '#4B4E6D'}} />
                             </IconButton>
-                            <Input value={inputText} onChange={handleInput} onKeyDown={handleKeyDown}
+                            <Input value={inputText} autoFocus={true} onChange={handleInput} onKeyDown={handleKeyDown}
                                    sx={{bgcolor: 'background.paper', width:'80%'}}
                                    placeholder="Type new item"
                             />
@@ -206,13 +188,13 @@ export function TODOList(){
                                         />
                                         {editItemId === value.id ? <>
                                                 <ListItemText primary={
-                                                    <Input value={inputTextEdit} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, value)}
+                                                    <Input value={inputTextEdit} autoFocus={true} onChange={handleInputEdit} onKeyDown={(e) => handleKeyDownEdit(e, value)}
                                                            onBlur={(e) => handleKeyDownEdit(e, value)}
                                                            sx={{bgcolor: 'background.paper', width:'100%'}}
                                                     />
                                                 }/>
-                                                <IconButton>
-                                                    <Check style={{color: '#4B4E6D'}} onClick={() => handleEdit(value)}/>
+                                                <IconButton onClick={() => handleEdit(value)}>
+                                                    <Check style={{color: '#4B4E6D'}}/>
                                                 </IconButton>
                                             </>
                                         : <>
@@ -222,7 +204,7 @@ export function TODOList(){
                                                     {value.name}
                                                 </Typography>
                                                 }/>
-                                                <IconButton aria-label="delete" onClick={() => handleDelete(value.id)}>
+                                                <IconButton aria-label="delete" onClick={() => handleDelete(value)}>
                                                     <Delete style={{color: '#4B4E6D'}}/>
                                                 </IconButton>
                                             </>
