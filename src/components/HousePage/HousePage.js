@@ -248,11 +248,7 @@ export function HousePage() {
             <br/>
             <HomeInventory/>
             <Box textAlign='center' marginTop="5%">
-                <Button variant="contained" aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog}
-                        sx={{color: '#FBF9FF', backgroundColor:'#4B4E6D',
-                            "&:hover": {
-                                backgroundColor: "#242038"
-                            }}}>
+                <Button variant="contained" aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog} color={"error"}>
                     Delete House
                 </Button>
                 <Dialog
@@ -265,8 +261,11 @@ export function HousePage() {
                         {"Are you sure you want to delete this house?"}
                     </DialogTitle>
                     <DialogActions>
-                        <Button onClick={handleCloseDeleteHouseDialog}>Close</Button>
-                        <Button onClick={handleCloseDeleteHouseDialog} autoFocus>
+                        <Button onClick={handleCloseDeleteHouseDialog} sx={{color: '#4B4E6D'}}>
+                            Close
+                        </Button>
+                        <Button variant='contained' color={"error"}
+                                onClick={handleCloseDeleteHouseDialog} autoFocus>
                             Delete
                         </Button>
                     </DialogActions>
