@@ -1,8 +1,17 @@
 import {HouseDescription} from "../HouseDescription/HouseDescription";
-import {TopBar} from "../TopBar/TopBar";
 import {TODOList} from "../TODOList/TODOList";
 import Calendar from "../Calendar/Calendar";
-import {Table, TableBody, TableCell, TableRow, Box, Button} from "@mui/material";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableRow,
+    Box,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogActions
+} from "@mui/material";
 import {HomeInventory} from "../HomeInventory/HomeInventory";
 import * as React from "react";
 import {useEffect, useState} from "react";
@@ -32,6 +41,8 @@ export function HousePage() {
     const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
     const [eventDetailDialogEvent, setEventDetailDialogEvent] = useState(null);
 
+    // Delete House Dialog
+    const [openDeleteHouseDialog, setDeleteHouseDialog] = React.useState(false);
 
     useEffect(() => {
 
@@ -75,6 +86,14 @@ export function HousePage() {
         // TODO: GET house divisions
 
     }, [])
+
+    const handleOpenDeleteHouseDialog = () => {
+        setDeleteHouseDialog(true);
+    };
+
+    const handleCloseDeleteHouseDialog = () => {
+        setDeleteHouseDialog(false);
+    };
 
 
     //TODO - Fazer o onClick para apagar a casa!
@@ -179,13 +198,29 @@ export function HousePage() {
             <br/>
             <HomeInventory/>
             <Box textAlign='center' marginTop="5%">
-                <Button variant="contained" aria-label="deleteHouseButton"
+                <Button variant="contained" aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog}
                         sx={{color: '#FBF9FF', backgroundColor:'#4B4E6D',
                             "&:hover": {
                                 backgroundColor: "#242038"
                             }}}>
                     Delete House
                 </Button>
+                <Dialog
+                    open={openDeleteHouseDialog}
+                    onClose={handleCloseDeleteHouseDialog}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Are you sure you want to delete this house?"}
+                    </DialogTitle>
+                    <DialogActions>
+                        <Button onClick={handleCloseDeleteHouseDialog}>Close</Button>
+                        <Button onClick={handleCloseDeleteHouseDialog} autoFocus>
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
 
             <NewEventDialog open={newEventDialogOpen}
