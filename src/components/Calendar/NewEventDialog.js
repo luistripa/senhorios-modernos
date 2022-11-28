@@ -31,14 +31,14 @@ export function NewEventDialog(props) {
 
     useEffect(() => {
         setEventHouseId(props.selectedHouse ? props.selectedHouse : "")
-        setEventName(props.event ? props.event.name : "");
-        setEventDescription(props.event ? props.event.description : "");
-        setEventType(props.event ? props.event.type : "GENERIC");
-        setEventStartDate(props.event ? props.event.startDate : moment().second(0).millisecond(0));
-        setEventEndDate(props.event ? props.event.endDate : moment().add(1, "hour").second(0).millisecond(0));
+        setEventName("");
+        setEventDescription( "");
+        setEventType("GENERIC");
+        setEventStartDate(props.selectedDay ? moment(props.selectedDay).second(0).millisecond(0) : "");
+        setEventEndDate(props.selectedDay ? moment(props.selectedDay).add(1, "hour").second(0).millisecond(0) : "");
         setEventRepeat(props.event ? props.event.repeat : "NO");
         setEventRepeatUntil(props.event ? props.event.repeatUntil : "");
-    }, [props.event, props.selectedHouse])
+    }, [props.selectedDay, props.event, props.selectedHouse])
 
     const [createProcessing, setCreateProcessing] = useState(false);
 

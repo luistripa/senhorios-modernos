@@ -5,15 +5,20 @@ import {NewEventDialog} from "../Calendar/NewEventDialog";
 import EventDetailDialog from "../Calendar/EventDetailDialog";
 
 import API from '../../api';
-import {Container} from "@mui/material";
+import {Alert, Container} from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 
 export function MyCalendar(props) {
 
     const [events, setEvents] = useState([]);
     const [houseList, setHouseList] = useState([]);
 
+    const [successSnackbarMessage, setSuccessSnackbarMessage] = useState(undefined);
+    const [errorSnackbarMessage, setErrorSnackbarMessage] = useState(undefined);
+
     // For new event dialog
     const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
+    const [newEventDialogSelectedDay, setNewEventDialogSelectedDay] = useState(moment());
 
     // For event detail dialog
     const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
@@ -42,8 +47,9 @@ export function MyCalendar(props) {
             .catch(reason => console.error(reason));
     }, [])
 
-    const handleOpenNewEventDialog = () => {
+    const handleOpenNewEventDialog = (selectedDay) => {
         setNewEventDialogOpen(true);
+        setNewEventDialogSelectedDay(selectedDay);
     }
 
     const handleCloseNewEventDialog = () => {
@@ -61,24 +67,69 @@ export function MyCalendar(props) {
     }
 
     const handleEventCreate = (resolve, reject, eventData) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("create", eventData);
-            resolve();
-        }, 1000)
+        API.post(`/houses/${eventData.houseId}/events`, eventData, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newEvents = [];
+                    events.forEach(event => {
+                        if (event.id !== eventData.id)
+                            newEvents.push(event);
+                    })
+                    newEvents.push(eventData);
+                    setEvents(newEvents)
+                    setErrorSnackbarMessage(null);
+                    setSuccessSnackbarMessage("Event created successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to create event: " + reason.toString());
+                setSuccessSnackbarMessage(null)
+            })
     }
 
     const handleEventEdit = (resolve, reject, eventData) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("edit", eventData);
-            resolve();
-        }, 1000);
+        API.put(`/houses/${eventData.houseId}/events/${eventData.id}`, eventData, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newEvents = [];
+                    events.forEach(event => {
+                        if (event.id !== eventData.id)
+                            newEvents.push(event);
+                        else
+                            newEvents.push(eventData);
+                    })
+                    setEvents(newEvents)
+                    setErrorSnackbarMessage(null);
+                    setSuccessSnackbarMessage("Event edited successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to edit event: " + reason.toString());
+                setSuccessSnackbarMessage(null)
+            })
     }
 
     const handleEventDelete = (resolve, reject, eventData) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("delete", eventData);
-            resolve();
-        }, 1000);
+        API.delete(`/houses/${eventData.houseId}/events/${eventData.id}`, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newEvents = [];
+                    events.forEach(event => {
+                        if (event.id !== eventData.id)
+                            newEvents.push(event);
+                    })
+                    setEvents(newEvents)
+                    setErrorSnackbarMessage(null);
+                    setSuccessSnackbarMessage("Event delete successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to delete event: " + reason.toString());
+                setSuccessSnackbarMessage(null)
+            })
     }
 
     return (
@@ -89,11 +140,18 @@ export function MyCalendar(props) {
                               onEventCreate={handleOpenNewEventDialog}
                               onEventDetail={(event) => handleOpenEventDetailDialog(event)}
                     />
+                    <Snackbar open={successSnackbarMessage} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(null)}>
+                        <Alert onClose={() => setSuccessSnackbarMessage(null)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
+                    </Snackbar>
+                    <Snackbar open={errorSnackbarMessage} onClose={() => setErrorSnackbarMessage(null)}>
+                        <Alert onClose={() => setErrorSnackbarMessage(null)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
+                    </Snackbar>
                 </div>
 
 
                 <NewEventDialog open={newEventDialogOpen}
                                 onClose={handleCloseNewEventDialog}
+                                selectedDay={newEventDialogSelectedDay}
                                 selectedHouse={undefined}
                                 houseList={houseList}
                                 handleCreate={handleEventCreate}
@@ -109,6 +167,8 @@ export function MyCalendar(props) {
                                    handleCancel={() => setEventDetailDialogOpen(false)}
                 />
             </Container>
+
+
         </>
 
     );

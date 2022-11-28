@@ -106,7 +106,9 @@ export default function CalendarEventList(props) {
                 <Typography padding={0} color={"white"} overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
                     {props.selectedDay.format("ddd MMM Do")}
                 </Typography>
-                <Button className={"event-add-button"} size={"small"} variant={"contained"} color={"primary"} onClick={props.handleCreate}>
+                <Button className={"event-add-button"}
+                        size={"small"} variant={"contained"} color={"primary"}
+                        onClick={() => props.handleCreate(props.selectedDay.hours(moment().hours()).minutes(moment().minutes()).seconds(moment().seconds()))}>
                     <AddIcon fontSize={"small"}/>
                 </Button>
 
