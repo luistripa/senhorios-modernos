@@ -150,7 +150,7 @@ export function TopBar() {
                             <a href={"/#about-section"} style={{textDecoration: "none", color: "inherit"}}>
                                 <MenuItem onClick={handleOneHomeDropDownClose}>About OneHome</MenuItem>
                             </a>
-                            <a href={"/#features-section"} style={{textDecoration: "none", color: "inherit"}}>
+                            <a href={"/#feature-section"} style={{textDecoration: "none", color: "inherit"}}>
                                 <MenuItem onClick={handleOneHomeDropDownClose}>Features</MenuItem>
                             </a>
                             <a href={"/#team-section"} style={{textDecoration: "none", color: "inherit"}}>

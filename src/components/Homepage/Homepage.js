@@ -4,13 +4,10 @@ import Carousel from "react-bootstrap/Carousel";
 import Image1 from "../../static/casa1.jpg";
 import Image2 from "../../static/casa2.jpg";
 import Image3 from "../../static/casa3.jpg";
-import About_Img from "../../static/About_Img.jpg";
-import Card from "react-bootstrap/Card";
 import catarinaImage from "../../static/catarina.jpg";
 import inesImage from "../../static/ines.jpg";
 import luisImage from "../../static/luis.jpg";
 import raquelImage from "../../static/raquel.jpg";
-import {TopBar} from "../TopBar/TopBar";
 import introImage from "../../static/frontpage-intro.png";
 import {Footer} from "./Footer";
 import {Grid} from "@mui/material";
@@ -41,7 +38,7 @@ export const Homepage = () => {
                 <div className={'introSection'} style={{display: "flex", flexDirection: "row"}}>
 
                     <Grid container xs={12}>
-                        <Grid item xs={6} style={{display: "flex", alignItems: "center"}}>
+                        <Grid item id={'about-section'} xs={6} style={{display: "flex", alignItems: "center"}}>
                             <div style={{margin: "0 10%"}}>
                                 <img src={'telhado-casa.png'}
                                      style={{width: "114px", transform: "translate(0, 20%)"}}/>
@@ -76,13 +73,13 @@ export const Homepage = () => {
                             <img src={introImage} width={'100%'}></img>
                         </Grid>
 
-                        <Grid item xs={12}>
+                        <Grid item xs={12} id={'feature-section'}>
                             <div className={'titles services'} style={{display: 'flex', flexDirection: 'column'}}>
                                 <p className={'firstTitle'}>
                                     WHAT WE DO?
                                 </p>
                                 <p className={'secondTitle'}>
-                                    OUR SERVICES
+                                    OUR FEATURES
                                 </p>
                             </div>
                         </Grid>
@@ -135,7 +132,7 @@ export const Homepage = () => {
                             </div>
                         </Grid>
 
-                        <Grid item xs={12} style={{marginTop: "5%"}}>
+                        <Grid item xs={12} style={{marginTop: "5%"}} id={'team-section'}>
                             <div className={'titles team'} style={{display: 'flex', flexDirection: 'column'}}>
                                 <p className={'firstTitle'}>
                                     WHO ARE WE?
