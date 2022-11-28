@@ -66,8 +66,8 @@ const LoginAndRegister = (props) => {
                 if(response.status === 200) {
                     let token = response.headers.get('Authorization');
                     sessionStorage.setItem('token', token);
+                    props.onClose();
                     navigate("/my-houses");
-
                 }
             }).catch(() => {
                 setSnackBarOpen(true);

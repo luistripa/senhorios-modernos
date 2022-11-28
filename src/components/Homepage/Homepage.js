@@ -40,8 +40,6 @@ export const Homepage = () => {
 
     return(
         <>
-            <TopBar/>
-
             <LoginAndRegister toggleLogin={!showRegisterModal} open={showRegisterModal} onClose={handleRegisterModalClose} />
 
             <Carousel>

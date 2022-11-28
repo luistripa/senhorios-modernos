@@ -12,9 +12,19 @@ import logo from "../../static/LogoIPM-no-background.png"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
+import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
+
+import API from "../../api";
 
 export function TopBar() {
     const [sticky, setSticky] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+    const [loggedInUser, setLoggedInUser] = useState(undefined);
+    const [accountInfoOpen, setAccountInfoOpen] = useState(false);
+
+    const handleLoginModalOpen = () => setLoginModalOpen(true);
+    const handleLoginModalClose = () => setLoginModalOpen(false);
 
     //replace with database
     const userName = 'Nome';
@@ -27,28 +37,48 @@ export function TopBar() {
     const open = Boolean(dropDown);
     const open2 = Boolean(accountMenu);
 
-    const handleClick = (event) => {
+    const handleOneHomeDropDownOpen = (event) => {
         setDropDown(event.currentTarget);
     };
-    const handleClick2 = (event) => {
-        setAccountMenu(event.currentTarget);
-    };
-    const handleClose = () => {
+    const handleOneHomeDropDownClose = () => {
         setDropDown(null);
     };
-    const handleClose2 = () => {
-        setAccountMenu(null);
+    const handleAccountInfoOpen = (event) => {
+        setAccountInfoOpen(true);
+        setAccountMenu(event.currentTarget);
+    };
+    const handleAccountInfoClose = () => {
+        setAccountInfoOpen(false);
+        setAccountMenu(undefined)
     };
 
+    /*
+    Get logged in user from the database if the token exists
+     */
+    useEffect(() => {
+        let token = sessionStorage.getItem('token');
+        if (token)
+            API.get('/users/current', {headers: {authorization: token}})
+                .then(response => {
+                    if (response.status === 200) {
+                        setLoggedInUser(response.data)
+                    }
+                })
+                .catch(reason => console.error(reason))
+    }, [])
+
+    /*
+    Creates scroll event handler to change the topBar to stick to the top of the page
+     */
     useEffect(() => {
         const handleScroll = () => {
             setSticky(window.scrollY > 50);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    });
+    }, []);
 
-    function dropDownMenuLogin() {
+    function dropDownUserInfo() {
         return (
             <>
                 <div className={'profile-user'}
@@ -59,18 +89,16 @@ export function TopBar() {
                     <div className={'data-user'}
                          style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                         <div className={'names-user'} style={{display: "flex", flexDirection: "row"}}>
-                            <p>{userName}</p>
-                            &nbsp;
-                            <p>{userApelido}</p>
+                            <p>{loggedInUser.name}</p>
                         </div>
-                        <p id='userEmail'> {userEmail} </p>
+                        <p id='userEmail'> {loggedInUser.email} </p>
                     </div>
-                    <div className={'log-out'}>
+                    <Button className={'log-out'}>
                         <ListItemIcon>
                             <Logout fontSize="small"/>
                         </ListItemIcon>
                         Logout
-                    </div>
+                    </Button>
                 </div>
             </>
         );
@@ -83,21 +111,25 @@ export function TopBar() {
 
     if(login){
         return (<>
-            <nav className={`${sticky ? "sticky" : ""}`}>
+            <nav className={sticky ? "topBar sticky" : "topBar"}>
                 <div className="nav-inner">
-                    <div className="logo">
-                        <img alt="logo" src={logo} height={40} width={40}/>
-                        <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
-                            <p id={'logoTitle'}>OneHome</p>
+                    <a href="/">
+                        <div className="logo">
+                            <img alt="logo" src={logo} height={40} width={40}/>
+                            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
+                                <p className={'title'}>OneHome</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
                     <div className="links">
                         <Button
                             id="oneHome-button"
+                            className={"link-item"}
                             aria-controls={open ? "oneHome-button" : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}
+                            onClick={handleOneHomeDropDownOpen}
                             endIcon={<KeyboardArrowDownIcon/>}
                             color={'inherit'}
                             style={{textTransform: 'none'}}>
@@ -105,35 +137,44 @@ export function TopBar() {
                         </Button>
                         <Menu
                             id="drop-down-menu"
+                            className={"link-item"}
                             anchorEl={dropDown}
                             open={open}
-                            onClose={handleClose}
+                            onClose={handleOneHomeDropDownClose}
                         >
-                            <MenuItem onClick={handleClose}>About OneHome</MenuItem>
-                            <MenuItem onClick={handleClose}>Features</MenuItem>
-                            <MenuItem onClick={handleClose}>Team</MenuItem>
+                            <a href={"/#about-section"} style={{textDecoration: "none", color: "inherit"}}>
+                                <MenuItem onClick={handleOneHomeDropDownClose}>About OneHome</MenuItem>
+                            </a>
+                            <a href={"/#features-section"} style={{textDecoration: "none", color: "inherit"}}>
+                                <MenuItem onClick={handleOneHomeDropDownClose}>Features</MenuItem>
+                            </a>
+                            <a href={"/#team-section"} style={{textDecoration: "none", color: "inherit"}}>
+                                <MenuItem onClick={handleOneHomeDropDownClose}>Team</MenuItem>
+                            </a>
                         </Menu>
-                        <a href="/my-houses">My Houses</a>
-                        <a href="/my-calendar">My Calendar</a>
+                        <a className={"link-item"} href="/my-houses">My Houses</a>
+                        <a className={"link-item"} href="/my-calendar">My Calendar</a>
                         <IconButton
                             id="account-button"
+                            className={"link-item"}
                             aria-controls={open ? "account-button" : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick2}
+                            onClick={handleAccountInfoOpen}
                             color="inherit"
                         >
                             <Avatar src={userAvatar}/>&nbsp;&nbsp;
-                            <p sx={{marginLeft: "5px"}}>{userName}</p>
+                            <p sx={{marginLeft: "5px"}}>{loggedInUser ? loggedInUser.username : ""}</p>
                         </IconButton>
                         <Menu
                             id="account-menu"
+                            className={"link-item"}
                             anchorEl={accountMenu}
-                            open={open2}
-                            onClose={handleClose2}
+                            open={accountInfoOpen}
+                            onClose={handleAccountInfoClose}
                         >
-                            <MenuItem onClick={handleClose2}>
-                                {dropDownMenuLogin()}
+                            <MenuItem disableRipple style={{ backgroundColor: 'transparent' }}>
+                                {accountInfoOpen ? dropDownUserInfo() : undefined}
                             </MenuItem>
                         </Menu>
                     </div>
@@ -144,21 +185,22 @@ export function TopBar() {
     else{
         return (
             <>
-                <nav className={`${sticky ? "sticky" : ""}`}>
+                <nav className={sticky ? "topBar sticky" : "topBar"}>
                     <div className="nav-inner">
-                        <div className="logo">
+                        <a href="/" className="logo">
                             <img src={logo} height={40} width={40}/>
-                            <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
-                                <p id={'logoTitle'}>OneHome</p>
+                            <div>
+                                <p className={'title'}>OneHome</p>
                             </div>
-                        </div>
+                        </a>
                         <div className="links">
-                            <a href="#">About OneHome</a>
-                            <a href="#">Features</a>
-                            <a href="#">Team</a>
-                            <a href="/login-and-register">Login</a>
+                            <a className={"link-item"} href="/#about-section">About OneHome</a>
+                            <a className={"link-item"} href="/#feature-section">Features</a>
+                            <a className={"link-item"} href="/#team-section">Team</a>
+                            <Button variant={"contained"} color={"primary"} sx={{margin: "15px"}} onClick={handleLoginModalOpen}>Login</Button>
                         </div>
                     </div>
+                    <LoginAndRegister toggleLogin={loginModalOpen} open={loginModalOpen} onClose={handleLoginModalClose}/>
                 </nav>
             </>
         );
