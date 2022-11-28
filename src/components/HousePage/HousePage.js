@@ -206,7 +206,6 @@ export function HousePage() {
     }
 
     const handleTodoItemCreate = (todoItem) => {
-        console.log(todoItem)
         API.post(`/houses/${houseId}/todo`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
             .then(response => {
                 if(response.status === 200){

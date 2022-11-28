@@ -35,6 +35,8 @@ export function TODOList(props){
 
         if (props.items.length === 0)
             setIsEmpty(true);
+        else
+            setIsEmpty(false);
         sortTodoList(props.items)
     }, [props.items]);
 
