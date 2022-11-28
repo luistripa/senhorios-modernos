@@ -27,6 +27,14 @@ export function MyCalendar(props) {
     useEffect(() => {
         let token = sessionStorage.getItem('token');
 
+        // Get house list (for calendar modals)
+        API.get('/houses/list', {headers: {authorization: token}})
+            .then(response => {
+                let houses = response.data;
+                setHouseList(houses);
+            })
+            .catch(reason => console.error(reason));
+
         // Get all events to show in the calendar
         API.get('/events/all', {headers: {authorization: token}})
             .then(response => {
@@ -39,14 +47,6 @@ export function MyCalendar(props) {
                 setEvents(allEvents)
             })
             .catch(reason => console.log(reason));
-
-        // Get house list (for calendar modals)
-        API.get('/houses/list', {headers: {authorization: token}})
-            .then(response => {
-                let houses = response.data;
-                setHouseList(houses);
-            })
-            .catch(reason => console.error(reason));
     }, [])
 
     const handleOpenNewEventDialog = (selectedDay) => {
@@ -141,6 +141,11 @@ export function MyCalendar(props) {
             })
     }
 
+    const handleEventDescription = (event) => {
+        let elem = houseList.find(house => house.id === event.houseId)
+        return elem.name ? `(${elem.name})` : "unknown house";
+    }
+
     return (
         <>
             <Container>
@@ -148,6 +153,7 @@ export function MyCalendar(props) {
                     <Calendar events={events}
                               onEventCreate={handleOpenNewEventDialog}
                               onEventDetail={(event) => handleOpenEventDetailDialog(event)}
+                              eventDescription={handleEventDescription}
                     />
                     <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(undefined)}>
                         <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>

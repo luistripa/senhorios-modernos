@@ -36,6 +36,12 @@ export default function Calendar(props) {
         props.onEventDetail(eventData)
     }
 
+    const handleEventDescription = (event) => {
+        if (props.eventDescription)
+            return props.eventDescription(event);
+        return "";
+    }
+
     return (
         <>
             <div id={"CalendarComponent-container"} className={'calendar-component-container'} style={{position: "relative"}}>
@@ -48,6 +54,7 @@ export default function Calendar(props) {
                         />
                         <CalendarEventList selectedDay={selectedDay}
                                            events={selectedDayEvents}
+                                           eventDescriptionDetail={handleEventDescription}
                                            handleCreate={handleEventCreate}
                                            handleDetail={handleEventDetail}
                         />

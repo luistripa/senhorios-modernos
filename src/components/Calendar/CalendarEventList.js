@@ -96,6 +96,30 @@ export default function CalendarEventList(props) {
             return 0
     })
 
+    const createTodayEventSecondary = (event) => {
+        let description = props.eventDescriptionDetail(event)
+        if (description !== "") {
+            return event.startDate.format("HH:mm") + " - " + props.eventDescriptionDetail(event);
+        }
+        return event.startDate.format("HH:mm")
+    }
+
+    const createFinishTodayEventSecondary = (event) => {
+        let description = props.eventDescriptionDetail(event)
+        if (description !== "") {
+            return "ends at " + event.endDate.format("HH:mm") + " - " + props.eventDescriptionDetail(event);
+        }
+        return "ends at " + event.endDate.format("HH:mm")
+    }
+
+    const createAllDayEventSecondary = (event) => {
+        let description = props.eventDescriptionDetail(event)
+        if (description !== "") {
+            return "all day - " + props.eventDescriptionDetail(event);
+        }
+        return "all day"
+    }
+
     let separator = "";
     if (allDayEvents.length > 0 || finishTodayEvents.length > 0)
         separator = <hr/>
@@ -125,7 +149,7 @@ export default function CalendarEventList(props) {
                                 </Typography>
                             }
                             primaryTypographyProps={{color: "white", padding: "0"}}
-                            secondary={"all day"}
+                            secondary={createAllDayEventSecondary(event)}
                             secondaryTypographyProps={{color: "white", padding: "0"}}
                             title={event.name}
                         />
@@ -142,7 +166,7 @@ export default function CalendarEventList(props) {
                                 </Typography>
                             }
                             primaryTypographyProps={{color: "white", padding: "0"}}
-                            secondary={"ends at " + event.endDate.format("HH:mm")}
+                            secondary={createFinishTodayEventSecondary(event)}
                             secondaryTypographyProps={{color: "white", padding: "0"}}
                             title={event.name}
                         />
@@ -161,7 +185,7 @@ export default function CalendarEventList(props) {
                                     {event.name}
                                 </Typography>
                             }
-                            secondary={event.startDate.format("HH:mm")}
+                            secondary={createTodayEventSecondary(event)}
                             secondaryTypographyProps={{color: "white", padding: "0"}}
                             title={event.name}
                         />
