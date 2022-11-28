@@ -21,7 +21,7 @@ export default function DivisionModal(props) {
                     {props.name}
                 </Typography>
                 <div>
-                    <DivisionItems></DivisionItems>
+                    <DivisionItems handleClose={props.close} nameDivision={props.name}></DivisionItems>
                 </div>
             </Box>
         </Modal>

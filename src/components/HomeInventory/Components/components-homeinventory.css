@@ -80,7 +80,7 @@
 }
 
 .close-icon {
-    min-height: 72px;
+    min-height: 51px;
     width: 1em;
 }
 
@@ -99,35 +99,27 @@
 }
 
 .custom-file-upload {
+    column-gap: 9%;
     border: 1px solid #ccc;
     display: flex;
+    padding: 3%;
     padding: 7px;
     cursor: pointer;
     width: 35%;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     border-radius: 10px;
+    flex-direction: row;
 }
 
 .addItemBtnSection {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 2rem;
 }
 
-.submitBtn {
-    font: inherit;
-    font-size: 1.25rem;
-    padding: 0.55em;
-    width: 100%;
-    font-weight: 500;
-    background-color: #6658d3;
-    border-radius: 6px;
-    color: #FFF;
-    border: 0;
-}
 
-.submitBtn:focus {
+button:focus {
     outline: 0;
 
 }

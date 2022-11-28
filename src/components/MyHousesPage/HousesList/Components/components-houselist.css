@@ -166,18 +166,6 @@
     display:flex;
 }
 
-.nextBtn {
-    font: inherit;
-    font-size: 1.25rem;
-    padding: 0.55em;
-    width: 100%;
-    font-weight: 500;
-    background-color: #6658d3;
-    border-radius: 6px;
-    color: #FFF;
-    border: 0;
-}
-
 .nextBtn:focus {
     outline: 0;
 
