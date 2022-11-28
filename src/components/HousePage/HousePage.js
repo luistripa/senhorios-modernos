@@ -72,6 +72,9 @@ export function HousePage() {
         API.get(`/houses/${houseId}/todo`, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let todoItems = response.data;
+                todoItems.map(todoItem => {
+                    todoItem.checked = todoItem.checked ? true : false;
+                });
                 setTodoItems(todoItems);
             })
             .catch(reason => console.error(reason))
@@ -202,16 +205,18 @@ export function HousePage() {
             })
     }
 
-    const handleTodoItemCreate = (resolve, todoItem) => {
+    const handleTodoItemCreate = (todoItem) => {
+        console.log(todoItem)
         API.post(`/houses/${houseId}/todo`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
             .then(response => {
                 if(response.status === 200){
                     let newTodoList = [...todoItems];
-                    newTodoList.splice(0, 0, todoItem) //TODO: Falta o ID
+                    let newItem = response.data
+                    newItem.checked = newItem.checked ? true : false;
+                    newTodoList.splice(0, 0, newItem)
                     setTodoItems(newTodoList);
                     setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Item created successfully");
-                    resolve();
                 }
             })
             .catch(reason => {
@@ -220,7 +225,7 @@ export function HousePage() {
             })
     }
 
-    const handleTodoItemEdit = (resolve, todoItem) => {
+    const handleTodoItemEdit = (todoItem) => {
         API.put(`/houses/${houseId}/todo/${todoItem.id}`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
             .then(response => {
                 if (response.status === 200) {
@@ -234,7 +239,6 @@ export function HousePage() {
                     setTodoItems(newTodoList);
                     setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Item edited successfully");
-                    resolve();
                 }
             })
             .catch(reason => {
@@ -243,7 +247,7 @@ export function HousePage() {
             })
     }
 
-    const handleTodoItemDelete = (resolve, todoItem) => {
+    const handleTodoItemDelete = (todoItem) => {
         API.delete(`/houses/${houseId}/todo/${todoItem.id}/delete`, {headers: {authorization: sessionStorage.getItem("token")}})
             .then(response => {
                 if (response.status === 200) {
@@ -255,7 +259,6 @@ export function HousePage() {
                     setTodoItems(newTodoList);
                     setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Item deleted successfully");
-                    resolve();
                 }
             })
             .catch(reason => {
