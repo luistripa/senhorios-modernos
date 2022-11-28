@@ -36,7 +36,7 @@ export function HouseDescription() {
                                 <Grid item>
                                     <LocationOn style={{fontSize:'200%', fontWeight:"900"}}/>
                                 </Grid>
-                                <Grid item marginTop="5%">
+                                <Grid item marginTop='2%'>
                                     {yellowHouse.address}
                                 </Grid>
                             </Grid>
@@ -45,7 +45,7 @@ export function HouseDescription() {
                                 <Grid item style={{fontSize:'200%', fontWeight:"900"}}>
                                     {yellowHouse.capacity}
                                 </Grid>
-                                <Grid item>
+                                <Grid item marginTop='5%'>
                                     Capacity
                                 </Grid>
                             </Grid>
@@ -54,7 +54,7 @@ export function HouseDescription() {
                                 <Grid item style={{fontSize:'200%', fontWeight:"900"}}>
                                     {yellowHouse.typology}
                                 </Grid>
-                                <Grid item>
+                                <Grid item marginTop='5%'>
                                     Typology
                                 </Grid>
                             </Grid>
