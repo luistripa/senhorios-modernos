@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300&display=swap');
+
+* {
+    font-family: 'Exo', sans-serif;
+}
 
 .CarouselPic_Home {
     height: 380px;
