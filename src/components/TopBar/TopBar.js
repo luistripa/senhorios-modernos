@@ -8,7 +8,8 @@ import {
     Avatar,
     ListItemIcon
 } from "@mui/material"
-import logo from "../../static/LogoIPM-no-background.png"
+import logo2 from "../../static/LogoIPM-roxo.png"
+import logo1 from "../../static/LogoIPM-branco.png"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
@@ -86,7 +87,7 @@ export function TopBar() {
             <nav className={`${sticky ? "sticky" : ""}`}>
                 <div className="nav-inner">
                     <div className="logo">
-                        <img alt="logo" src={logo} height={40} width={40}/>
+                        <img alt="logo" src={sticky ? logo1 : logo2} height={40} width={40}/>
                         <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
                             <p id={'logoTitle'}>OneHome</p>
                         </div>
@@ -147,7 +148,7 @@ export function TopBar() {
                 <nav className={`${sticky ? "sticky" : ""}`}>
                     <div className="nav-inner">
                         <div className="logo">
-                            <img src={logo} height={40} width={40}/>
+                            <img src={sticky ? logo1 : logo2} height={40} width={40}/>
                             <div style={{display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
                                 <p id={'logoTitle'}>OneHome</p>
                             </div>
