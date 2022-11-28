@@ -79,7 +79,7 @@ export class NewHousePropertiesForm extends Component {
                     </div>
                 </div>
                 <div className={'btn'}>
-                    <input type='submit' className={'nextBtn'} value="Next" onClick={this.continue}
+                    <input type='submit' value="Next" onClick={this.continue}
                            onSubmit={this.console}/>
                 </div>
             </form>

@@ -91,7 +91,7 @@ export class NewHouseForm extends Component {
                     </div>
                 </div>
                 <div className={'btn'}>
-                    <input type='submit' className={'nextBtn'} value="Create"/>
+                    <input type='submit' value="Create"/>
                 </div>
             </form>
         );

@@ -7,26 +7,41 @@ import {useState} from "react";
 import NewDivisionForm from "./NewDivisionForm";
 import './components-homeinventory.css';
 import {GrClose} from "react-icons/gr";
+import Card from "@mui/joy/Card";
 
 export default function NewDivisionModal(props) {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-    return(<Modal
-            open={props.modalState}>
+    return (
+        <div>
+            <Card className={'addhouse-card'}>
+                <button className={'addhouse-button'} onClick={handleOpen}>
+                    Add New
+                </button>
+            </Card>
+            <Modal
+                open={open}
+                onClose={handleClose}>
                 <Box className={'addDivision-modal'}>
                     <div className={'top-header-modal'}>
                         <div className={'topdiv iconHouse'}>
-                            <Avatar sx={{ bgcolor: '#E38B29' }} className={'house-icon-card'} alt="Create division icon" src="home-icon.png" />
+                            <Avatar sx={{bgcolor: '#7A82AB'}} className={'house-icon-card'} alt="Create division icon"
+                                    src="home-icon.png"/>
                         </div>
                         <div className={'topdiv buttonClose'}>
-                            <button onClick={props.openCloseModal}><GrClose className={'close-icon'}/></button>
+                            <button onClick={props.handleClose}><GrClose className={'close-icon'}/></button>
                         </div>
                     </div>
                     <Typography className={"modal-modal-title"} variant="h4">
                         Create Division
                     </Typography>
-                    <NewDivisionForm openCloseModal={props.openCloseModal} functionCreate={props.functionCreate}></NewDivisionForm>
-                    </Box>
+                    <NewDivisionForm handleClose={handleClose}
+                                     functionCreate={props.functionCreate}></NewDivisionForm>
+                </Box>
             </Modal>
+        </div>
     );
 
 }
