@@ -11,6 +11,7 @@ import raquelImage from "../../static/raquel.jpg";
 import introImage from "../../static/frontpage-intro.png";
 import {Footer} from "./Footer";
 import {Grid} from "@mui/material";
+import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
 
 export const Homepage = () => {
 
@@ -209,6 +210,8 @@ export const Homepage = () => {
             </Carousel>
 
             <button className="CarouselButton_Home" onClick={() => handleShowRegisterModal()}>Register now</button>
+
+            <LoginAndRegister toggleLogin={!showRegisterModal} open={showRegisterModal} onClose={handleCloseRegisterModal} />
 
             {newPage()}
 
