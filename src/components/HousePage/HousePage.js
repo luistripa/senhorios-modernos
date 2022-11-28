@@ -26,6 +26,7 @@ import Snackbar from "@mui/material/Snackbar";
 export function HousePage() {
 
     let {houseId} = useParams();
+    const navigate = useNavigate()
 
     const [house, setHouse] = useState(undefined);
     const [houseList, setHouseList] = useState([]);
@@ -71,6 +72,9 @@ export function HousePage() {
         API.get(`/houses/${houseId}/todo`, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let todoItems = response.data;
+                todoItems.map(todoItem => {
+                    todoItem.checked = todoItem.checked ? true : false;
+                });
                 setTodoItems(todoItems);
             })
             .catch(reason => console.error(reason))
@@ -109,10 +113,6 @@ export function HousePage() {
         setDeleteHouseDialog(false);
     };
 
-
-    //TODO - Fazer o onClick para apagar a casa!
-
-
     const handleOpenNewEventDialog = (selectedDay) => {
         setNewEventDialogSelectedDay(selectedDay);
         setNewEventDialogOpen(true);
@@ -132,13 +132,21 @@ export function HousePage() {
         setEventDetailDialogOpen(false);
     }
 
-    const handleHouseDelete = (resolve, reject) => {
-        setTimeout(() => {
-            console.log("delete", house);
-            resolve()
-        }, 1000)
+    const handleHouseDelete = (resolve) => {
+        API.delete(`/houses/${houseId}`, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    navigate('/my-houses');
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("House deleted successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to delete house: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
-
     const handleEventCreate = (resolve, reject, eventData) => {
         API.post(`/houses/${eventData.houseId}/events`, eventData, {headers: {authorization: sessionStorage.getItem("token")}})
             .then(response => {
@@ -195,7 +203,7 @@ export function HousePage() {
                     })
                     setEvents(newEvents)
                     setErrorSnackbarMessage(undefined);
-                    setSuccessSnackbarMessage("Event delete successfully")
+                    setSuccessSnackbarMessage("Event deleted successfully")
                     resolve();
                 }
             })
@@ -206,21 +214,64 @@ export function HousePage() {
     }
 
     const handleTodoItemCreate = (todoItem) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("create", todoItem);
-        }, 1000);
+        API.post(`/houses/${houseId}/todo`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newTodoList = [...todoItems];
+                    let newItem = response.data
+                    newItem.checked = newItem.checked ? true : false;
+                    newTodoList.splice(0, 0, newItem)
+                    setTodoItems(newTodoList);
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Item created successfully");
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to create an item: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     const handleTodoItemEdit = (todoItem) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("edit", todoItem);
-        }, 1000);
+        API.put(`/houses/${houseId}/todo/${todoItem.id}`, todoItem, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newTodoList = [];
+                    todoItems.forEach(item => {
+                        if (item.id !== todoItem.id)
+                            newTodoList.push(item);
+                        else
+                            newTodoList.push(todoItem);
+                    })
+                    setTodoItems(newTodoList);
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Item edited successfully");
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to edit item: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     const handleTodoItemDelete = (todoItem) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("delete", todoItem);
-        }, 1000);
+        API.delete(`/houses/${houseId}/todo/${todoItem.id}/delete`, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newTodoList = [];
+                    todoItems.forEach(item => {
+                        if (item.id !== todoItem.id)
+                            newTodoList.push(item);
+                    })
+                    setTodoItems(newTodoList);
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Item deleted successfully");
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to delete item: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     return (
@@ -262,14 +313,9 @@ export function HousePage() {
             </Table>
             <br/>
             <HomeInventory divisions={divisions} houseId={houseId}/>
-            <Box textAlign='center' marginTop="5%">
-                <Button variant="contained" aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog}
-                        sx={{
-                            color: '#FBF9FF', backgroundColor: '#4B4E6D',
-                            "&:hover": {
-                                backgroundColor: "#242038"
-                            }
-                        }}>
+            <Box textAlign='center'>
+                <Button variant="contained" sx={{marginTop: "5%", marginBottom: "3%"}}
+                        aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog} color={"error"}>
                     Delete House
                 </Button>
                 <Dialog
@@ -283,7 +329,7 @@ export function HousePage() {
                     </DialogTitle>
                     <DialogActions>
                         <Button onClick={handleCloseDeleteHouseDialog}>Close</Button>
-                        <Button onClick={handleCloseDeleteHouseDialog} autoFocus>
+                        <Button onClick={handleHouseDelete} autoFocus>
                             Delete
                         </Button>
                     </DialogActions>
