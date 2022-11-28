@@ -22,7 +22,7 @@ export class HousesList extends Component {
     componentDidMount() {
         let token = sessionStorage.getItem("token");
         API.get('/houses/list',
-            {headers: {authorization: token }})
+            {headers: {authorization: token}})
             .then(response => {
                 let housesList = response.data;
                 this.setState({houses: housesList})
@@ -35,15 +35,26 @@ export class HousesList extends Component {
     createNewHouse = (house) => {
         let token = sessionStorage.getItem("token");
         API.post('/houses', house, {headers: {authorization: token}})
-        .then(response => {
-            let newHouse = response.data;
-            this.state.newHouseCreated = true;
-            this.state.houses.push(newHouse);
-            this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated});
+            .then(response => {
+                let newHouse = response.data;
+                this.state.newHouseCreated = true;
+                this.state.houses.push(newHouse);
+                this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated});
 
-        }).catch(reason => {
+            }).catch(reason => {
             console.log(reason)
         })
+
+        /*API.post('/media', , {headers: {authorization: token}})
+            .then(response => {
+                let newHouse = response.data;
+                this.state.newHouseCreated = true;
+                this.state.houses.push(newHouse);
+                this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated});
+
+            }).catch(reason => {
+            console.log(reason)
+        })*/
 
     }
 

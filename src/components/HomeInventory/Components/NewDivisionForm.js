@@ -8,7 +8,7 @@ export default class NewDivisionForm extends Component {
         super(props);
 
         this.state = {
-            name: '', icon: ''
+            name: '', icon: null,
         };
 
     }
@@ -21,7 +21,7 @@ export default class NewDivisionForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.functionCreate(this.state);
+        this.props.functionCreate({name: this.state.name, icon: new FormData(event.target).get('icon')});
         this.props.handleClose();
     }
 
@@ -89,8 +89,7 @@ export default class NewDivisionForm extends Component {
                             <label htmlFor="input-image" className="custom-file-upload">
                                 <BsCloudUpload/>Upload
                             </label>
-                            <input type="file" id="input-icon" className={'input-field'}
-                                   defaultValue={this.state.icon} name={'icon'}
+                            <input type="file" id="input-image" className={'input-field'} name={'icon'}
                                    onChange={(event) => this.onIconChange(event)}/>
                         </div>
                     </div>
