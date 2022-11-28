@@ -11,6 +11,8 @@ import Catarina from "../../static/catarina.jpg";
 import Ines from "../../static/ines.jpg";
 import Luis from "../../static/luis.jpg";
 import Raquel from "../../static/raquel.jpg";
+import Modal from "@mui/material/Modal";
+import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
 
 export const Homepage = () => {
 
@@ -31,10 +33,15 @@ export const Homepage = () => {
         setRegister(!register);
     }
 
+    function handleRegisterModalClose() {
+        setShowRegisterModal(false);
+    }
 
     return(
         <>
             <TopBarBeforeLogin/>
+
+            <LoginAndRegister toggleLogin={!showRegisterModal} open={showRegisterModal} onClose={handleRegisterModalClose} />
 
             <Carousel>
                 <Carousel.Item>
