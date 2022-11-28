@@ -13,6 +13,7 @@ import logo1 from "../../static/LogoIPM-branco.png"
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
+import { Navigate } from "react-router-dom";
 
 export function TopBar() {
     const [sticky, setSticky] = useState(false);
@@ -67,7 +68,7 @@ export function TopBar() {
                         <p id='userEmail'> {userEmail} </p>
                     </div>
                     <div className={'log-out'}>
-                        <ListItemIcon>
+                        <ListItemIcon onClick={() => sessionStorage.removeItem('token') && window.location.reload() && <Navigate to={'/Homepage'}/>}>
                             <Logout fontSize="small"/>
                         </ListItemIcon>
                         Logout
