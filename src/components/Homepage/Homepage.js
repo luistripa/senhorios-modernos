@@ -188,8 +188,6 @@ export const Homepage = () => {
 
     return (
         <>
-            <TopBar/>
-
             <Carousel>
                 <Carousel.Item>
                     <img className="CarouselPic_Home" src={Image1}/>
