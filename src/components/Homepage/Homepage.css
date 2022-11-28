@@ -1,8 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo:wght@300&display=swap');
-
-* {
-    font-family: 'Exo', sans-serif;
-}
 
 .CarouselPic_Home {
     height: 380px;
@@ -123,7 +118,6 @@ body {
 }
 
 .firstDescription {
-    font-family: 'Exo 2';
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -134,7 +128,6 @@ body {
 }
 
 .secondDescription {
-    font-family: 'Exo 2';
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
@@ -144,18 +137,13 @@ body {
     padding: 0 10% 0 10%;
 }
 
-.titles.about > p{
-    font-family: 'Exo 2';
-}
 
 .titles {
     display: flex;
     flex-direction: column;
-    font-family: 'Exo 2';
 }
 
 .firstTitle {
-    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -165,7 +153,6 @@ body {
 }
 
 .secondTitle {
-    font-family: 'Exo 2', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 30px;

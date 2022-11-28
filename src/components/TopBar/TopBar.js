@@ -148,13 +148,13 @@ export function TopBar() {
                             onClose={handleOneHomeDropDownClose}
                         >
                             <a href={"/#about-section"} style={{textDecoration: "none", color: "inherit"}}>
-                                <MenuItem onClick={handleOneHomeDropDownClose}>About OneHome</MenuItem>
+                                <MenuItem style={{fontFamily: "inherit"}} onClick={handleOneHomeDropDownClose}>About OneHome</MenuItem>
                             </a>
                             <a href={"/#feature-section"} style={{textDecoration: "none", color: "inherit"}}>
-                                <MenuItem onClick={handleOneHomeDropDownClose}>Features</MenuItem>
+                                <MenuItem style={{fontFamily: "inherit"}} onClick={handleOneHomeDropDownClose}>Features</MenuItem>
                             </a>
                             <a href={"/#team-section"} style={{textDecoration: "none", color: "inherit"}}>
-                                <MenuItem onClick={handleOneHomeDropDownClose}>Team</MenuItem>
+                                <MenuItem style={{fontFamily: "inherit"}} onClick={handleOneHomeDropDownClose}>Team</MenuItem>
                             </a>
                         </Menu>
                         <a className={"link-item"} href="/my-houses">My Houses</a>

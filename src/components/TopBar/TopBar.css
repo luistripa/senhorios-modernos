@@ -68,6 +68,7 @@ nav.sticky .links a, nav.sticky .links Button, nav.sticky .links p{
     font-size: 17px;
     margin: 15px;
     cursor: pointer;
+    font-family: Exo, sans-serif;
 }
 
 .banner {
