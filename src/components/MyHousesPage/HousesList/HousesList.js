@@ -36,8 +36,9 @@ export class HousesList extends Component {
         let token = sessionStorage.getItem("token");
         API.post('/houses', house, {headers: {authorization: token}})
         .then(response => {
+            let newHouse = response.data;
             this.state.newHouseCreated = true;
-            this.state.houses.push(house);
+            this.state.houses.push(newHouse);
             this.setState({houses: this.state.houses, newHouseCreated: this.state.newHouseCreated});
 
         }).catch(reason => {
