@@ -300,8 +300,8 @@ export function HousePage() {
             </Table>
             <br/>
             <HomeInventory/>
-            <Box textAlign='center' marginTop="5%">
-                <Button variant="contained" aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog} color={"error"}>
+            <Box textAlign='center'>
+                <Button variant="contained" sx={{marginTop:"5%", marginBottom:"3%"}} aria-label="deleteHouseButton" onClick={handleOpenDeleteHouseDialog} color={"error"}>
                     Delete House
                 </Button>
                 <Dialog
