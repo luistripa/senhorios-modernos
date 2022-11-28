@@ -18,18 +18,17 @@ export const Footer = () => {
                 </div>
                 <div className="footer-menu" style={{display: 'flex', flexDirection: 'column'}}>
                     <p className={'footer-titles'}>MENU</p>
-                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Login | Register</a>
-                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>About One Home</a>
-                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Features</a>
-                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Team</a>
+                    <a href={"/#about-section"} className={'footer-p'}>About One Home</a>
+                    <a href={"/#feature-section"} className={'footer-p'}>Features</a>
+                    <a href={"/#team-section"} className={'footer-p'}>Team</a>
                 </div>
                 <div className="footer-socialmedia" style={{display: 'flex', flexDirection: 'column'}}>
                     <p className={'footer-titles'}>CONTACT US</p>
-                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Our Website</a>
+                    <a href="https://licripm2022.wixsite.com/webstormers" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Our Website</a>
                     <div style={{display: 'flex', flexDirection: 'row', justifyContent:'center', paddingTop:'6%'}}>
-                        <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><LinkedInIcon fontSize={'large'}/></a>
-                        <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><GitHubIcon fontSize={'large'}/></a>
-                        <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><DraftsIcon fontSize={'large'}/></a>
+                        <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><LinkedInIcon fontSize={'large'}/></a>
+                        <a href="https://github.com/luistripa/senhorios-modernos" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><GitHubIcon fontSize={'large'}/></a>
+                        <a href="mailto: licr.ipm2022@gmail.com" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><DraftsIcon fontSize={'large'}/></a>
                     </div>
                 </div>
             </div>
