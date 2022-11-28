@@ -10,7 +10,7 @@ import {
     Button,
     Dialog,
     DialogTitle,
-    DialogActions
+    DialogActions, Alert
 } from "@mui/material";
 import {HomeInventory} from "../HomeInventory/HomeInventory";
 import * as React from "react";
@@ -21,6 +21,7 @@ import {useParams} from "react-router-dom";
 
 import API from "../../api";
 import moment from "moment";
+import Snackbar from "@mui/material/Snackbar";
 
 export function HousePage() {
 
@@ -33,9 +34,12 @@ export function HousePage() {
     const [todoItems, setTodoItems] = useState([]);
     const [events, setEvents] = useState([]);
 
+    const [successSnackbarMessage, setSuccessSnackbarMessage] = useState(undefined);
+    const [errorSnackbarMessage, setErrorSnackbarMessage] = useState(undefined);
 
     // For new event dialog
     const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
+    const [newEventDialogSelectedDay, setNewEventDialogSelectedDay] = useState(moment());
 
     // For event detail dialog
     const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
@@ -99,7 +103,8 @@ export function HousePage() {
     //TODO - Fazer o onClick para apagar a casa!
 
 
-    const handleOpenNewEventDialog = () => {
+    const handleOpenNewEventDialog = (selectedDay) => {
+        setNewEventDialogSelectedDay(selectedDay);
         setNewEventDialogOpen(true);
     }
 
@@ -125,24 +130,69 @@ export function HousePage() {
     }
 
     const handleEventCreate = (resolve, reject, eventData) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("create", eventData);
-            resolve();
-        }, 1000)
+        API.post(`/houses/${eventData.houseId}/events`, eventData, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newEvents = [];
+                    events.forEach(event => {
+                        if (event.id !== eventData.id)
+                            newEvents.push(event);
+                    })
+                    newEvents.push(eventData);
+                    setEvents(newEvents)
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Event created successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to create event: " + reason.toString());
+                setSuccessSnackbarMessage(null)
+            })
     }
 
     const handleEventEdit = (resolve, reject, eventData) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("edit", eventData);
-            resolve();
-        }, 1000);
+        API.put(`/houses/${eventData.houseId}/events/${eventData.id}`, eventData, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newEvents = [];
+                    events.forEach(event => {
+                        if (event.id !== eventData.id)
+                            newEvents.push(event);
+                        else
+                            newEvents.push(eventData);
+                    })
+                    setEvents(newEvents)
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Event edited successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to edit event: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     const handleEventDelete = (resolve, reject, eventData) => {
-        setTimeout(() => { // Simulates backend request
-            console.log("delete", eventData);
-            resolve();
-        }, 1000);
+        API.delete(`/houses/${eventData.houseId}/events/${eventData.id}`, {headers: {authorization: sessionStorage.getItem("token")}})
+            .then(response => {
+                if (response.status === 200) {
+                    let newEvents = [];
+                    events.forEach(event => {
+                        if (event.id !== eventData.id)
+                            newEvents.push(event);
+                    })
+                    setEvents(newEvents)
+                    setErrorSnackbarMessage(undefined);
+                    setSuccessSnackbarMessage("Event delete successfully")
+                    resolve();
+                }
+            })
+            .catch(reason => {
+                setErrorSnackbarMessage("Failed to delete event: " + reason.toString());
+                setSuccessSnackbarMessage(undefined)
+            })
     }
 
     const handleTodoItemCreate = (todoItem) => {
@@ -225,6 +275,7 @@ export function HousePage() {
 
             <NewEventDialog open={newEventDialogOpen}
                             onClose={handleCloseNewEventDialog}
+                            selectedDay={newEventDialogSelectedDay}
                             selectedHouse={house ? house.id : undefined}
                             houseList={houseList}
                             handleCreate={handleEventCreate}
@@ -239,6 +290,13 @@ export function HousePage() {
                                handleDelete={handleEventDelete}
                                handleCancel={() => setEventDetailDialogOpen(false)}
             />
+
+            <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(undefined)}>
+                <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
+            </Snackbar>
+            <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
+                <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
+            </Snackbar>
         </>
     );
 }

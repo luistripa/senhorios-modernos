@@ -27,6 +27,7 @@ export function MyCalendar(props) {
     useEffect(() => {
         let token = sessionStorage.getItem('token');
 
+        // Get all events to show in the calendar
         API.get('/events/all', {headers: {authorization: token}})
             .then(response => {
                 let allEvents = response.data;
@@ -39,6 +40,7 @@ export function MyCalendar(props) {
             })
             .catch(reason => console.log(reason));
 
+        // Get house list (for calendar modals)
         API.get('/houses/list', {headers: {authorization: token}})
             .then(response => {
                 let houses = response.data;
@@ -77,7 +79,7 @@ export function MyCalendar(props) {
                     })
                     newEvents.push(eventData);
                     setEvents(newEvents)
-                    setErrorSnackbarMessage(null);
+                    setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Event created successfully")
                     resolve();
                 }
@@ -100,14 +102,14 @@ export function MyCalendar(props) {
                             newEvents.push(eventData);
                     })
                     setEvents(newEvents)
-                    setErrorSnackbarMessage(null);
+                    setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Event edited successfully")
                     resolve();
                 }
             })
             .catch(reason => {
                 setErrorSnackbarMessage("Failed to edit event: " + reason.toString());
-                setSuccessSnackbarMessage(null)
+                setSuccessSnackbarMessage(undefined)
             })
     }
 
@@ -121,14 +123,14 @@ export function MyCalendar(props) {
                             newEvents.push(event);
                     })
                     setEvents(newEvents)
-                    setErrorSnackbarMessage(null);
+                    setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Event delete successfully")
                     resolve();
                 }
             })
             .catch(reason => {
                 setErrorSnackbarMessage("Failed to delete event: " + reason.toString());
-                setSuccessSnackbarMessage(null)
+                setSuccessSnackbarMessage(undefined)
             })
     }
 
@@ -140,11 +142,11 @@ export function MyCalendar(props) {
                               onEventCreate={handleOpenNewEventDialog}
                               onEventDetail={(event) => handleOpenEventDetailDialog(event)}
                     />
-                    <Snackbar open={successSnackbarMessage} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(null)}>
-                        <Alert onClose={() => setSuccessSnackbarMessage(null)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
+                    <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(undefined)}>
+                        <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
                     </Snackbar>
-                    <Snackbar open={errorSnackbarMessage} onClose={() => setErrorSnackbarMessage(null)}>
-                        <Alert onClose={() => setErrorSnackbarMessage(null)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
+                    <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
+                        <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
                     </Snackbar>
                 </div>
 
