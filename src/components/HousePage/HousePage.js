@@ -151,12 +151,18 @@ export function HousePage() {
         API.post(`/houses/${eventData.houseId}/events`, eventData, {headers: {authorization: sessionStorage.getItem("token")}})
             .then(response => {
                 if (response.status === 200) {
+                    let newEvent = response.data;
+
+                    newEvent.startDate = moment(newEvent.startDate)
+                    newEvent.endDate = moment(newEvent.endDate)
+                    newEvent.repeatUntil = moment(newEvent.repeatUntil)
+
                     let newEvents = [];
                     events.forEach(event => {
-                        if (event.id !== eventData.id)
+                        if (event.id !== newEvent.id)
                             newEvents.push(event);
                     })
-                    newEvents.push(eventData);
+                    newEvents.push(newEvent);
                     setEvents(newEvents)
                     setErrorSnackbarMessage(undefined);
                     setSuccessSnackbarMessage("Event created successfully")
