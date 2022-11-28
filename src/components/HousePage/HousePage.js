@@ -17,7 +17,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import {NewEventDialog} from "../Calendar/NewEventDialog";
 import EventDetailDialog from "../Calendar/EventDetailDialog";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 import API from "../../api";
 import moment from "moment";
@@ -26,7 +26,7 @@ import Snackbar from "@mui/material/Snackbar";
 export function HousePage() {
 
     let {houseId} = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const [house, setHouse] = useState(undefined);
     const [houseList, setHouseList] = useState([]);
@@ -276,7 +276,7 @@ export function HousePage() {
 
     return (
         <>
-            <HouseDescription/>
+            <HouseDescription house={house}/>
             <Table>
                 <TableBody>
                     <TableRow>
