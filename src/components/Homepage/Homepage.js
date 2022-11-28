@@ -46,7 +46,7 @@ export const Homepage = () => {
                         margin: '0 4% 0 4%'
                     }}>
                         <img src={'telhado-casa.png'}
-                             style={{width: "114px", position: "absolute", top: "59%", left: "0%"}}/>
+                             style={{width: "114px", position: "absolute", top: "72%", left: "2%"}}/>
                         <div className={'titles about'}>
                             <p style={{
                                 color: "#5D4DAA",

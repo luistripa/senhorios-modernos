@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    margin-top: 100px;
+    margin-top: 152px;
     font-weight: bold;
 }
 
@@ -72,4 +72,34 @@
     font-family: RobotoBold;
     font-size: large;
     margin: 0px 20px;
+}
+
+.footer-titles{
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    color: #483993;
+    line-height: 20px !important;
+}
+
+.footer-p{
+    font-family: 'Exo 2', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    text-align: center;
+    color: #000000;
+    line-height: 20px !important;
+    padding-bottom: 4px;
+}
+
+.footer-icon{
+    color: #4B4E6D;
+    padding:3%;
+}
+
+.footer-icon:hover{
+    color: #A2A3BB;
 }

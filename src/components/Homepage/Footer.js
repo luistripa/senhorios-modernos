@@ -1,46 +1,45 @@
 import './Footer.css';
 import React from "react";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import DraftsIcon from '@mui/icons-material/Drafts';
 
 export const Footer = () => {
     return (
-        <section className="footer">
+        <div className="footer" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <hr className="footer-seperator"/>
-            <section className="footer-social-media">
-                <a href="/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </section>
-            <section className="footer-info">
-                <section className="footer-info-left">
-                    <section className="footer-info__name">
-                        Software Engineer Haydn
-                    </section>
-                    <section className="footer-info__returns">
-                        Returns Policy
-                        <br/>
-                        Delivery
-                    </section>
-                </section>
-                <section className="footer-info-center">
-                    <section className="footer-info__email">
-                        shop.info@gmail.com
-                    </section>
-                    <section className="footer-info__terms">
-                        Terms and Conditions
-                        <br/>
-                        Copyright
-                    </section>
-                </section>
-                <section className="footer-info-right">
-                    <section className="footer-info__number">
-                        99999999999
-                    </section>
-                    <section className="footer-info__contact">
-                        My Story
-                        <br/>
-                        Contact Us
-                    </section>
-                </section>
-            </section>
+            <div style={{display: 'flex', flexDirection: 'row', width: '100%', justifyContent: "space-around"}}>
+                <div className="footer-contact" style={{display: 'flex', flexDirection: 'column'}}>
+                    <p className={'footer-titles'}> FIND US </p>
+                    <p className={'footer-p'}>Departamento de Informática,</p>
+                    <p className={'footer-p'}>Faculdade de Ciências e Tecnologias,</p>
+                    <p className={'footer-p'}>Universidade Nova de Lisboa,</p>
+                    <p className={'footer-p'}>Largo da Torre, 2825-149 Caparica </p>
+                </div>
+                <div className="footer-menu" style={{display: 'flex', flexDirection: 'column'}}>
+                    <p className={'footer-titles'}>MENU</p>
+                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Login | Register</a>
+                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>About One Home</a>
+                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Features</a>
+                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Team</a>
+                </div>
+                <div className="footer-socialmedia" style={{display: 'flex', flexDirection: 'column'}}>
+                    <p className={'footer-titles'}>CONTACT US</p>
+                    <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-p'}>Our Website</a>
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent:'center', paddingTop:'6%'}}>
+                        <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><LinkedInIcon fontSize={'large'}/></a>
+                        <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><GitHubIcon fontSize={'large'}/></a>
+                        <a href="/" target="_blank" rel="noopener noreferrer" className={'footer-icon'}><DraftsIcon fontSize={'large'}/></a>
+                    </div>
+                </div>
+            </div>
             <hr className="footer-seperator"/>
-        </section>
-    );
+            <div className={'copyrights'}>
+                © 2022 by WebStormers.
+            </div>
+        </div>
+    )
+        ;
 }
+
+// <a href="/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
