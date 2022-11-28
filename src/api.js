@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+export let BASE_URL = "http://evt.dyndns-ip.com:1243/"
 
 export default axios.create({
-    baseURL: 'http://evt.dyndns-ip.com:1243/'
+    baseURL: BASE_URL
 })
 

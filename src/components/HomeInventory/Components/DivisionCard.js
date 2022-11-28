@@ -4,11 +4,12 @@ import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 
+import API, {BASE_URL} from "../../../api"
+
 export class DivisionCard extends Component {
 
     constructor(props) {
         super(props);
-
     }
 
     render() {
@@ -17,7 +18,7 @@ export class DivisionCard extends Component {
                     <div>
                         <CardCover style={{width: "70%", height: "70%"}}>
                             <img className={'division-image'}
-                                 src={this.props.image}
+                                 src={BASE_URL + "media/"+this.props.image}
                                  alt={this.props.name}
                                  loading="lazy"/>
                         </CardCover>
@@ -30,7 +31,6 @@ export class DivisionCard extends Component {
                             <Typography level="h2" fontSize="lg" textColor="black" mb={1}>
                                 {this.props.name}
                             </Typography>
-                            <button><img src={'/edit_button.png'}/></button>
                         </div>
                     </CardContent>
                 </Card>

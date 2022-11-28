@@ -157,3 +157,11 @@ button:focus {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

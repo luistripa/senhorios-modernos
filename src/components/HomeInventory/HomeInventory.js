@@ -24,21 +24,35 @@ export function HomeInventory(props) {
     }, [props.divisions]);
 
     const addDivision = (division) => {
-        API.post('/houses/' + props.houseId + '/inventory', division, {headers: {authorization: sessionStorage.getItem('token')}})
+        let formData = new FormData()
+        formData.append('photo', division.icon)
+
+        API.post('/media/', formData, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
-                let tmp = [];
-                divisions.map((div) => {
-                    tmp.push(div);
+                let photoInfo = response.data;
+
+                division.mediaId = photoInfo.id;
+                API.post('/houses/' + props.houseId + '/inventory', division, {headers: {authorization: sessionStorage.getItem('token')}})
+                    .then(response => {
+                        console.log(response.data)
+                        let tmp = [];
+                        divisions.map((div) => {
+                            tmp.push(div);
+                        })
+                        tmp.push(division);
+                        setDivisions(tmp);
+                        setSuccessSnackbarMessage("Created successfully!");
+                    }).catch(reason => {
+                    console.log(reason)
                 })
-                tmp.push(division);
-                setDivisions(tmp);
-                setSuccessSnackbarMessage("Created successfully!");
-            }).catch(reason => {
-            console.log(reason)
-        })
+            })
+            .catch(reason => console.error(reason))
+
+
     }
 
     const deleteDivision = (division) => {
+        setDivision(null);
         API.delete('/houses/' + props.houseId + '/inventory/' + division.id + '/delete', {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 if (response.status === 200) {
@@ -56,6 +70,7 @@ export function HomeInventory(props) {
     }
 
     const editDivision = (division) => {
+        console.log('entrou ', division);
         API.put('/houses/' + props.houseId + '/inventory/' + division.id, division, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 if (response.status === 200) {
@@ -95,12 +110,12 @@ export function HomeInventory(props) {
                             <>
                                 <Grid item xs={2.4}>
                                     <div onClick={() => openDivision(division)}
-                                            style={{
-                                                border: "0px",
-                                                backgroundColor: "transparent",
-                                                cursor: "pointer"
-                                            }}>
-                                        <DivisionCard key={division.id} name={division.name} image={division.icon }/>
+                                         style={{
+                                             border: "0px",
+                                             backgroundColor: "transparent",
+                                             cursor: "pointer"
+                                         }}>
+                                        <DivisionCard key={division.id} name={division.name} image={division.mediaId}/>
                                     </div>
                                 </Grid>
                             </>
@@ -114,7 +129,8 @@ export function HomeInventory(props) {
             <DivisionModal division={division}
                            open={division != null}
                            close={() => setDivision(null)}
-                           deleteDivision={division != null ? deleteDivision : null}/>
+                           deleteDivision={division != null ? deleteDivision : null}
+                           editDivision={division != null ? editDivision : null}/>
             <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
                       onClose={() => setSuccessSnackbarMessage(undefined)}>
                 <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
