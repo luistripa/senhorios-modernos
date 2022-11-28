@@ -268,7 +268,7 @@ export function HousePage() {
 
     return(
         <>
-            <HouseDescription/>
+            <HouseDescription house={house}/>
             <Table>
                 <TableBody>
                     <TableRow>
