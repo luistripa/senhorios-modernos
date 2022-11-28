@@ -44,7 +44,6 @@ export const Homepage = () => {
                                      style={{width: "114px", transform: "translate(0, 20%)"}}/>
                                 <div className={'titles about'}>
                                     <p style={{
-                                        color: "#5D4DAA",
                                         fontWeight: '700',
                                         fontSize: '30px',
                                         margin: '0',
