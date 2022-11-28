@@ -6,7 +6,6 @@ import EventDetailDialog from "../Calendar/EventDetailDialog";
 
 import API from '../../api';
 import {Container} from "@mui/material";
-import {TopBar} from "../TopBar/TopBar";
 
 export function MyCalendar(props) {
 
@@ -21,52 +20,21 @@ export function MyCalendar(props) {
     const [eventDetailDialogEvent, setEventDetailDialogEvent] = useState(null);
 
     useEffect(() => {
-        setEvents([
-            {
-                id: 1,
-                houseId: 1,
-                type: "MAINTENANCE",
-                name: "Carpinteiro",
-                description: "This is a description",
-                startDate: moment("2022-11-23 19:00:00"),
-                endDate: moment("2022-11-23 20:00:00"),
-                repeat: "NO",
-            },
-            {
-                id: 2,
-                houseId: 1,
-                type: "OCCUPATION",
-                name: "Casal de turistas dasdasdasdasdasdasdasdas",
-                description: "This is a description",
-                startDate: moment("2022-11-22 19:00:00"),
-                endDate: moment("2022-11-25 20:00:00"),
-                repeat: "NO",
-            },
-            {
-                id: 3,
-                houseId: 1,
-                type: "MAINTENANCE",
-                name: "Canalisador",
-                description: "This is a description",
-                startDate: moment("2022-11-22 17:00:00"),
-                endDate: moment("2022-11-22 18:00:00"),
-                repeat: "MONTHLY",
-                repeatUntil: moment("2023-02-22")
-            },
-            {
-                id: 4,
-                houseId: 1,
-                type: "CLEANING",
-                name: "Dona Elvira",
-                description: "This is a description",
-                startDate: moment("2022-11-25 17:00:00"),
-                endDate: moment("2022-11-25 18:00:00"),
-                repeat: "WEEKLY",
-                repeatUntil: moment("2023-02-25"),
-            },
-        ])
+        let token = sessionStorage.getItem('token');
 
-        API.get('/houses/list', {headers: {authorization: sessionStorage.getItem('token')}})
+        API.get('/events/all', {headers: {authorization: token}})
+            .then(response => {
+                let allEvents = response.data;
+                allEvents.map(event => {
+                    event.startDate = moment(event.startDate);
+                    event.endDate = moment(event.endDate);
+                    event.repeatUntil = moment(event.repeatUntil);
+                })
+                setEvents(allEvents)
+            })
+            .catch(reason => console.log(reason));
+
+        API.get('/houses/list', {headers: {authorization: token}})
             .then(response => {
                 let houses = response.data;
                 setHouseList(houses);
