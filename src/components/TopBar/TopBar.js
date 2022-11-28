@@ -14,8 +14,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Logout} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
-import { Navigate } from "react-router-dom";
-
+import {useNavigate} from "react-router-dom";
 import API from "../../api";
 
 
@@ -29,16 +28,13 @@ export function TopBar() {
     const handleLoginModalOpen = () => setLoginModalOpen(true);
     const handleLoginModalClose = () => setLoginModalOpen(false);
 
-    //replace with database
-    const userName = 'Nome';
-    const userApelido = 'Apelido';
-    const userEmail = 'Email@user.com';
     const userAvatar = '/avatar.jpeg';
 
     const [dropDown, setDropDown] = React.useState(null);
     const [accountMenu, setAccountMenu] = React.useState(null);
     const open = Boolean(dropDown);
-    const open2 = Boolean(accountMenu);
+
+    const navigate = useNavigate()
 
     const handleOneHomeDropDownOpen = (event) => {
         setDropDown(event.currentTarget);
@@ -54,6 +50,12 @@ export function TopBar() {
         setAccountInfoOpen(false);
         setAccountMenu(undefined)
     };
+
+    const handleLogout = () =>{
+        sessionStorage.removeItem('token');
+        navigate('/');
+        window.location.reload();
+    }
 
     /*
     Get logged in user from the database if the token exists
@@ -96,8 +98,8 @@ export function TopBar() {
                         </div>
                         <p id='userEmail'> {loggedInUser.email} </p>
                     </div>
-                    <Button className={'log-out'}>
-                        <ListItemIcon onClick={() => sessionStorage.removeItem('token') && window.location.reload() && <Navigate to={'/Homepage'}/>}>
+                    <Button className={'log-out'} onClick={handleLogout}>
+                        <ListItemIcon>
                             <Logout fontSize="small"/>
                         </ListItemIcon>
                         Logout
