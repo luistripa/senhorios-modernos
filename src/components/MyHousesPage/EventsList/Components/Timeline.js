@@ -34,7 +34,7 @@ class Timeline extends Component {
                     </div>
                     <Divider/>
                     <div style={{display: "flex", justifyContent: "center"}}>
-                       <a href="/house-page/${house.id}">
+                       <a href={'/house-page/' + house.id}>
                            <button>
                                {house ? house.name : undefined}
                            </button>
