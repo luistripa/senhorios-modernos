@@ -15,3 +15,7 @@ button {
     border: 0;
     z-index: 1;
 }
+
+button:hover{
+    background-color: #7A82AB;
+}

@@ -19,8 +19,7 @@ export class EventsList extends Component {
     }
 
     componentDidMount() {
-        API.get('/houses/list',
-            {headers: {authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6Imx1aXNoIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImVtYWlsIjoibHVpc0BtYWlsLmNvbSJ9LCJpYXQiOjE2Njk1NzAyMzYsImV4cCI6MTY3MDE3NTAzNn0.CF8Mhub7zrzWlgRkKKeCaukPI66WsOf0bVmAt8Ia1jw"}})
+        API.get('/houses/list', {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let houses = response.data;
                 this.setState({housesList: houses})
@@ -28,20 +27,22 @@ export class EventsList extends Component {
             console.log(reason)
         })
 
-        API.get('/events/today',
-            {headers: {authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6Imx1aXNoIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImVtYWlsIjoibHVpc0BtYWlsLmNvbSJ9LCJpYXQiOjE2Njk1NzAyMzYsImV4cCI6MTY3MDE3NTAzNn0.CF8Mhub7zrzWlgRkKKeCaukPI66WsOf0bVmAt8Ia1jw"}})
+        API.get('/events/today',{headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
-                let eventsTodayResponse = response.data;
-                eventsTodayResponse.map((event) => {
+                let events = response.data;
+
+                events.map((event) => {
                     event.startDate = moment(event.startDate);
                     event.endDate = moment(event.endDate);
                     event.repeatUntil = event.repeatUntil ? moment(event.repeatUntil) : null;
                 });
 
-                let eventsToday = getDayEvents(moment(), eventsTodayResponse);
-                console.log(eventsToday);
+                let eventsToday = getDayEvents(moment(), events);
+                let eventsTomorrow = getDayEvents(moment().add(1, "day"), events);
                 let eventsTodaySort = eventsToday.sort((a, b) => moment(a.startDate) > moment(b.startDate) ? 1 : -1);
+                let eventsTomorrowSort = eventsTomorrow.sort((a, b) => moment(a.startDate) > moment(b.startDate) ? 1 : -1);
                 this.setState({eventsToday: eventsTodaySort})
+                this.setState({eventsTomorrow: eventsTomorrowSort})
             }).catch(reason => {
             console.log(reason)
         })

@@ -34,11 +34,12 @@ class Timeline extends Component {
                     </div>
                     <Divider/>
                     <div style={{display: "flex", justifyContent: "center"}}>
-                       <Label.Group color={"purple"}>
-                            <Label>
-                                {house ? house.name : undefined}
-                            </Label>
-                        </Label.Group>
+                       <a href="/house-page/${house.id}">
+                           <button>
+                               {house ? house.name : undefined}
+                           </button>
+                       </a>
+
                     </div>
                 </Card.Content>
             </Card>
