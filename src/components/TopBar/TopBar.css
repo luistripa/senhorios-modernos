@@ -1,40 +1,20 @@
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: sans-serif;
-}
 
-#logoTitle{
-    color: #242038;
-    font-size: 15px;
-}
-
-nav {
+.topBar {
     height: 69px;
     background: transparent;
     transition: 0.7s;
 }
-nav.sticky {
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6);
+
+.topBar.sticky {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
     position: sticky;
     top: 0;
     z-index: 100;
     background-color: #242038;
 }
 
-nav.sticky #logoTitle{
-    color: #FBF9FF;
-    font-size: 15px;
-}
-
-nav.sticky .links a, nav.sticky .links Button, nav.sticky .links p{
-    color: #FBF9FF;
-}
-
-.nav-inner {
+.topBar .nav-inner {
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -43,11 +23,38 @@ nav.sticky .links a, nav.sticky .links Button, nav.sticky .links p{
     width: 100%;
     margin: auto;
 }
-.logo {
-    color: #fff;
-    font-size: 30px;
+
+.topBar .logo {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
+    height: 69px;
+
+    margin-left: 1%;
+
+    transition: 0.7s;
+
+    background: transparent;
+    color: #fff;
+
+    font-size: 30px;
+}
+
+.topBar .logo .title {
+    margin-left: 5px;
+    color: #242038;
+    font-size: 20px;
+}
+
+.topBar.sticky .logo .title {
+    margin-left: 5px;
+    color: #FBF9FF;
+    font-size: 20px;
+}
+
+nav.sticky .links a, nav.sticky .links Button, nav.sticky .links p{
+    color: #FBF9FF;
 }
 
 .links {
@@ -56,10 +63,10 @@ nav.sticky .links a, nav.sticky .links Button, nav.sticky .links p{
     align-items: center;
 }
 
-.links a, .links Button {
+.links .link-item {
     color: #242038;
     font-size: 17px;
-    margin-right: 30px;
+    margin: 15px;
     cursor: pointer;
 }
 
