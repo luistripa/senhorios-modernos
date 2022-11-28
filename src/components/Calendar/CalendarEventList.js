@@ -1,10 +1,11 @@
 
 import "./css/EventList.css"
-import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow} from "@mui/material";
+import {Table, Chip, ListItem, ListItemText, Typography, TableBody, TableRow, Button, Badge} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import moment from "moment";
-import {AccessTime, Build, CleaningServices, People, QuestionMark} from "@mui/icons-material";
+import {AccessTime, Build, CleaningServices, People, QuestionMark, Search} from "@mui/icons-material";
 import {hasSameDay} from "./utils/date_utils";
+import Avatar from "@mui/material/Avatar";
 
 export default function CalendarEventList(props) {
 
@@ -18,22 +19,28 @@ export default function CalendarEventList(props) {
         switch (eventType) {
             case "CLEANING":
                 return (
-                    <Chip color={"secondary"}
-                          label={<CleaningServices sx={{fontSize: "18px"}}/>}
-                          size={"small"} sx={{display: "flex", alignItems: "center", justifyContent: "center", marginRight: "5px"}}
-                    />
+                    <Avatar sx={{width: "30px", height: "30px", backgroundColor: "darkorchid", marginRight: "5px"}}>
+                        <CleaningServices/>
+                    </Avatar>
                 )
             case "MAINTENANCE":
                 return (
-                    <Chip color={"success"}
-                          label={<Build sx={{fontSize: "18px"}}/>}
-                          size={"small"} sx={{display: "flex", alignItems: "center", justifyContent: "center", marginRight: "5px"}}
-                    />
+                    <Avatar sx={{width: "30px", height: "30px", backgroundColor: "green", marginRight: "5px"}}>
+                        <Build/>
+                    </Avatar>
                 );
             case "OCCUPATION":
-                return <Chip color={"error"} label={<People fontSize={"small"}/>} size={"small"} sx={{display: "flex", alignItems: "center", justifyContent: "center", marginRight: "5px"}}/>;
+                return (
+                    <Avatar sx={{width: "30px", height: "30px", backgroundColor: "red", marginRight: "5px"}}>
+                        <People/>
+                    </Avatar>
+                );
             default:
-                return <Chip color={"secondary"} label={<AccessTime/>} size={"small"} sx={{display: "flex", alignItems: "center", justifyContent: "center", marginRight: "5px"}}/>;
+                return (
+                    <Avatar sx={{width: "30px", height: "30px", backgroundColor: "gray", marginRight: "5px"}}>
+                        <AccessTime/>
+                    </Avatar>
+                );
         }
     }
 
@@ -96,84 +103,77 @@ export default function CalendarEventList(props) {
     return (
         <td className={'calendar-event-list-container'}>
             <div className={"event-controls-container"}>
-                <div style={{color: "white", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>{props.selectedDay.format("ddd MMM Do")}</div>
-                <Chip className={"event-add-button"}
-                      label={<AddIcon fontSize={"small"}/>}
-                      size={"medium"}
-                      onClick={props.handleCreate}
-                />
+                <Typography padding={0} color={"white"} overflow={"hidden"} textOverflow={"ellipsis"} whiteSpace={"nowrap"}>
+                    {props.selectedDay.format("ddd MMM Do")}
+                </Typography>
+                <Button className={"event-add-button"} size={"small"} variant={"contained"} color={"primary"} onClick={props.handleCreate}>
+                    <AddIcon fontSize={"small"}/>
+                </Button>
+
             </div>
             <div className={'list'}>
-                <Table sx={{tableLayout: "fixed"}}>
-                    <TableBody>
-                        {allDayEvents.map(event => (
-                            <TableRow key={event.id} hover={true}>
-                                <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
-                                    {createChipByEventType(event.type)}
-                                    <ListItemText
-                                        primary={
-                                            <Typography
-                                                component={"p"}
-                                                color={"white"}
-                                                sx={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}
-                                            >
-                                                {event.name}
-                                            </Typography>
-                                        }
-                                        secondary={"all day"}
-                                        secondaryTypographyProps={{style: {color: "white"}}}
-                                        title={event.name}
-                                    />
-                                </ListItem>
-                            </TableRow>
-                        ))}
-                        {finishTodayEvents.map(event => (
-                            <TableRow key={event.id} hover={true}>
-                                <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
-                                    {createChipByEventType(event.type)}
-                                    <ListItemText
-                                        primary={
-                                            <Typography
-                                                component={"p"}
-                                                color={"white"}
-                                                sx={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}
-                                            >
-                                                {event.name}
-                                            </Typography>
-                                        }
-                                        secondary={"ends at " + event.endDate.format("HH:mm")}
-                                        secondaryTypographyProps={{style: {color: "white"}}}
-                                        title={event.name}
-                                    />
-                                </ListItem>
-                            </TableRow>
-                        ))}
+                {allDayEvents.map(event => (
+                    <ListItem key={event.id} className={"event"} onClick={() => props.handleDetail(event)}>
+                        {createChipByEventType(event.type)}
+                        <ListItemText
+                            primary={
+                                <Typography component={"p"} fontWeight={"bold"} color={"white"} overflow={"hidden"}
+                                            textOverflow={"ellipsis"} whiteSpace={"nowrap"} padding={0}>
+                                    {event.name}
+                                </Typography>
+                            }
+                            primaryTypographyProps={{color: "white", padding: "0"}}
+                            secondary={"all day"}
+                            secondaryTypographyProps={{color: "white", padding: "0"}}
+                            title={event.name}
+                        />
+                    </ListItem>
+                ))}
+                {finishTodayEvents.map(event => (
+                    <ListItem key={event.id} className={"event"} onClick={() => props.handleDetail(event)}>
+                        {createChipByEventType(event.type)}
+                        <ListItemText
+                            primary={
+                                <Typography component={"p"} fontWeight={"bold"} color={"white"} overflow={"hidden"}
+                                            textOverflow={"ellipsis"} whiteSpace={"nowrap"} padding={0}>
+                                    {event.name}
+                                </Typography>
+                            }
+                            primaryTypographyProps={{color: "white", padding: "0"}}
+                            secondary={"ends at " + event.endDate.format("HH:mm")}
+                            secondaryTypographyProps={{color: "white", padding: "0"}}
+                            title={event.name}
+                        />
+                    </ListItem>
+                ))}
 
-                        {separator}
+                {separator}
 
-                        {todayEvents.map(event => (
-                            <TableRow key={event.id} hover={true}>
-                                <ListItem className={"event"} component={"td"} onClick={() => props.handleDetail(event)}>
-                                    {createChipByEventType(event.type)}
-                                    <ListItemText
-                                        primary={
-                                            <Typography
-                                                component={"p"}
-                                                color={"white"}
-                                                sx={{overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}
-                                            >
-                                                {event.name}
-                                            </Typography>
-                                        }
-                                        secondary={event.startDate.format("HH:mm")}
-                                        secondaryTypographyProps={{style: {color: "white"}}}
-                                        title={event.name}
-                                    />
-                                </ListItem>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                {todayEvents.map(event => (
+                    <ListItem key={event.id} className={"event"} onClick={() => props.handleDetail(event)}>
+                        {createChipByEventType(event.type)}
+                        <ListItemText
+                            primary={
+                                <Typography component={"p"} fontWeight={"bold"} color={"white"} overflow={"hidden"}
+                                            textOverflow={"ellipsis"} whiteSpace={"nowrap"} padding={0}>
+                                    {event.name}
+                                </Typography>
+                            }
+                            secondary={event.startDate.format("HH:mm")}
+                            secondaryTypographyProps={{color: "white", padding: "0"}}
+                            title={event.name}
+                        />
+                    </ListItem>
+                ))}
+
+                {allDayEvents.length + finishTodayEvents.length + todayEvents.length === 0 ? (
+                    <div style={{width: "100%", marginTop: "5%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                        <Typography color={"lightgray"} display={"flex"} justifyContent={"center"}>
+                            <Search/>
+                            <span>No events today...</span>
+                        </Typography>
+                    </div>
+                ) : undefined }
             </div>
         </td>
     );

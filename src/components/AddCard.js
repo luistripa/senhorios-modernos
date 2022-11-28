@@ -23,12 +23,10 @@ export default function AddCard(props) {
 
     return (
         <div>
-            <Card className={'add-card'}>
                 <button className={'add-button'} onClick={openCloseModal}>
-                    <BsPlusLg className={'iconPlus'}></BsPlusLg>
+                    Add New
                 </button>
                 {modal}
-            </Card>
         </div>
     );
 }

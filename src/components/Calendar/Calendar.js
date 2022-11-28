@@ -1,4 +1,4 @@
-import { useState} from "react";
+import {useEffect, useState} from "react";
 
 import "./css/CalendarBoard.css"
 import CalendarBoard from "./CalendarBoard";
@@ -24,6 +24,11 @@ export default function Calendar(props) {
     // For event detail dialog
     const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
     const [eventDetailDialogEvent, setEventDetailDialogEvent] = useState(null);
+
+
+    useEffect(() => {
+        onDaySelect(selectedDay);
+    }, [props.events])
 
 
     const onDaySelect = (day) => {

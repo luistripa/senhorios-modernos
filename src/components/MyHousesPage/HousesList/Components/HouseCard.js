@@ -5,7 +5,7 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import {Grid} from "@mui/material";
-import './components.css';
+import './components-houselist.css';
 
 export class GradientCover extends Component {
 

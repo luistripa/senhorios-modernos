@@ -1,6 +1,5 @@
 import './Homepage.css'
 import React, {useState} from "react";
-import {TopBarBeforeLogin} from "../TopBar/TopBarBeforeLogin";
 import Carousel from "react-bootstrap/Carousel";
 import Image1 from "../../static/casa1.jpg";
 import Image2 from "../../static/casa2.jpg";
@@ -13,6 +12,8 @@ import Luis from "../../static/luis.jpg";
 import Raquel from "../../static/raquel.jpg";
 import Modal from "@mui/material/Modal";
 import LoginAndRegister from "../LoginAndRegister/LoginAndRegister";
+import {TopBar} from "../TopBar/TopBar";
+
 
 export const Homepage = () => {
 
@@ -39,7 +40,7 @@ export const Homepage = () => {
 
     return(
         <>
-            <TopBarBeforeLogin/>
+            <TopBar/>
 
             <LoginAndRegister toggleLogin={!showRegisterModal} open={showRegisterModal} onClose={handleRegisterModalClose} />
 

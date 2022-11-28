@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import * as React from "react";
 import {useState} from "react";
 import NewDivisionForm from "./NewDivisionForm";
-import './components.css';
+import './components-homeinventory.css';
 import {GrClose} from "react-icons/gr";
 
 export default function NewDivisionModal(props) {
@@ -14,10 +14,10 @@ export default function NewDivisionModal(props) {
             open={props.modalState}>
                 <Box className={'addDivision-modal'}>
                     <div className={'top-header-modal'}>
-                        <div className={'top iconHouse'}>
-                            <Avatar sx={{ bgcolor: '#7A82AB' }} className={'house-icon-card'} alt="Create division icon" src="home-icon.png" />
+                        <div className={'topdiv iconHouse'}>
+                            <Avatar sx={{ bgcolor: '#E38B29' }} className={'house-icon-card'} alt="Create division icon" src="home-icon.png" />
                         </div>
-                        <div className={'top buttonClose'}>
+                        <div className={'topdiv buttonClose'}>
                             <button onClick={props.openCloseModal}><GrClose className={'close-icon'}/></button>
                         </div>
                     </div>
