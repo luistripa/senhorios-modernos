@@ -70,7 +70,7 @@ export function TopBar() {
                     }
                 })
                 .catch(reason => console.error(reason))
-    }, [])
+    }, [loginModalOpen])
 
     /*
     Creates scroll event handler to change the topBar to stick to the top of the page
