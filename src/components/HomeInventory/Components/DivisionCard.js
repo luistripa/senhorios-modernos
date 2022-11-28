@@ -26,9 +26,12 @@ export class DivisionCard extends Component {
                         />
                     </div>
                     <CardContent style={{ padding: '8rem 0rem', justifyContent: "flex-end", whiteSpace: "nowrap"}}>
-                        <Typography level="h2" fontSize="lg" textColor="black" mb={1}>
-                            {this.props.name}
-                        </Typography>
+                        <div style={{display:'flex', flexDirection:'column'}}>
+                            <Typography level="h2" fontSize="lg" textColor="black" mb={1}>
+                                {this.props.name}
+                            </Typography>
+                            <button><img src={'/edit_button.png'}/></button>
+                        </div>
                     </CardContent>
                 </Card>
 

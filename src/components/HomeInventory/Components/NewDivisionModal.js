@@ -16,8 +16,8 @@ export default function NewDivisionModal(props) {
 
     return (
         <div>
-            <Card className={'addhouse-card'}>
-                <button className={'addhouse-button'} onClick={handleOpen}>
+            <Card >
+                <button onClick={handleOpen}>
                     Add New
                 </button>
             </Card>
@@ -28,10 +28,10 @@ export default function NewDivisionModal(props) {
                     <div className={'top-header-modal'}>
                         <div className={'topdiv iconHouse'}>
                             <Avatar sx={{bgcolor: '#7A82AB'}} className={'house-icon-card'} alt="Create division icon"
-                                    src="home-icon.png"/>
+                                    src="/home-icon.png"/>
                         </div>
                         <div className={'topdiv buttonClose'}>
-                            <button onClick={props.handleClose}><GrClose className={'close-icon'}/></button>
+                            <button onClick={handleClose}><GrClose className={'close-icon'}/></button>
                         </div>
                     </div>
                     <Typography className={"modal-modal-title"} variant="h4">
