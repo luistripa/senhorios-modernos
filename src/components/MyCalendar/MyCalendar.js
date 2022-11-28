@@ -115,7 +115,6 @@ export function MyCalendar(props) {
 
     return (
         <>
-            <TopBar/>
             <Container>
                 <div>
                     <Calendar events={events}
