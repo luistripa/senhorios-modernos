@@ -28,8 +28,8 @@ export default function Calendar(props) {
         setSelectedDay(day)
     }
 
-    const handleEventCreate = () => {
-        props.onEventCreate();
+    const handleEventCreate = (selectedDay) => {
+        props.onEventCreate(selectedDay);
     }
 
     const handleEventDetail = (eventData) => {
