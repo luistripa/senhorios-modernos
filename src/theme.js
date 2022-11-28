@@ -3,22 +3,20 @@ import {createStyles, responsiveFontSizes} from "@mui/material";
 const theme = responsiveFontSizes(createStyles({
     typography: {
         fontFamily: [
-            'Roboto',
-            'Raleway',
-            'Open Sans',
+            'Exo',
         ].join(','),
         h1: {
             fontSize: '5rem',
-            fontFamily: 'Raleway',
+            fontFamily: 'Exo',
         },
         h2: {
             fontSize: '3.5rem',
-            fontFamily: 'Open Sans',
+            fontFamily: 'Exo',
             fontStyle: 'bold',
         },
         h3: {
             fontSize: '2.5rem',
-            fontFamily: 'Roboto',
+            fontFamily: 'Exo',
         },
     },
     palette: {
