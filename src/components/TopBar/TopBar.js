@@ -202,7 +202,8 @@ export function TopBar() {
                             <a className={"link-item"} href="/#about-section">About OneHome</a>
                             <a className={"link-item"} href="/#feature-section">Features</a>
                             <a className={"link-item"} href="/#team-section">Team</a>
-                            <Button variant={"contained"} color={"primary"} sx={{margin: "15px"}} onClick={handleLoginModalOpen}>Login</Button>
+                            <Button variant={"contained"} sx={{color: '#FBF9FF', margin: "15px", backgroundColor:'#4B4E6D',  "&:hover": {
+                                    backgroundColor: "#4B4E6D"}}} onClick={handleLoginModalOpen}>Login</Button>
                         </div>
                     </div>
                     <LoginAndRegister toggleLogin={loginModalOpen} open={loginModalOpen} onClose={handleLoginModalClose}/>
