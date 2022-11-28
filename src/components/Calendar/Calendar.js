@@ -6,10 +6,8 @@ import CalendarEventList from "./CalendarEventList";
 
 import "./css/Calendar.css"
 
-import {NewEventDialog} from "./NewEventDialog";
 
 import {getDayEvents} from "./utils/date_utils";
-import EventDetailDialog from "./EventDetailDialog";
 import moment from "moment";
 
 
@@ -17,13 +15,6 @@ export default function Calendar(props) {
 
     const [selectedDay, setSelectedDay] = useState(moment());
     const [selectedDayEvents, setSelectedDayEvents] = useState([]);
-
-    // For new event dialog
-    const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
-
-    // For event detail dialog
-    const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
-    const [eventDetailDialogEvent, setEventDetailDialogEvent] = useState(null);
 
 
     useEffect(() => {
@@ -37,34 +28,12 @@ export default function Calendar(props) {
         setSelectedDay(day)
     }
 
-    const handleOpenNewEventDialog = () => {
-        setNewEventDialogOpen(true);
+    const handleEventCreate = () => {
+        props.onEventCreate();
     }
 
-    const handleCloseNewEventDialog = () => {
-        setNewEventDialogOpen(false);
-    }
-
-    const handleOpenEventDetailDialog = (event) => {
-        setEventDetailDialogEvent(event);
-        setEventDetailDialogOpen(true);
-    }
-
-    const handleCloseEventDetailDialog = (event) => {
-        setEventDetailDialogEvent(null);
-        setEventDetailDialogOpen(false);
-    }
-
-    const handleEventCreate = (resolve, reject, eventData) => {
-        props.onEventCreate(resolve, reject, eventData);
-    }
-
-    const handleEventEdit = (resolve, reject, eventData) => {
-        props.onEventEdit(resolve, reject, eventData)
-    }
-
-    const handleEventDelete = (resolve, reject, eventData) => {
-        props.onEventDelete(resolve, reject, eventData);
+    const handleEventDetail = (eventData) => {
+        props.onEventDetail(eventData)
     }
 
     return (
@@ -79,24 +48,12 @@ export default function Calendar(props) {
                         />
                         <CalendarEventList selectedDay={selectedDay}
                                            events={selectedDayEvents}
-                                           handleCreate={handleOpenNewEventDialog}
-                                           handleDetail={handleOpenEventDetailDialog}
+                                           handleCreate={handleEventCreate}
+                                           handleDetail={handleEventDetail}
                         />
                     </tr>
                     </tbody>
                 </table>
-                <NewEventDialog open={newEventDialogOpen}
-                                onClose={handleCloseNewEventDialog}
-                                handleCreate={handleEventCreate}
-                                handleCancel={() => setNewEventDialogOpen(false)}
-                />
-                <EventDetailDialog open={eventDetailDialogOpen}
-                                   onClose={handleCloseEventDetailDialog}
-                                   event={eventDetailDialogEvent}
-                                   handleEdit={handleEventEdit}
-                                   handleDelete={handleEventDelete}
-                                   handleCancel={() => setEventDetailDialogOpen(false)}
-                />
             </div>
         </>
     )
