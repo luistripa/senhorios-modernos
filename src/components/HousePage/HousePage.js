@@ -4,12 +4,106 @@ import {TODOList} from "../TODOList/TODOList";
 import Calendar from "../Calendar/Calendar";
 import {Table, TableBody, TableCell, TableRow, Box, Button} from "@mui/material";
 import {HomeInventory} from "../HomeInventory/HomeInventory";
-import API from "../../api"
 import * as React from "react";
+import {useEffect, useState} from "react";
+import {NewEventDialog} from "../Calendar/NewEventDialog";
+import EventDetailDialog from "../Calendar/EventDetailDialog";
+import {useParams} from "react-router-dom";
+
+import API from "../../api";
+import moment from "moment";
 
 export function HousePage() {
 
+    let {houseId} = useParams();
+
+    const [house, setHouse] = useState(undefined);
+    const [houseList, setHouseList] = useState([]);
+
+
+    const [todoItems, setTodoItems] = useState([]);
+    const [events, setEvents] = useState([]);
+
+
+    // For new event dialog
+    const [newEventDialogOpen, setNewEventDialogOpen] = useState(false);
+
+    // For event detail dialog
+    const [eventDetailDialogOpen, setEventDetailDialogOpen] = useState(false);
+    const [eventDetailDialogEvent, setEventDetailDialogEvent] = useState(null);
+
+
+    useEffect(() => {
+
+        // Get House Info
+        API.get('/houses/'+houseId, {headers: {authorization: sessionStorage.getItem('token')}})
+            .then(response => {
+                let house = response.data;
+                setHouse(house);
+            })
+            .catch(reason => console.error(reason));
+
+        // Get house list (for calendar modals)
+        API.get('/houses/list', {headers: {authorization: sessionStorage.getItem('token')}})
+            .then(response => {
+                let houses = response.data;
+                setHouseList(houses);
+            })
+            .catch(reason => console.error(reason));
+
+        // Get todo items
+        API.get(`/houses/${houseId}/todo`, {headers: {authorization: sessionStorage.getItem('token')}})
+            .then(response => {
+                let todoItems = response.data;
+                setTodoItems(todoItems);
+            })
+            .catch(reason => console.error(reason))
+
+        // Get events
+        API.get(`houses/${houseId}/events/list`, {headers: {authorization: sessionStorage.getItem('token')}})
+            .then(response => {
+                let events = response.data;
+                events.map(event => {
+                    event.startDate = moment(event.startDate);
+                    event.endDate = moment(event.endDate);
+                    event.repeatUntil = event.repeatUntil ? moment(event.repeatUntil) : null;
+                    return event;
+                })
+                setEvents(events);
+            })
+
+        // TODO: GET house divisions
+
+    }, [])
+
+
     //TODO - Fazer o onClick para apagar a casa!
+
+
+    const handleOpenNewEventDialog = () => {
+        setNewEventDialogOpen(true);
+    }
+
+    const handleCloseNewEventDialog = () => {
+        setNewEventDialogOpen(false);
+    }
+
+    const handleOpenEventDetailDialog = (event) => {
+        setEventDetailDialogEvent(event);
+        setEventDetailDialogOpen(true);
+    }
+
+    const handleCloseEventDetailDialog = (event) => {
+        setEventDetailDialogEvent(null);
+        setEventDetailDialogOpen(false);
+    }
+
+    const handleHouseDelete = (resolve, reject) => {
+        setTimeout(() => {
+            console.log("delete", house);
+            resolve()
+        }, 1000)
+    }
 
     const handleEventCreate = (resolve, reject, eventData) => {
         setTimeout(() => { // Simulates backend request
@@ -32,6 +126,24 @@ export function HousePage() {
         }, 1000);
     }
 
+    const handleTodoItemCreate = (todoItem) => {
+        setTimeout(() => { // Simulates backend request
+            console.log("create", todoItem);
+        }, 1000);
+    }
+
+    const handleTodoItemEdit = (todoItem) => {
+        setTimeout(() => { // Simulates backend request
+            console.log("edit", todoItem);
+        }, 1000);
+    }
+
+    const handleTodoItemDelete = (todoItem) => {
+        setTimeout(() => { // Simulates backend request
+            console.log("delete", todoItem);
+        }, 1000);
+    }
+
     return(
         <>
             <TopBar/>
@@ -48,15 +160,18 @@ export function HousePage() {
                     </TableRow>
                     <TableRow>
                         <TableCell sx={{width: "70%", borderBottom:"none"}}>
-                            <Calendar events={[]}
-                                      onEventCreate={handleEventCreate}
-                                      onEventEdit={handleEventEdit}
-                                      onEventDelete={handleEventDelete}
+                            <Calendar events={events}
+                                      onEventCreate={handleOpenNewEventDialog}
+                                      onEventDetail={(event) => handleOpenEventDetailDialog(event)}
                             />
                         </TableCell>
                         <TableCell sx={{width: "30%", verticalAlign: "top", borderBottom:"none"}}>
                             <Box sx={{width: '100%', overflowY: 'scroll', maxHeight: "calc(calc(100vw * 0.42) - 16px)", minHeight: "calc(calc(100vw * 0.42) - 16px)"}}>
-                                <TODOList/>
+                                <TODOList items={todoItems}
+                                          onItemAdd={handleTodoItemCreate}
+                                          onItemEdit={handleTodoItemEdit}
+                                          onItemDelete={handleTodoItemDelete}
+                                />
                             </Box>
                         </TableCell>
                     </TableRow>
@@ -73,6 +188,23 @@ export function HousePage() {
                     Delete House
                 </Button>
             </Box>
+
+            <NewEventDialog open={newEventDialogOpen}
+                            onClose={handleCloseNewEventDialog}
+                            selectedHouse={house ? house.id : undefined}
+                            houseList={houseList}
+                            handleCreate={handleEventCreate}
+                            handleCancel={() => setNewEventDialogOpen(false)}
+            />
+            <EventDetailDialog open={eventDetailDialogOpen}
+                               onClose={handleCloseEventDetailDialog}
+                               selectedHouse={house ? house.id : undefined}
+                               houseList={houseList}
+                               event={eventDetailDialogEvent}
+                               handleEdit={handleEventEdit}
+                               handleDelete={handleEventDelete}
+                               handleCancel={() => setEventDetailDialogOpen(false)}
+            />
         </>
     );
 }

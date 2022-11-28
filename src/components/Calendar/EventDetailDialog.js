@@ -24,6 +24,7 @@ export default function EventDetailDialog(props) {
     const [editProcessing, setEditProcessing] = useState(false)
     const [deleteProcessing, setDeleteProcessing] = useState(false)
 
+    const [eventHouseId, setEventHouseId] = useState("");
     const [eventName, setEventName] = useState("");
     const [eventDescription, setEventDescription] = useState("");
     const [eventType, setEventType] = useState("GENERIC");
@@ -33,6 +34,7 @@ export default function EventDetailDialog(props) {
     const [eventRepeatUntil, setEventRepeatUntil] = useState(null);
 
     useEffect(() => {
+        setEventHouseId(props.event ? props.event.houseId : props.selectedHouse ? props.selectedHouse : "");
         setEventName(props.event ? props.event.name : "");
         setEventDescription(props.event ? props.event.description : "");
         setEventType(props.event ? props.event.type : "GENERIC");
@@ -45,6 +47,7 @@ export default function EventDetailDialog(props) {
     const handleEdit = () => {
         let eventData = {
             id: props.event.id,
+            houseId: eventHouseId,
             name: eventName,
             description: eventDescription,
             type: eventType,
@@ -87,6 +90,10 @@ export default function EventDetailDialog(props) {
     const handleDeleteFailed = () => {
         setTimeout(() => setDeleteProcessing(false), 200);
         setDeleteConfirmOpen(false);
+    }
+
+    const handleEventHouseIdChange = (event) => {
+        setEventHouseId(event.target.value);
     }
 
     const handleEventNameChange = (event) => {
@@ -140,6 +147,20 @@ export default function EventDetailDialog(props) {
                         <br/>
 
                         <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <InputLabel id="event-house-label">House</InputLabel>
+                                <Select labelId={"event-house-label"}
+                                        value={eventHouseId}
+                                        onChange={handleEventHouseIdChange}
+                                        SelectDisplayProps={{style: {display: "flex", alignItems: "center"}}}
+                                        variant={"outlined"}
+                                        disabled={props.selectedHouse !== undefined}
+                                        fullWidth>
+                                    {props.houseList.map(house => (
+                                        <MenuItem key={house.id} value={house.id}>{house.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </Grid>
                             <Grid item xs={12}>
                                 <TextField label={"Event Name"}
                                            value={eventName}
