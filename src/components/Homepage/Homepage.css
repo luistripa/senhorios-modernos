@@ -15,10 +15,14 @@
 }
 
 .CarouselButton_Home {
-    transform: translate(528%, -325%);
-    position: relative;
+   /* transform: translate(528%, -325%);*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
     outline: 0;
     display: inline-block;
     padding: 10px 25px;

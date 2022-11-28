@@ -24,7 +24,6 @@ html body{
 
 .main-container_LAR{
     display: flex;
-    position: center;
     width: 100%;
     background-size: cover;
 }
