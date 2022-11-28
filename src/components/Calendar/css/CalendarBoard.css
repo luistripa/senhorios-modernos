@@ -105,8 +105,8 @@
     z-index: 1;
 }
 
-.calendar-days-container .day-line .day.other-month {
-    color: #7A82AB;
+.calendar-days-container .day-line .day.other-month .day-text {
+    opacity: 30%;
 }
 
 .calendar-days-container .day-line .day .content {
@@ -122,13 +122,13 @@
 }
 
 .calendar-days-container .day-line .day .content .day-text {
-    font-size: 100%;
+    font-size: 140%;
     margin: 0;
 }
 
 .calendar-days-container .day-line .day.selected .content .day-text {
     color: #FBF9FF;
-    font-size: 120%;
+    font-size: 170%;
     font-weight: bolder;
 }
 
