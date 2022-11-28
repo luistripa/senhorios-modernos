@@ -96,11 +96,7 @@ const LoginAndRegister = (props) => {
         <>
             <Modal open={open}>
                 <div className="Modal_Home" style={style}>
-                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'end' , width: '100%'}}>
-                        <IconButton sx={{margin: '10px'}} onClick={props.onClose}>
-                            <Close fontSize='large'/>
-                        </IconButton>
-                    </div>
+
                     <div className="main-container_LAR">
                         <div style={{transform: `translate(${login ? 0 : 95}%, 0px)`, zIndex:1}} className="form-container_LAR">
                             <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={submitHandler}>
@@ -202,6 +198,11 @@ const LoginAndRegister = (props) => {
                     <Snackbar open={snackBarOpen} onClose={() => setSnackBarOpen(false)} autoHideDuration={6000} message={'Invalid Login'}>
                         {snackBarAlert}
                     </Snackbar>
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'end' , width: '100%', zIndex: 100}}>
+                        <IconButton sx={{margin: '10px'}} onClick={props.onClose}>
+                            <Close fontSize='large'/>
+                        </IconButton>
+                    </div>
                 </div>
             </Modal>
 

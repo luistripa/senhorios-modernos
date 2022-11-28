@@ -13,7 +13,6 @@ html body{
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.13)), url("background1.jfif");
     background-size: cover;
 }
 
@@ -50,7 +49,6 @@ html body{
     right: 1%;
     width: 50%;
     height: 100%;
-    margin-top: -4%;
     transition: 1.0s;
 }
 
