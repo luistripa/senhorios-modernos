@@ -95,7 +95,7 @@ export default class NewDivisionForm extends Component {
                         </div>
                     </div>
                     <Card>
-                        <button type='submit' className={'addhouse-button'} onClick={this.props.handleClose}>
+                        <button type='submit' className={'addhouse-button'} >
                             Create
                         </button>
                     </Card>
