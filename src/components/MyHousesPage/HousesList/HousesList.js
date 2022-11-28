@@ -1,10 +1,9 @@
-import {Component, useState} from "react";
+import {Component} from "react";
 import "./HousesList.css"
 import {Grid} from '@mui/material';
 import {Box} from "@mui/joy";
 import {GradientCover} from "./Components/HouseCard";
 import NewHouseSnackbar from "./Components/NewHouseSnackbar";
-import AddCard from "../../AddCard";
 import * as React from "react";
 import NewHouseModal from "./Components/NewHouseModal";
 import API from "../../../api";
@@ -21,8 +20,9 @@ export class HousesList extends Component {
     }
 
     componentDidMount() {
+        let token = sessionStorage.getItem("token");
         API.get('/houses/list',
-            {headers: {authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6Imx1aXNoIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImVtYWlsIjoibHVpc0BtYWlsLmNvbSJ9LCJpYXQiOjE2Njk1NzAyMzYsImV4cCI6MTY3MDE3NTAzNn0.CF8Mhub7zrzWlgRkKKeCaukPI66WsOf0bVmAt8Ia1jw"}})
+            {headers: {authorization: token }})
             .then(response => {
                 let housesList = response.data;
                 this.setState({houses: housesList})
@@ -33,7 +33,8 @@ export class HousesList extends Component {
 
 
     createNewHouse = (house) => {
-        API.post('/houses', house, {headers: {authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6Imx1aXNoIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsImVtYWlsIjoibHVpc0BtYWlsLmNvbSJ9LCJpYXQiOjE2Njk1NzAyMzYsImV4cCI6MTY3MDE3NTAzNn0.CF8Mhub7zrzWlgRkKKeCaukPI66WsOf0bVmAt8Ia1jw"}})
+        let token = sessionStorage.getItem("token");
+        API.post('/houses', house, {headers: {authorization: token}})
         .then(response => {
             this.state.newHouseCreated = true;
             this.state.houses.push(house);
@@ -63,8 +64,9 @@ export class HousesList extends Component {
                           alignItems="center"
                           spacing={2}>
                         {this.state.houses.map(
-                            house => (<GradientCover key={house.id} name={house.name} address={house.address}
-                                                     image={house.image}/>)
+                            house => (
+                                <GradientCover key={house.id} house={house}/>
+                            )
                         )}
                     </Grid>
                 </Box>

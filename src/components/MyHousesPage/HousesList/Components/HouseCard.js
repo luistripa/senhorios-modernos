@@ -12,30 +12,32 @@ export class GradientCover extends Component {
     render(){
         return (
             <Grid item>
-                <Card className={'house-card'}>
-                    <CardCover>
-                        <img src={this.props.image}
-                             alt={this.props.name}
-                             loading="lazy"/>
-                    </CardCover>
-                    <CardCover
-                        sx={{
-                            background:
-                                "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)"
-                        }}
-                    />
-                    <CardContent sx={{ justifyContent: "flex-end" }}>
-                        <Typography level="h2" fontSize="lg" textColor="#fff" mb={1}>
-                            {this.props.name}
-                        </Typography>
-                        <Typography
-                            startDecorator={<LocationOnRoundedIcon />}
-                            textColor="neutral.300"
-                        >
-                            {this.props.address}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <a href={'/house-page/'+this.props.house.id}>
+                    <Card className={'house-card'}>
+                        <CardCover>
+                            <img src={this.props.house.image}
+                                 alt={this.props.house.name}
+                                 loading="lazy"/>
+                        </CardCover>
+                        <CardCover
+                            sx={{
+                                background:
+                                    "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)"
+                            }}
+                        />
+                        <CardContent sx={{ justifyContent: "flex-end" }}>
+                            <Typography level="h2" fontSize="lg" textColor="#fff" mb={1}>
+                                {this.props.house.name}
+                            </Typography>
+                            <Typography
+                                startDecorator={<LocationOnRoundedIcon />}
+                                textColor="neutral.300"
+                            >
+                                {this.props.house.address}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </a>
             </Grid>
         );
     }
