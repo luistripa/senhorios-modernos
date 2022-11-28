@@ -218,10 +218,7 @@ export function HousePage() {
                         <Button onClick={handleCloseDeleteHouseDialog} sx={{color: '#4B4E6D'}}>
                             Close
                         </Button>
-                        <Button variant='contained' sx={{color: '#FBF9FF', backgroundColor:'#4B4E6D',
-                            "&:hover": {
-                                backgroundColor: "#242038"
-                            }}}
+                        <Button variant='contained' color={"error"}
                                 onClick={handleCloseDeleteHouseDialog} autoFocus>
                             Delete
                         </Button>
