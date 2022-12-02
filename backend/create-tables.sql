@@ -1,11 +1,11 @@
-create table users (
+create table if not exists users (
     id integer primary key autoincrement,
     username text not null unique,
     password text not null,
     email text not null
 );
 
-create table houses (
+create table if not exists houses (
     id integer primary key autoincrement,
     userId integer not null,
     name text not null,
@@ -15,7 +15,7 @@ create table houses (
     foreign key (userId) references users(id)
 );
 
-create table events (
+create table if not exists events (
     id integer primary key autoincrement,
     houseId integer not null,
     name text not null,
@@ -28,7 +28,7 @@ create table events (
     foreign key (houseId) references houses(id)
 );
 
-create table divisions (
+create table if not exists divisions (
     id integer primary key autoincrement,
     houseId integer not null,
     name text not null,
@@ -36,7 +36,7 @@ create table divisions (
     foreign key (houseId) references houses(id)
 );
 
-create table item (
+create table if not exists item (
     id integer primary key autoincrement,
     divisionId integer not null,
     name text not null,
