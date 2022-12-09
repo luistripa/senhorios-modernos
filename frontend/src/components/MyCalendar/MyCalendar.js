@@ -157,13 +157,12 @@ export function MyCalendar(props) {
                               eventDescription={handleEventDescription}
                     />
                     <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(undefined)}>
-                        <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
+                        <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
                     </Snackbar>
                     <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
-                        <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
+                        <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
                     </Snackbar>
                 </div>
-
 
                 <NewEventDialog open={newEventDialogOpen}
                                 onClose={handleCloseNewEventDialog}

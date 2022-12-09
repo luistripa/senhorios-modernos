@@ -50,7 +50,7 @@ const LoginAndRegister = (props) => {
             if(e.target.password.value !== e.target.confPassword.value) {
                 setSnackBarOpen(true);
                 setSnackBarAlert(
-                    <Alert severity="error">Passwords do not match.</Alert>
+                    <Alert style={{fontSize: "15px"}} severity="error">Passwords do not match.</Alert>
                 );
 
             } else{
@@ -79,7 +79,7 @@ const LoginAndRegister = (props) => {
             }).catch(() => {
                 setSnackBarOpen(true);
                 setSnackBarAlert(
-                    <Alert severity="error">Invalid Login.</Alert>
+                    <Alert style={{fontSize: "15px"}} severity="error">Invalid Login.</Alert>
                 );
             });
         }

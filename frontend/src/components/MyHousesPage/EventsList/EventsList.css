@@ -7,7 +7,7 @@
 button {
     font: inherit;
     font-size: 1.25rem;
-    padding: 0.55em;
+    padding: 0.55em 2em;
     font-weight: 500;
     background-color: #7A82AB;
     border-radius: 6px;

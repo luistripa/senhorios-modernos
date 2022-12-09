@@ -7,7 +7,7 @@ import {NewHouseForm} from "./NewHouseForm";
 import './components-houselist.css';
 import Card from "@mui/joy/Card";
 import {GrClose} from "react-icons/gr";
-
+import AddIcon from '@mui/icons-material/Add';
 export default function NewHouseModal(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -16,8 +16,8 @@ export default function NewHouseModal(props) {
     return (
         <div>
             <Card className={'addhouse-card'}>
-                <button className={'addhouse-button'} onClick={handleOpen}>
-                    Add New
+                <button className={'addhouse-button'} onClick={handleOpen} style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                    Add New <AddIcon style={{paddingLeft:'4px'}}/>
                 </button>
             </Card>
             <Modal
@@ -31,8 +31,8 @@ export default function NewHouseModal(props) {
                             <Avatar sx={{bgcolor: '#7A82AB'}} className={'house-icon-card'} alt="Create house icon"
                                     src="home-icon.png"/>
                         </div>
-                        <div className={'top buttonClose'}>
-                            <button onClick={() => handleClose()}><GrClose className={'close-icon'}/></button>
+                        <div className={'top buttonClose'} >
+                            <button style={{backgroundColor: "transparent"}} onClick={() => handleClose()}><GrClose className={'close-icon'}/></button>
                         </div>
                     </div>
                     <Typography className={"modal-modal-title-house-list"} variant="h4">
