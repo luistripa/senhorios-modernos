@@ -184,7 +184,7 @@ const LoginAndRegister = (props) => {
                                             </FormControl>
                                     </>
                                 }
-                                <button type="submit" className="form-button"> {login ? 'Login' : 'Sign Now'} </button>
+                                <button type="submit" className="form-button"> {login ? 'Login' : 'Sign Up'} </button>
                             </form>
                         </div>
 
@@ -199,7 +199,7 @@ const LoginAndRegister = (props) => {
                                     <h5 className="form-title-2">Enter now to keep connected!</h5>
                                 </>
                             }
-                            <button className="form-button" onClick={toggleLogin}> {login ? 'Create an account' : 'Login Now'}  </button>
+                            <button className="form-button" onClick={toggleLogin}> {login ? 'Create account' : 'Login'}  </button>
                         </div>
                     </div>
                     <Snackbar open={snackBarOpen} onClose={() => setSnackBarOpen(false)} autoHideDuration={6000} message={'Invalid Login'}>
