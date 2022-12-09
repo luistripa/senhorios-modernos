@@ -27,7 +27,7 @@ export class EventsList extends Component {
             console.log(reason)
         })
 
-        API.get('/events/today',{headers: {authorization: sessionStorage.getItem('token')}})
+        API.get('/events/today', {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let events = response.data;
 
@@ -126,18 +126,45 @@ export class EventsList extends Component {
 
         return (
             <>
-                <div style={{display: "flex", flexDirection: "column", alignItems: "center", paddingBottom: "4%"}}>
-                    {this.state.isTodayShown ? <h1> Today's Events</h1> : <h1> Tomorrow's Events</h1>}
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "33% 33% 33%",
+                    paddingBottom: "4%",
+                    justifyContent: "center"
+                }}>
+                    <div/>
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center"
+                    }}>
+                        {this.state.isTodayShown ? <h1> Today's Events</h1> : <h1> Tomorrow's Events</h1>}
+                    </div>
                     <div style={{display: "flex", justifyContent: "flex-end", marginRight: "13%"}}>
-                        <button onClick={() => this.setState({isTodayShown: !this.state.isTodayShown})}>
+                        <button style={{padding: "0% 4%"}} onClick={() => this.setState({isTodayShown: !this.state.isTodayShown})}>
                             {this.state.isTodayShown ? "Tomorrow" : "Today"}
                         </button>
                     </div>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+
                     <div className="Timeline-line" style={{height, background: this.state.lineColor}}/>
+                    {this.state.isTodayShown && totalEventsToday === 0 &&
+                        <p style={{
+                            fontSize: "20px",
+                            opacity: "31%",
+                            padding: "3% 0 5% 0"
+                        }}>No events for today!</p>
+                    }
+
+                    {!this.state.isTodayShown && totalEventsTomorrow === 0 &&
+                        <p style={{
+                            fontSize: "20px",
+                            opacity: "31%",
+                            padding: "3% 0 5% 0"
+                        }}>No events for tomorrow!</p>
+                    }
+
                     <div style={{position: 'absolute', width: '100%', minHeight: `${maxEventsHeight}px`}}>
-                        {this.state.isTodayShown && totalEventsToday === 0}
 
                         {this.state.isTodayShown &&
                             this.state.eventsToday.map(event => {

@@ -10,7 +10,7 @@ import {
     Button,
     Dialog,
     DialogTitle,
-    DialogActions, Alert
+    DialogActions, Alert, DialogContentText, DialogContent
 } from "@mui/material";
 import {HomeInventory} from "../HomeInventory/HomeInventory";
 import * as React from "react";
@@ -18,10 +18,12 @@ import {useEffect, useState} from "react";
 import {NewEventDialog} from "../Calendar/NewEventDialog";
 import EventDetailDialog from "../Calendar/EventDetailDialog";
 import {useNavigate, useParams} from "react-router-dom";
-
+import './HousePage.css';
 import API from "../../api";
 import moment from "moment";
 import Snackbar from "@mui/material/Snackbar";
+import {styled} from "@mui/joy";
+import {red} from "@mui/material/colors";
 
 export function HousePage() {
 
@@ -337,16 +339,30 @@ export function HousePage() {
                     onClose={handleCloseDeleteHouseDialog}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
+                    sx={{
+                        "& .MuiDialog-container": {
+                            "& .MuiPaper-root": {
+                                width: "35%",
+                            },
+                        },
+                    }}
                 >
-                    <DialogTitle id="alert-dialog-title">
-                        {"Are you sure you want to delete this house?"}
-                    </DialogTitle>
-                    <DialogActions>
-                        <Button onClick={handleCloseDeleteHouseDialog}>Close</Button>
-                        <Button onClick={handleHouseDelete} autoFocus>
-                            Delete
-                        </Button>
-                    </DialogActions>
+                    <div style={{padding: "3% 2% 2% 2%"}}>
+                        <DialogTitle id="alert-dialog-title">
+                            {"Delete House"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                Are you sure you want to delete this house?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button style={{color: "#7A82AB"}} onClick={handleCloseDeleteHouseDialog}>Close</Button>
+                            <Button style={{color:"#EE4B2B"}} onClick={handleHouseDelete} autoFocus>
+                                Delete
+                            </Button>
+                        </DialogActions>
+                    </div>
                 </Dialog>
             </Box>
 
@@ -370,11 +386,11 @@ export function HousePage() {
 
             <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
                       onClose={() => setSuccessSnackbarMessage(undefined)}>
-                <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
+                <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
                        variant={"filled"}>{successSnackbarMessage}</Alert>
             </Snackbar>
             <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
-                <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
+                <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
                        variant={"filled"}>{errorSnackbarMessage}</Alert>
             </Snackbar>
         </>

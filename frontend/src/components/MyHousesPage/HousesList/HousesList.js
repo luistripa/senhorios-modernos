@@ -59,6 +59,13 @@ export class HousesList extends Component {
                 <div style={{padding: "3% 0 3% 0"}}>
                     <h1>My properties</h1>
                 </div>
+                {this.state.houses.length == 0 &&
+                    <p style={{
+                        fontSize: "20px",
+                        opacity: "31%",
+                        padding: "3% 0 5% 0"
+                    }}>No houses listed yet!</p>
+                }
                 <Box sx={{flexGrow: 1}} flexDirection={"column"}>
                     <Grid container
                           direction="row"

@@ -1,6 +1,9 @@
 import {Component} from "react";
 import * as React from "react";
 import './components-houselist.css';
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
+import Tooltip from "@mui/material/Tooltip";
 
 export class NewHouseForm extends Component {
     constructor(props) {
@@ -48,36 +51,55 @@ export class NewHouseForm extends Component {
                     <label className={'input-label'}>Address:</label><br/>
                 </div>
                 <div className={'input'}>
-                    <select required defaultValue={this.state.typology} className={'input-field'} name={'typology'}
-                            onChange={(event) => this.handleChange(event)}>
-                        <option value=""></option>
-                        <option value="T1">T1</option>
-                        <option value="T2">T2</option>
-                        <option value="T3">T3</option>
-                        <option value="T4">T4</option>
-                        <option value="T5">T5</option>
-                        <option value="T6">T6</option>
-                    </select>
-                    <label className={'input-label'}>Typology:</label><br/>
+                    <div className={'capacity-input'}>
+                        <select required defaultValue={this.state.typology} className={'input-field'} name={'typology'}
+                                onChange={(event) => this.handleChange(event)}>
+                            <option value=""></option>
+                            <option value="T1">T1</option>
+                            <option value="T2">T2</option>
+                            <option value="T3">T3</option>
+                            <option value="T4">T4</option>
+                            <option value="T5">T5</option>
+                            <option value="T6">T6</option>
+                        </select>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <Tooltip title="Number of Rooms">
+                            <IconButton style={{color:"#4B4E6D"}} aria-label="info icon" component="label">
+                                <InfoIcon/>
+                            </IconButton>
+                        </Tooltip>
+                    </div>
+                    <label className={'input-label'}>Typology:</label>
                 </div>
                 <div className={'input'}>
-                    <label className={'input-label'}>Capacity:</label>
                     <div className={'capacity-input'}>
-                        <button type='button' className={'capacity-button'} onClick={() => this.removeCapacity(this.state.capacity)}>-
+                        <button type='button' className={'capacity-button'}
+                                onClick={() => this.removeCapacity(this.state.capacity)}>-
                         </button>
                         <input type="text" className={'capacity-output-label'} name={'capacity'}
                                value={this.state.capacity} onChange={(event) => this.handleChange(event)}></input>
-                        <button type='button' className={'capacity-button'} onClick={() => this.addCapacity(this.state.capacity)}>+
+                        <button type='button' className={'capacity-button'}
+                                onClick={() => this.addCapacity(this.state.capacity)}>+
                         </button>
                     </div>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <Tooltip title="Maximum number of persons the house is design to hold">
+                            <IconButton style={{color:"#4B4E6D"}} aria-label="info icon" component="label">
+                                <InfoIcon/>
+                            </IconButton>
+                        </Tooltip>
+                    </div>
+                    <label className={'input-label'}>Capacity:</label>
                 </div>
-                <div className={'btn'} style={{display:'flex', justifyContent:'center', marginTop: "5%"}}>
-                    <button type='submit' className={'addhouse-button'} >
+                <div className={'btn'} style={{display: 'flex', justifyContent: 'center', marginTop: "5%"}}>
+                    <button type='submit' className={'addhouse-button'}>
                         Create
                     </button>
                 </div>
             </form>
-        );
+        )
+            ;
     }
 
 }

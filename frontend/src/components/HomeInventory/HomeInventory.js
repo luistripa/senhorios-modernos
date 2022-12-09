@@ -125,51 +125,13 @@ export function HomeInventory(props) {
                            editDivision={division != null ? editDivision : null}/>
             <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
                       onClose={() => setSuccessSnackbarMessage(undefined)}>
-                <Alert onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
+                <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
                        variant={"filled"}>{successSnackbarMessage}</Alert>
             </Snackbar>
             <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
-                <Alert onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
+                <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
                        variant={"filled"}>{errorSnackbarMessage}</Alert>
             </Snackbar>
         </>
     )
-
-    /*
-    return (
-        <>
-
-            <div style={{padding: "3% 0 3% 0", display: 'flex', justifyContent: 'center'}}>
-                <h1>House Inventory</h1>
-            </div>
-            <Box className={'homeInventory'} sx={{flexGrow: 1}}>
-                <Grid container
-                      className={'grid-inventory'}
-                      direction="row"
-                      spacing={4}
-                      style={{marginLeft: "0", padding: "0 15% 0 15%"}}
-                      xs={12}
-                >
-                    {divisions.map(
-                        division => (
-                            <>
-                                <Grid item xs={Math.floor(12 / divisions.length) > 2 ? Math.floor(12 / divisions.length) : 2}>
-                                    <div onClick={() => openDivision(division)}
-                                         style={{
-                                             border: "0px",
-                                             backgroundColor: "transparent",
-                                             cursor: "pointer"
-                                         }}>
-                                        <DivisionCard key={division.id} name={division.name} image={division.mediaId}/>
-                                    </div>
-                                </Grid>
-                            </>
-                        )
-                    )}
-                </Grid>
-            </Box>
-
-        </>
-    );*/
-
 }

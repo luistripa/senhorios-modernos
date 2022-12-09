@@ -25,10 +25,6 @@ export const Homepage = () => {
     const handleCloseRegisterModal = () => setShowRegisterModal(false);
 
 
-    //ShowRegister inside Modal
-    const [register, setRegister] = useState(true);
-
-
     function newPage() {
         return (
             <>
@@ -145,13 +141,13 @@ export const Homepage = () => {
                                     <div className={'member m1'}>
                                         <img className={'img-member'} src={catarinaImage}/>
                                         <div className="info-member">
-                                            <div className="name-member">Catarina Bento</div>
+                                            <div className="name-member above">Catarina Bento</div>
                                         </div>
                                     </div>
                                     <div className={'member m2'}>
                                         <img className={'img-member'} src={inesImage}/>
                                         <div className="info-member">
-                                            <div className="name-member">Inês Costa</div>
+                                            <div className="name-member above">Inês Costa</div>
                                         </div>
                                     </div>
                                 </div>
@@ -159,13 +155,13 @@ export const Homepage = () => {
                                     <div className={'member m3'}>
                                         <img className={'img-member'} src={luisImage}/>
                                         <div className="info-member">
-                                            <div className="name-member">Luís Tripa</div>
+                                            <div className="name-member below">Luís Tripa</div>
                                         </div>
                                     </div>
                                     <div className={'member m4'}>
                                         <img className={'img-member'} src={raquelImage}/>
                                         <div className="info-member">
-                                            <div className="name-member">Raquel Melo</div>
+                                            <div className="name-member below">Raquel Melo</div>
                                         </div>
                                     </div>
                                 </div>
@@ -187,21 +183,21 @@ export const Homepage = () => {
                     <img className="CarouselPic_Home" src={Image1}/>
                     <Carousel.Caption>
                         <h3 className="CarouselCaption_Home">OneHome</h3>
-                        <h3 className="CarouselDescription_Home">Manage every home in just one platform.</h3>
+                        <h3 className="CarouselDescription_Home">Manage every home in just one platform</h3>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img className="CarouselPic_Home" src={Image2}/>
                     <Carousel.Caption>
                         <h3 className="CarouselCaption_Home">OneHome</h3>
-                        <h3 className="CarouselDescription_Home">Manage every home in just one platform.</h3>
+                        <h3 className="CarouselDescription_Home">Manage every home in just one platform</h3>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img className="CarouselPic_Home" src={Image3}/>
                     <Carousel.Caption>
                         <h3 className="CarouselCaption_Home">OneHome</h3>
-                        <h3 className="CarouselDescription_Home">Manage every home in just one platform.</h3>
+                        <h3 className="CarouselDescription_Home">Manage every home in just one platform</h3>
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>

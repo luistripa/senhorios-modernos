@@ -32,7 +32,7 @@ export function NewEventDialog(props) {
     useEffect(() => {
         setEventHouseId(props.selectedHouse ? props.selectedHouse : "")
         setEventName("");
-        setEventDescription( "");
+        setEventDescription("");
         setEventType("GENERIC");
         setEventStartDate(props.selectedDay ? moment(props.selectedDay).second(0).millisecond(0) : "");
         setEventEndDate(props.selectedDay ? moment(props.selectedDay).add(1, "hour").second(0).millisecond(0) : "");
@@ -105,7 +105,8 @@ export function NewEventDialog(props) {
     }
 
     let createButton;
-    if (createProcessing) createButton = <Box sx={{display: "flex"}}><CircularProgress color={"inherit"} size={20}/></Box>;
+    if (createProcessing) createButton =
+        <Box sx={{display: "flex"}}><CircularProgress color={"inherit"} size={20}/></Box>;
     else createButton = "Create";
 
     return (
@@ -208,8 +209,14 @@ export function NewEventDialog(props) {
                 </Container>
             </DialogContent>
             <DialogActions>
-                <Button variant={"contained"} size={"small"} color={"inherit"} onClick={handleCancel}>Cancel</Button>
-                <Button variant={"contained"} size={"small"} color={"primary"} onClick={handleCreate}>{createButton}</Button>
+                <button style={{fontSize: "13px", fontWeight: "500", backgroundColor: "lightgray", color:'black'}} variant={"contained"}
+                        size={"small"}
+
+                        onClick={handleCancel}>Cancel
+                </button>
+                <button style={{fontSize: "13px", fontWeight: "700"}} variant={"contained"}
+                        size={"small"}
+                        onClick={handleCreate}>{createButton}</button>
             </DialogActions>
 
         </Dialog>

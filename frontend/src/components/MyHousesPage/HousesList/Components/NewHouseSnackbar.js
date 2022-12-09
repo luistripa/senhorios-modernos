@@ -28,12 +28,13 @@ export default class NewHouseSnackbar extends Component {
 
     render() {
         return (
-            <Stack spacing={2} sx={{ width: '100%' }}>
+            <Stack spacing={2} sx={{width: '100%'}}>
                 <Snackbar open={this.state.open}
                           autoHideDuration={6000}
-                          onClose={(event, reason) => this.handleClose(event,reason)}
-                            anchorOrigin={{vertical: 'bottom', horizontal:'right'}}>
-                    <Alert onClose={(event, reason) => this.handleClose(event,reason)} severity="success" sx={{ width: '100%' }}>
+                          onClose={(event, reason) => this.handleClose(event, reason)}
+                          anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                    <Alert style={{fontSize: "15px"}} onClose={(event, reason) => this.handleClose(event, reason)}
+                           severity="success" sx={{width: '100%'}}>
                         Success!
                     </Alert>
                 </Snackbar>
