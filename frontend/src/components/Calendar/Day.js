@@ -1,4 +1,5 @@
 import {getDayEvents, hasSameDay, hasSameMonth} from "./utils/date_utils";
+import moment from "moment";
 
 export function Day(props) {
 
@@ -6,14 +7,16 @@ export function Day(props) {
         props.onDaySelect(props.date);
     }
 
-    let day_class;
+    let day_class = "day";
 
     if (props.selectedDay && hasSameDay(props.date, props.selectedDay))
-        day_class = "day selected";
+        day_class += " selected";
     else if (!hasSameMonth(props.date, props.currentMonth))
-        day_class = "day other-month";
-    else
-        day_class = "day";
+        day_class += " other-month";
+
+    // If day is today
+    if (hasSameDay(props.date, moment()))
+        day_class += " today";
 
     let events_line = "no_events";
 

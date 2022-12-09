@@ -100,9 +100,13 @@
 
 .calendar-days-container .day-line .day.selected {
     box-shadow: 0 0 8px 3px #A2A3BB;
-    background-color: #7A82AB;
+    background-color: #7A82AB !important;
 
     z-index: 1;
+}
+
+.calendar-days-container .day-line .day.today {
+    background-color: #A2A3BB;
 }
 
 .calendar-days-container .day-line .day.other-month .day-text {
