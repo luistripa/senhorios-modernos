@@ -244,6 +244,14 @@ body {
 }
 
 .name-member{
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.name-member.above{
+    color: white;
+}
+
+.name-member.below{
     color: black;
-    font-size: 16px;
 }
