@@ -156,11 +156,17 @@ export function MyCalendar(props) {
                               onEventDetail={(event) => handleOpenEventDetailDialog(event)}
                               eventDescription={handleEventDescription}
                     />
-                    <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000} onClose={() => setSuccessSnackbarMessage(undefined)}>
-                        <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
+                    <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
+                              onClose={() => setSuccessSnackbarMessage(undefined)}
+                              anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                        <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)}
+                               severity={"success"} variant={"filled"}>{successSnackbarMessage}</Alert>
                     </Snackbar>
-                    <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
-                        <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
+                    <Snackbar open={errorSnackbarMessage !== undefined} autoHideDuration={6000}
+                              onClose={() => setErrorSnackbarMessage(undefined)}
+                              anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                        <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)}
+                               severity={"error"} variant={"filled"}>{errorSnackbarMessage}</Alert>
                     </Snackbar>
                 </div>
 
