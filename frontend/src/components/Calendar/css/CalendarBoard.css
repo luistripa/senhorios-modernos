@@ -106,7 +106,7 @@
 }
 
 .calendar-days-container .day-line .day.today {
-    background-color: #A2A3BB;
+    border: solid #cbcbcb 4px;
 }
 
 .calendar-days-container .day-line .day.other-month .day-text {
