@@ -75,7 +75,7 @@
 
 .capacity-input {
     text-align: center;
-    padding-top: 3rem;
+    padding-top: 1rem;
 }
 
 .capacity-button {
@@ -110,6 +110,7 @@
     position: absolute;
     top: 2.5rem;
     transition: .55s ease;
+    font-size: 14px;
 }
 
 .input-field {
@@ -120,6 +121,7 @@
     font: inherit;
     font-size: 1.125rem;
     padding: .25rem 0;
+    width: 100%;
 }
 
 .input-field:focus, .input-field:valid {

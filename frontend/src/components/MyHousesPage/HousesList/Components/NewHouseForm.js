@@ -51,7 +51,7 @@ export class NewHouseForm extends Component {
                     <label className={'input-label'}>Address:</label><br/>
                 </div>
                 <div className={'input'}>
-                    <div>
+                    <div className={'capacity-input'}>
                         <select required defaultValue={this.state.typology} className={'input-field'} name={'typology'}
                                 onChange={(event) => this.handleChange(event)}>
                             <option value=""></option>
@@ -61,15 +61,16 @@ export class NewHouseForm extends Component {
                             <option value="T4">T4</option>
                             <option value="T5">T5</option>
                             <option value="T6">T6</option>
-                        </select></div>
+                        </select>
+                    </div>
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Tooltip title="Number of Rooms">
-                            <IconButton color="primary" aria-label="info icon" component="label">
+                            <IconButton style={{color:"#4B4E6D"}} aria-label="info icon" component="label">
                                 <InfoIcon/>
                             </IconButton>
                         </Tooltip>
                     </div>
-                    <label className={'input-label'}>Typology:</label><br/>
+                    <label className={'input-label'}>Typology:</label>
                 </div>
                 <div className={'input'}>
                     <div className={'capacity-input'}>
@@ -84,7 +85,7 @@ export class NewHouseForm extends Component {
                     </div>
                     <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Tooltip title="Maximum number of persons the house is design to hold">
-                            <IconButton color="primary" aria-label="info icon" component="label">
+                            <IconButton style={{color:"#4B4E6D"}} aria-label="info icon" component="label">
                                 <InfoIcon/>
                             </IconButton>
                         </Tooltip>
