@@ -11,8 +11,6 @@ import Snackbar from "@mui/material/Snackbar";
 
 export function HomeInventory(props) {
     const [divisions, setDivisions] = useState([]);
-    const [newDivisionCreated, setNewDivisionCreated] = useState(false);
-    const [divisionDeleted, setDivisionDeleted] = useState(false);
     const [division, setDivision] = useState(null);
 
     const [successSnackbarMessage, setSuccessSnackbarMessage] = useState(undefined);
@@ -68,26 +66,6 @@ export function HomeInventory(props) {
         })
     }
 
-    const editDivision = (division) => {
-        console.log('entrou ', division);
-        API.put('/houses/' + props.houseId + '/inventory/' + division.id, division, {headers: {authorization: sessionStorage.getItem('token')}})
-            .then(response => {
-                if (response.status === 200) {
-                    let newDivisions = [];
-                    divisions.forEach(div => {
-                        if (div.id !== division.id)
-                            newDivisions.push(div);
-                        else
-                            newDivisions.push(division);
-                    })
-                    setDivisions(newDivisions);
-                    setSuccessSnackbarMessage("Changed successfully!")
-                }
-            }).catch(reason => {
-            console.log(reason)
-        })
-    }
-
     const openDivision = (division) => {
         setDivision(division);
     }
@@ -100,7 +78,7 @@ export function HomeInventory(props) {
 
             <div style={{display: "flex", justifyContent: "center"}}>
                 <div style={{width: "80%", display: "flex", justifyContent: "center", overflowX: "scroll"}}>
-                    {divisions.map( division => (
+                    {divisions.map(division => (
                         <div onClick={() => openDivision(division)}
                              style={{
                                  float: "left",
@@ -118,20 +96,27 @@ export function HomeInventory(props) {
             <div style={{justifyContent: "center", display: "flex", marginTop: "5%"}}>
                 <NewDivisionModal functionCreate={addDivision}></NewDivisionModal>
             </div>
-            <DivisionModal division={division}
+            <DivisionModal houseId={props.houseId}
+                           division={division}
                            open={division != null}
-                           close={() => setDivision(null)}
-                           deleteDivision={division != null ? deleteDivision : null}
-                           editDivision={division != null ? editDivision : null}/>
-            <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
-                      onClose={() => setSuccessSnackbarMessage(undefined)}>
-                <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
-                       variant={"filled"}>{successSnackbarMessage}</Alert>
-            </Snackbar>
-            <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
-                <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
-                       variant={"filled"}>{errorSnackbarMessage}</Alert>
-            </Snackbar>
+                           close={() =>
+                               setDivision(null)
+                           }
+                           deleteDivision={division != null ? deleteDivision : null}>
+                <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
+                          onClose={() => setSuccessSnackbarMessage(undefined)}
+                          anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                    <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)}
+                           severity={"success"}
+                           variant={"filled"}>{successSnackbarMessage}</Alert>
+                </Snackbar>
+                <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}
+                          anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                    <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)}
+                           severity={"error"}
+                           variant={"filled"}>{errorSnackbarMessage}</Alert>
+                </Snackbar>
+            </DivisionModal>
         </>
     )
 }

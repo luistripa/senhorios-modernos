@@ -34,44 +34,6 @@ export default class NewDivisionForm extends Component {
         }
     };
 
-    /*chooseIconDivision = () => {
-        return (
-            <>
-                <p>hello world!</p>
-                <div className="dropdown">
-                    <button className="btn btn-success
-                    dropdown-toggle" type="button"
-                            id="dropdownMenuButton"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                        Country Flags
-                    </button>
-
-                    <ul className="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton">
-                        <li className="dropdown-item">
-                            <img src=
-                                     "https://media.geeksforgeeks.org/wp-content/uploads/20200630132503/iflag.jpg"
-                                 width="20" height="15"/>India</li>
-                        <li className="dropdown-item">
-                            <img src=
-                                     "https://media.geeksforgeeks.org/wp-content/uploads/20200630132504/uflag.jpg"
-                                 width="20" height="15"/> USA</li>
-                        <li className="dropdown-item">
-                            <img src=
-                                     "https://media.geeksforgeeks.org/wp-content/uploads/20200630132502/eflag.jpg"
-                                 width="20" height="15"/> England</li>
-                        <li className="dropdown-item">
-                            <img src=
-                                     "https://media.geeksforgeeks.org/wp-content/uploads/20200630132500/bflag.jpg"
-                                 width="20" height="15"/> Brazil</li>
-                    </ul>
-                </div>
-            </>
-    )
-    }
-*/
     render()
         {
             return (

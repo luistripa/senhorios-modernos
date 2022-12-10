@@ -96,7 +96,6 @@ export function HousePage() {
             })
 
         // Get house divisions
-        console.log(houseId);
         API.get(`/houses/${houseId}/inventory/list`, {headers: {authorization: sessionStorage.getItem('token')}})
             .then(response => {
                 let divisions = response.data;
@@ -358,7 +357,7 @@ export function HousePage() {
                         </DialogContent>
                         <DialogActions>
                             <Button style={{color: "#7A82AB"}} onClick={handleCloseDeleteHouseDialog}>Close</Button>
-                            <Button style={{color:"#EE4B2B"}} onClick={handleHouseDelete} autoFocus>
+                            <Button style={{color: "#EE4B2B"}} onClick={handleHouseDelete} autoFocus>
                                 Delete
                             </Button>
                         </DialogActions>
@@ -385,11 +384,14 @@ export function HousePage() {
             />
 
             <Snackbar open={successSnackbarMessage !== undefined} autoHideDuration={6000}
-                      onClose={() => setSuccessSnackbarMessage(undefined)}>
-                <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)} severity={"success"}
+                      onClose={() => setSuccessSnackbarMessage(undefined)}
+                      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                <Alert style={{fontSize: "15px"}} onClose={() => setSuccessSnackbarMessage(undefined)}
+                       severity={"success"}
                        variant={"filled"}>{successSnackbarMessage}</Alert>
             </Snackbar>
-            <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}>
+            <Snackbar open={errorSnackbarMessage !== undefined} onClose={() => setErrorSnackbarMessage(undefined)}
+                      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
                 <Alert style={{fontSize: "15px"}} onClose={() => setErrorSnackbarMessage(undefined)} severity={"error"}
                        variant={"filled"}>{errorSnackbarMessage}</Alert>
             </Snackbar>
