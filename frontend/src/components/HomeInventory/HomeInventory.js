@@ -77,7 +77,7 @@ export function HomeInventory(props) {
             </div>
 
             <div style={{display: "flex", justifyContent: "center"}}>
-                <div style={{width: "80%", display: "flex", justifyContent: "center", overflowX: "scroll"}}>
+                <div style={{width: "80%", display: "flex", justifyContent: "center"}}>
                     {divisions.map(division => (
                         <div onClick={() => openDivision(division)}
                              style={{
