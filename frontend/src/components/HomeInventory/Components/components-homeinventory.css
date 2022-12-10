@@ -44,6 +44,11 @@
     min-height: 47vmin;
 }
 
+.division-modal{
+    width: 74vmin !important;
+    max-width: 74vmin !important;
+}
+
 .modal-modal-title {
     display: flex;
     justify-content: center;
