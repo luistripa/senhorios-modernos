@@ -3,7 +3,17 @@ import {createRef, Component, useState, useEffect} from "react";
 import * as React from "react";
 import "./components-homeinventory.css";
 import {
-    Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    Button, Dialog, DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
 } from "@mui/material";
 import API from "../../../api";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,6 +23,9 @@ export function DivisionItems(props) {
     const [item, setItem] = useState(null);
     const [AddItemButtonShown, setAddItemButtonShown] = useState(true);
     const [AddItemFormShown, setAddItemFormShown] = useState(false);
+
+    const [deleteItemDialogOpen, setDeleteItemDialogOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(undefined);
 
     useEffect(() => {
         let token = sessionStorage.getItem("token");
@@ -135,7 +148,7 @@ export function DivisionItems(props) {
                         >
                             +
                         </Button>
-                        <Button style={{color: 'grey'}} onClick={() => deleteItem(item)}><DeleteIcon/></Button>
+                        <Button style={{color: 'grey'}} onClick={() => {setDeleteItemDialogOpen(true); setItemToDelete(item)}}><DeleteIcon/></Button>
                     </div>
                 </td>
 
@@ -265,6 +278,40 @@ export function DivisionItems(props) {
                 }
 
             </div>
+            <Dialog
+                open={deleteItemDialogOpen}
+                onClose={() => {setDeleteItemDialogOpen(false); setItemToDelete(undefined)}}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                sx={{
+                    "& .MuiDialog-container": {
+                        "& .MuiPaper-root": {
+                            width: "35%",
+                        },
+                    },
+                }}
+            >
+                <div style={{padding: "3% 2% 2% 2%"}}>
+                    <DialogTitle id="alert-dialog-title">
+                        {"Delete Item"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure you want to delete this item?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button style={{color: "#7A82AB"}} onClick={() => {setDeleteItemDialogOpen(false); setItemToDelete(undefined)}}>Close</Button>
+                        <Button style={{color: "#EE4B2B"}} onClick={() => {
+                            setDeleteItemDialogOpen(false)
+                            deleteItem(itemToDelete)
+                            setItemToDelete(undefined)
+                        }} autoFocus>
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </div>
+            </Dialog>
         </>)
 
 }
